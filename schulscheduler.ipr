@@ -12,10 +12,10 @@
       <entry name="!?*.java" />
     </wildcardResourcePatterns>
     <bytecodeTargetLevel target="13">
-      <module name="schulscheduler.commons.main" target="11" />
-      <module name="schulscheduler.commons.test" target="11" />
-      <module name="schulscheduler.ui.main" target="11" />
-      <module name="schulscheduler.ui.test" target="11" />
+      <module name="schulscheduler.commons.main" target="13" />
+      <module name="schulscheduler.commons.test" target="13" />
+      <module name="schulscheduler.ui.main" target="13" />
+      <module name="schulscheduler.ui.test" target="13" />
     </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="" />
@@ -26,9 +26,10 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <option name="delegatedBuild" value="true" />
+        <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="11" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -75,7 +76,7 @@
       <module fileurl="file://$PROJECT_DIR$/ui/schulscheduler.ui.test.iml" filepath="$PROJECT_DIR$/ui/schulscheduler.ui.test.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_13" default="false" project-jdk-name="13" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
   <component name="RemoteRepositoriesConfiguration">

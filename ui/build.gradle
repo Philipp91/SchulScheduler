@@ -4,8 +4,8 @@ plugins {
 }
 
 javafx {
-    version = "13"
-    modules = [ 'javafx.controls' ]
+    version = '13'
+    modules = [ 'javafx.base', 'javafx.controls' ]
 }
 
 mainClassName = 'schulscheduler.main.Bootstrap'
