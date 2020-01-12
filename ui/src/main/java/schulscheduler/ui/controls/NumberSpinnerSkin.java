@@ -1,25 +1,5 @@
-/**
- * Copyright 2013-2014 Universitaet Stuttgart FMI SchulScheduler Team
- * Team members: Mark Aukschlat, Philipp Keck, Mathias Landwehr, Dominik Lekar,
- * Dennis Maseluk, Alexander Miller, Sebastian Pirk, Sven Schnaible
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package schulscheduler.ui.controls;
 
-import de.schulscheduler.ui.JavaFXHelper;
-import de.schulscheduler.windows.AttachedScene;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.DoubleExpression;
@@ -43,7 +23,7 @@ import java.math.BigDecimal;
  * Der Skin für die {@link NumberSpinner}-Komponente.<br>
  * Quelle: http://myjavafx.blogspot.de/2013/05/developing-numberspinner-control.html (mit Genehmigung per ICQ)
  * https://bitbucket.org/sco0ter/extfx/src (Original ist unter MIT Lizenz)
- * 
+ *
  * @author Christian Schudt
  * @author Philipp Keck
  */
@@ -91,7 +71,7 @@ public class NumberSpinnerSkin extends StackPane implements Skin<NumberSpinner> 
 
     /**
      * Erstellt eine neue Skin-Instanz.
-     * 
+     *
      * @param numberSpinner Die Komponente.
      */
     public NumberSpinnerSkin(final NumberSpinner numberSpinner) {
@@ -120,29 +100,11 @@ public class NumberSpinnerSkin extends StackPane implements Skin<NumberSpinner> 
             public void changed(ObservableValue<? extends Boolean> observableValue, Boolean wasFocused, Boolean isFocused) {
                 if (textField.isEditable() && isFocused) {
                     // Beim Reinklicken ins Textfeld den gesamten Inhalt markieren.
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            textField.selectAll();
-                        }
-                    });
+                    Platform.runLater(textField::selectAll);
                 } else if (!isFocused) {
-                    // Beim Verlassen des Felds den Wert validieren. Das muss im richtigen Kontext durchgeführt werden,
-                    // weil der Fokus dadurch verloren gehen kann, dass das gesamte Fenster defokussiert wurde, dann
-                    // wäre der Kontext nicht aktiv.
-                    AttachedScene attachedScene = JavaFXHelper.findAttachedParent(getSkinnable());
-                    if (attachedScene == null || attachedScene.isWindowContextActive()) {
-                        parseText();
-                        displayCurrentValue();
-                    } else {
-                        attachedScene.activateWindowContext();
-                        try {
-                            parseText();
-                            displayCurrentValue();
-                        } finally {
-                            attachedScene.deactivateWindowContext();
-                        }
-                    }
+                    // Beim Verlassen des Felds den Wert validieren.
+                    parseText();
+                    displayCurrentValue();
                 }
                 // Den aktuellen Fokus-Zustand an die äußere Komponente weiterleiten.
                 numberSpinner.setFocusedInternal(isFocused);
@@ -174,28 +136,12 @@ public class NumberSpinnerSkin extends StackPane implements Skin<NumberSpinner> 
          * Seiten Listener installiert, die alle Änderungen an die andere Seite weiterleiten. Ziel ist, dass diese
          * Eigenschaften bei der äußeren Komponente (NumberSpinner) und dem inneren Textfeld synchron gehalten werden.
          */
-        changeListenerSelection = new ChangeListener<IndexRange>() {
-            public void changed(ObservableValue<? extends IndexRange> observableValue, IndexRange indexRange, IndexRange indexRange2) {
-                textField.selectRange(indexRange2.getStart(), indexRange2.getEnd());
-            }
-        };
+        changeListenerSelection = (observableValue, indexRange, indexRange2) -> textField.selectRange(indexRange2.getStart(), indexRange2.getEnd());
         numberSpinner.selectionProperty().addListener(changeListenerSelection);
-        textField.selectionProperty().addListener(new ChangeListener<IndexRange>() {
-            public void changed(ObservableValue<? extends IndexRange> observableValue, IndexRange indexRange, IndexRange indexRange1) {
-                numberSpinner.selectRange(indexRange1.getStart(), indexRange1.getEnd());
-            }
-        });
-        changeListenerCaretPosition = new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number1) {
-                textField.positionCaret(number1.intValue());
-            }
-        };
+        textField.selectionProperty().addListener((observableValue, indexRange, indexRange1) -> numberSpinner.selectRange(indexRange1.getStart(), indexRange1.getEnd()));
+        changeListenerCaretPosition = (observableValue, number, number1) -> textField.positionCaret(number1.intValue());
         numberSpinner.caretPositionProperty().addListener(changeListenerCaretPosition);
-        textField.caretPositionProperty().addListener(new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number1) {
-                numberSpinner.positionCaret(number1.intValue());
-            }
-        });
+        textField.caretPositionProperty().addListener((observableValue, number, number1) -> numberSpinner.positionCaret(number1.intValue()));
 
         // Alle übrigen Eigenschaften können ganz normal angebunden werden.
         textField.minHeightProperty().bind(numberSpinner.minHeightProperty());
@@ -213,11 +159,7 @@ public class NumberSpinnerSkin extends StackPane implements Skin<NumberSpinner> 
 
         // Den jeweils aktuellen Wert im Textfeld anzeigen.
         displayCurrentValue();
-        changeListenerValue = new ChangeListener<Number>() {
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-                displayCurrentValue();
-            }
-        };
+        changeListenerValue = (observableValue, number, number2) -> displayCurrentValue();
         numberSpinner.valueProperty().addListener(changeListenerValue);
 
     }
@@ -267,19 +209,13 @@ public class NumberSpinnerSkin extends StackPane implements Skin<NumberSpinner> 
         });
 
         // Beim Klick der Buttons den Wert verändern.
-        btnIncrement.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                parseText();
-                numberSpinner.increment();
-            }
+        btnIncrement.setOnAction(actionEvent -> {
+            parseText();
+            numberSpinner.increment();
         });
-        btnDecrement.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                parseText();
-                numberSpinner.decrement();
-            }
+        btnDecrement.setOnAction(actionEvent -> {
+            parseText();
+            numberSpinner.decrement();
         });
 
         // Buttons vertikal anordnen und zum Layout hinzufügen

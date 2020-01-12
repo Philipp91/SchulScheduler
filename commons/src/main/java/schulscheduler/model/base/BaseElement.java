@@ -12,14 +12,14 @@ public abstract class BaseElement implements IDElement {
 
     private final SimpleIntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
 
-    private final ReadOnlyStringWrapper idStringProperty = new ReadOnlyStringWrapper(); // For "overrides".
-    private final ReadOnlyStringWrapper toShortStringProperty = new ReadOnlyStringWrapper();
-    private final ReadOnlyStringWrapper toLongStringProperty = new ReadOnlyStringWrapper();
+    private final ReadOnlyStringWrapper idString = new ReadOnlyStringWrapper(); // For "overrides".
+    private final ReadOnlyStringWrapper toShortString = new ReadOnlyStringWrapper();
+    private final ReadOnlyStringWrapper toLongString = new ReadOnlyStringWrapper();
 
     public BaseElement() {
         idProperty.set(idCounter++);
-        idStringProperty.bind(idProperty.asString());
-        toShortStringProperty.bind(Bindings.concat(getClass().getSimpleName(), " ", idStringProperty));
+        idString.bind(idProperty.asString());
+        toShortString.bind(Bindings.concat(getClass().getSimpleName(), " ", idString));
     }
 
     @Override
@@ -39,7 +39,7 @@ public abstract class BaseElement implements IDElement {
     }
 
     protected ReadOnlyStringWrapper idStringProperty() {
-        return idStringProperty;
+        return idString;
     }
 
     @Override
@@ -48,11 +48,18 @@ public abstract class BaseElement implements IDElement {
     }
 
     public final String toShortString() {
-        return toShortStringProperty.get();
+        return toShortString.get();
+    }
+
+    public ReadOnlyStringWrapper toShortStringProperty() {
+        return toShortString;
     }
 
     public String toLongString() {
-        return toLongStringProperty.get();
+        return toLongString.get();
     }
 
+    public ReadOnlyStringWrapper toLongStringProperty() {
+        return toLongString;
+    }
 }

@@ -1,29 +1,5 @@
-/**
- * Copyright 2013-2014 Universitaet Stuttgart FMI SchulScheduler Team
- * Team members: Mark Aukschlat, Philipp Keck, Mathias Landwehr, Dominik Lekar,
- * Dennis Maseluk, Alexander Miller, Sebastian Pirk, Sven Schnaible
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package schulscheduler.ui.controls;
 
-import de.schulscheduler.i18n.Messages;
-import de.schulscheduler.model.KuerzelElementBean;
-import de.schulscheduler.model.NamedElementBean;
-import de.schulscheduler.ui.ItemClickedEvent;
-import de.schulscheduler.ui.JavaFXHelper;
-import de.schulscheduler.windows.AttachedScene;
 import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -46,6 +22,9 @@ import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
+import schulscheduler.i18n.Messages;
+import schulscheduler.model.base.KuerzelElement;
+import schulscheduler.model.base.NamedElement;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -53,7 +32,7 @@ import java.util.List;
 
 /**
  * Stellt die Skinklasse für MultiSelectBoxen dar. Im Skin werden die einzelnen Komponenten erstellt und initialisiert.
- * 
+ *
  * @param <E> Der Typ, der in der MultiSelectBox dargestellt wird.
  */
 public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPane implements Skin<MultiSelectBox<E>> {
@@ -177,11 +156,6 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     private final Text text = new Text();
 
     /**
-     * Die Scene, in der die MultiSelectBox angezeigt wird.
-     */
-    private AttachedScene attachedScene;
-
-    /**
      * Wird ausgelöst bei Änderungen im Filtertext.
      */
     private final ChangeListener<String> textListener = new ChangeListener<String>() {
@@ -240,7 +214,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
             setSubItems(control.getItems());
         }
     };
-    
+
     /**
      * Wird ausgelöst, wenn sich die Anzahl an auswählbaren Items ändert.
      */
@@ -365,7 +339,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
 
     /**
      * Erstellt einen neuen Skin für eine gegebene MultiSelectBox.
-     * 
+     *
      * @param control Die MultiSelectBox, welche durch diesen Skin initialisiert wird.
      */
     public MultiSelectBoxSkin(final MultiSelectBox<E> control) {
@@ -409,7 +383,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
         // Initialisiert den Text, die angezeigt wird, wenn keine Einträge auswählbar sind.
         Label placeholder = new Label(Messages.getInstance().getString("noEntries"));
         text.setText(placeholder.getText());
-        lstEntries.setFixedCellSize(text.getLayoutBounds().getHeight() * 1.5);       
+        lstEntries.setFixedCellSize(text.getLayoutBounds().getHeight() * 1.5);
         lstEntries.setPlaceholder(placeholder);
         // Initialisiert die Auswahlliste.
         lstEntries.getStyleClass().add("multiselectbox-entries");
@@ -420,8 +394,8 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
         lstEntries.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         lstEntries.setOnMouseClicked(onListEntryClick);
         lstEntries.setOnKeyPressed(onKeyPressed);
-        lstEntries.setCellFactory(BaseElementListCell.<E> createFactory());
-        
+        lstEntries.setCellFactory(BaseElementListCell.<E>createFactory());
+
         selectableItems.addListener(changeItemsSize);
         sceneProperty().addListener(SCENE_LISTENER);
         if (getScene() != null) {
@@ -477,17 +451,17 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
      * Einträge sind und dementsprechend werden verschiedene Attribute abgeglichen. Falls es sich um ein
      * KuerzelElementBean handelt, werden Kuerzel und Name abgeglichen. Falls es sich um ein NamedElementBean handelt,
      * wird der Name abgeglichen. Sonstige Objekte werden mit ihrer toString() Methode abgeglichen.
-     * 
-     * @param obj Das Objekt, das abgeglichen werden soll.
+     *
+     * @param obj        Das Objekt, das abgeglichen werden soll.
      * @param searchText Der Text, nachdem gesucht werden soll.
      * @return true, wenn das Objekt mit dem Suchtext übereinstimmt, andernfalls false.
      */
     private boolean matches(Object obj, String searchText) {
-        if (obj instanceof KuerzelElementBean) {
-            KuerzelElementBean element = (KuerzelElementBean) obj;
+        if (obj instanceof KuerzelElement) {
+            KuerzelElement element = (KuerzelElement) obj;
             return matches(element.getName(), searchText) || matches(element.getKuerzel(), searchText);
-        } else if (obj instanceof NamedElementBean) {
-            NamedElementBean element = (NamedElementBean) obj;
+        } else if (obj instanceof NamedElement) {
+            NamedElement element = (NamedElement) obj;
             return matches(element.getName(), searchText);
         } else {
             return matches(obj.toString(), searchText);
@@ -496,8 +470,8 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
 
     /**
      * Vergleicht 2 Strings miteinander.
-     * 
-     * @param value Der Wert eines Elements in Stringform, der abgeglichen werden soll.
+     *
+     * @param value      Der Wert eines Elements in Stringform, der abgeglichen werden soll.
      * @param searchText Der Suchtext, nachdem gesucht werden soll.
      * @return true, wenn der Wert des elements nicht null ist und den Suchtext enthält, andernfalls false.
      */
@@ -509,7 +483,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
      * Sucht nach Übereinstimmung der Einträge mit dem Suchtext. Die Itemliste wird durchlaufen und die einzelnen
      * Einträge werden mit den Suchtext abgeglichen. Falls die Einträge mit dem Suchtext übereinstimmen, werden sie der
      * Auswahlliste hinzugefügt, andernfalls entfernt.
-     * 
+     *
      * @param searchText Der Suchtext nach dem gefiltert wird.
      */
     public void searchEntries(String searchText) {
@@ -563,7 +537,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
      * Sortiert die Auswahlliste, wenn der Benutzer nach einem bestimmten Eintrag filtert. Die Einträge werden nach
      * ihrer Übereinstimmung mit dem Suchtext sortiert. Die Priorität der Sortierung lautet wie folgt: 1. Komplette
      * Übereinstimmung des Elements mit dem Suchtext 2. Element beginnt mit dem Suchtext 3. Element enthält den Suchtext
-     * 
+     *
      * @param searchString Der Text, nach dem gefiltert wird.
      */
     private void sortList(String searchString) {
@@ -577,18 +551,18 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
 
     /**
      * Prüft, von welchem Objekttyp ein Element ist und gibt die Priorität im Vergleich zu dem Suchstring zurück.
-     * 
+     *
      * @param searchString Der Suchstring, nach dem gefiltert wird.
-     * @param element Das Element, das abzugleichen ist.
+     * @param element      Das Element, das abzugleichen ist.
      * @return 1, falls das Element mit dem String identisch ist, 0 falls das Element mit dem Suchstring beginnt und -1
-     *         wenn der Suchstring im Element enthalten ist.
+     * wenn der Suchstring im Element enthalten ist.
      */
     private int getPriority(String searchString, E element) {
-        if (element instanceof KuerzelElementBean) {
-            KuerzelElementBean newElement = (KuerzelElementBean) element;
+        if (element instanceof KuerzelElement) {
+            KuerzelElement newElement = (KuerzelElement) element;
             return Math.max(getPriority(searchString, newElement.getName()), getPriority(searchString, newElement.getKuerzel()));
-        } else if (element instanceof NamedElementBean) {
-            NamedElementBean newElement = (NamedElementBean) element;
+        } else if (element instanceof NamedElement) {
+            NamedElement newElement = (NamedElement) element;
             return getPriority(searchString, newElement.getName());
         } else {
             return getPriority(searchString, element.toString());
@@ -597,11 +571,11 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
 
     /**
      * Vergleicht 2 Strings miteinander und gibt die Priorität der Übereinstimmung zurück.
-     * 
+     *
      * @param searchString Der String, nach dem gesucht wird.
-     * @param element Das Element in dem nach dem Suchstring gesucht wird.
+     * @param element      Das Element in dem nach dem Suchstring gesucht wird.
      * @return 1, falls die 2 Strings identisch sind, 0 falls das element mit dem Suchstring beginnt und -1 wenn der
-     *         Suchstring im element enthalten ist.
+     * Suchstring im element enthalten ist.
      */
     private int getPriority(String searchString, String element) {
         element = element.toLowerCase();
@@ -626,23 +600,11 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
             return;
         }
 
-        if (attachedScene == null) {
-            attachedScene = JavaFXHelper.findAttachedParent(control);
-        }
-        if (attachedScene == null || attachedScene.isWindowContextActive()) {
-            control.selectedProperty().add(object);
-        } else {
-            attachedScene.activateWindowContext();
-            try {
-                control.selectedProperty().add(object);
-            } finally {
-                attachedScene.deactivateWindowContext();
-            }
-        }
-        
+        control.selectedProperty().add(object);
+
         searchField.setText("");
         POPUP.hide();
-        
+
         // Benötigt, da bei normalen Funktionsaufruf das Suchfeld nicht
         // fokusiert wird.
         Platform.runLater(new Runnable() {
@@ -656,23 +618,11 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
 
     /**
      * Löscht einen Ausgewählten Eintrag aus dem Flowpane und macht den Eintrag wieder selektierbar.
-     * 
+     *
      * @param entry Das Item, welches gelöscht werden soll.
      */
     public void deleteEntry(E entry) {
-        if (attachedScene == null) {
-            attachedScene = JavaFXHelper.findAttachedParent(control);
-        }
-        if (attachedScene == null || attachedScene.isWindowContextActive()) {
-            control.selectedProperty().remove(entry);
-        } else {
-            attachedScene.activateWindowContext();
-            try {
-                control.selectedProperty().remove(entry);
-            } finally {
-                attachedScene.deactivateWindowContext();
-            }
-        }
+        control.selectedProperty().remove(entry);
         // Fügt den Eintrag wieder der Auswahlliste hinzu und sortiert sie anschließend.
         FXCollections.sort(selectableItems);
 
@@ -691,7 +641,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
         // Legt die Maximalgröße der Auswahlliste fest
         lstEntries.setMaxHeight(this.getScene().getHeight() - localToScene(0, getHeight() - 1).getY() - 10);
         lstEntries.getSelectionModel().selectFirst();
-        POPUP.show(window);       
+        POPUP.show(window);
         FXCollections.sort(selectableItems);
     }
 
@@ -706,7 +656,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
 
     /**
      * Löscht Labels aus der MultiSelectBox.
-     * 
+     *
      * @param list Liste mit items die gelöscht werden sollen.
      */
     private void removeFlowpaneLabels(List<? extends E> list) {
@@ -727,17 +677,13 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
 
     /**
      * Fügt Labels in die MultiSelectBox hinzu.
-     * 
+     *
      * @param list Liste mit den Items die hinzugefügt wurden.
      */
     private void addFlowpaneLabels(List<? extends E> list) {
         for (E object : list) {
             final MultiSelectLabel<E> label = new MultiSelectLabel<E>(object);
-            label.setOnDelete(new EventHandler<ItemClickedEvent<E>>() {
-                public void handle(ItemClickedEvent<E> event) {
-                    deleteEntry(label.getObject());
-                }
-            });
+            label.setOnDelete(event -> deleteEntry(label.getObject()));
             labels.add(label);
             flowPane.getChildren().add(flowPane.getChildren().size() - 1, label);
             selectableItems.remove(object);
@@ -771,7 +717,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
 
     /**
      * Legt die Liste, mit Einträgen, die ausgewählt werden könnten fest.
-     * 
+     *
      * @param list Liste mit Einträgen.
      */
     public void setSubItems(ObservableList<E> list) {
@@ -807,7 +753,6 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     @Override
     public void dispose() {
         this.control = null;
-        this.attachedScene = null;
     }
 
 }
