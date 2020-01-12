@@ -1,0 +1,402 @@
+/* ------------------------------------------- ALLGEMEIN ------------------------------------------------- */
+.center {
+	-fx-text-alignment: center;
+}
+.h5 {
+	-fx-font-size: 16px;
+	-fx-font-weight: bold;
+}
+.table-view:focused,
+.list-view:focused,
+.tree-view:focused {
+	-fx-background-color: transparent,-fx-box-border,-fx-control-inner-background;
+}
+.tab-content-area {
+	-fx-padding: 0 10;
+}
+.outer-padding {
+	-fx-padding: 5 10 10 10;
+}
+.outer-padding-with-menu  {
+	-fx-padding: 0 10 10 10;
+}
+.footer {
+	-fx-alignment: center-right;
+	-fx-padding: 0 10;
+	-fx-translate-y: -5;
+}
+.footer > .label {
+	-fx-text-fill: gray;
+}
+.vertical-form .label {
+	-fx-padding: 3 0 0 2;
+}
+.grid-form {
+	-fx-vgap: 3;
+	-fx-hgap: 5;
+}
+.button-area {
+	-fx-padding: 5 0 0 0;
+	-fx-spacing: 5;
+	-fx-alignment: baseline-right;
+}
+.top-area {
+	-fx-alignment: center;
+	-fx-padding:  0 0 5 0;
+	-fx-spacing: 3;
+}
+.select-from-list-column {
+	-fx-alignment: top-center;
+}
+.table-cell {
+	-fx-alignment: center;
+}
+.table-view > .placeholder {
+	-fx-background-color: -fx-background;
+}
+.text-flow-node > * {
+	-fx-fill: #333333;
+}
+
+
+/* --------------------------------------- START- UND ABOUT-FENSTER ---------------------------------------- */
+.start-window,
+.dialog-about {
+	-fx-spacing: 10;
+}
+.dialog-about .hyperlink,
+.dialog-about .hyperlink:focused {
+	-fx-border-style: none;
+	-fx-border-width: 0;
+}
+.logo-container {
+	-fx-alignment: center;
+	-fx-spacing: 10;
+}
+.logo-text {
+	-fx-font-family: Bitter;
+	-fx-font-size: 40;
+}
+.start-window > .button {
+	-fx-max-width: 100000;
+}
+.start-window > .button > * {
+	-fx-spacing: 10;
+}
+.start-window > .button > * > .icon {
+	-fx-min-width: 45;
+	-fx-alignment: center;
+}
+.start-window > .button > * > * {
+	-fx-alignment: center-left;
+}
+
+/* ------------------------------------------- EINGABEFENSTER -------------------------------------------- */
+
+/* Wizard */
+.wizard {
+	-fx-alignment: center;
+	-fx-padding: 10 0 5 0;
+}
+.wizard .icon-container {
+	-fx-alignment: center;
+	-fx-padding: 0 5 0 0;
+}
+.wizard > .button-container {
+	-fx-padding: 0 0 0 10;
+}
+.wizard .button-container {
+	-fx-alignment: top-right;
+	-fx-spacing: 3;
+}
+.wizard .button-container.center {
+	-fx-alignment: center-right;
+}
+
+/* LehrerVerfügbarkeitDialog */
+.verfuegbarkeit-cell.NORMAL {
+	-fx-background-color: rgba(0, 128, 0, 0.5);
+}
+.verfuegbarkeit-cell.EINGESCHRAENKT {
+	-fx-background-color: rgba(256, 256, 0, 0.5);
+}
+.verfuegbarkeit-cell.NICHT {
+	-fx-background-color: rgba(256, 0, 0, 0.5);
+}
+.verfuegbarkeit-cell .combo-box,
+.verfuegbarkeit-cell .combo-box .arrow-button {
+	-fx-background-color: transparent;
+}
+.toggle-button.highlightWhenSelected:selected {
+	-fx-underline: true;
+}
+
+/* ------------------------------------------- ERGEBNISFENSTER ------------------------------------------- */
+.stundenplan-tab.conflict {
+	-fx-base: lightcoral;
+}
+.stundenplan-pane {
+	-fx-padding: 10 0;
+	-fx-hgap: 2;
+	-fx-vgap: 2;
+}
+.stundenplan-pane .title-cell,
+.stundenplan-pane .stunde-cell {
+	-fx-padding: 3;
+	-fx-alignment: center;
+	-fx-border-color: -fx-outer-border;
+}
+.stundenplan-pane .zeitslot-cell {
+	-fx-padding: 0;
+	-fx-border-color: -fx-outer-border;
+}
+.stundenplan-pane .zeitslot-cell:focused {
+	-fx-border-color: -fx-focus-color; 
+	-fx-effect: dropshadow(one-pass-box, -fx-focus-color, 2, 0, 0, 0); 
+}
+.stundenplan-pane .title-cell {
+	-fx-background-color: lightgray;
+}
+.stundenplan-pane .list-cell {
+	-fx-alignment: center;
+}
+.stundenplan-pane .list-cell:selected,
+.stundenplan-pane .list-cell:odd {
+	-fx-background-color: -fx-control-inner-background;
+	-fx-text-fill: -fx-text-background-color;
+}
+.stundenplan-pane .list-cell:selected:focused,
+.stundenplan-pane .list-cell.conflict:selected:focused {
+	-fx-background-color: -fx-selection-bar;
+	-fx-text-fill: -fx-selection-bar-text;
+}
+
+.stundenplan-pane .zeitslot-cell.noconflict,
+.stundenplan-pane .zeitslot-cell.noconflict .list-cell {
+	-fx-background-color: lightgreen;
+}
+.stundenplan-pane .zeitslot-cell.conflict,
+.stundenplan-pane .zeitslot-cell.conflict .list-cell {
+	-fx-background-color: lightcoral;
+}
+
+#dragDropTooltip {
+	-fx-background-color: rgba(255, 255, 255, 0.5);
+	-fx-effect: dropshadow(one-pass-box, white, 8, 0.0, 0, 0);
+	-fx-padding: 5;
+	-fx-font-weight: bold;
+	-fx-background-radius: 4;
+}
+
+/* ------------------------------------------- KOMPONENTEN ----------------------------------------------- */
+
+/* GroupPane */
+.group-pane-title {
+	-fx-background-color: -fx-background;
+	-fx-translate-y: -19;
+	-fx-translate-x: 8;
+	-fx-padding: 0 5;
+}
+.group-pane-title:disabled {
+	-fx-opacity: 1;
+	-fx-text-fill: gray;
+}
+.group-pane {
+	-fx-border-color: -fx-outer-border;
+	-fx-border-width: 1;
+	-fx-border-insets: 10 0 0 0;
+	-fx-border-radius: 1;
+	-fx-content-display: top;
+	-fx-background-color: -fx-background;
+	-fx-padding: 10 0 0 0;
+}
+.group-pane.left-space {
+	-fx-border-insets: 10 0 0 10;
+}
+.group-pane.right-space {
+	-fx-border-insets: 10 10 0 0;
+}
+.group-pane.all-space {
+	-fx-border-insets: 10;
+}
+.group-pane > .list-view {
+	-fx-background-color: -fx-background;
+	-fx-border-style: none;
+	-fx-background-insets: 0;
+	-fx-padding: 0;
+}
+
+/* ValidationMessageCell */
+.validationmessage-hbox {
+	-fx-alignment: center-left;
+	-fx-padding: 0 3;
+}
+
+/* TextFieldCell */
+.textfield-cell {
+	-fx-padding: 0;
+}
+.textfield-cell .text-input {
+	-fx-background-color: transparent;
+	-fx-padding: 3 5 3 5;
+	-fx-prompt-text-fill: derive(-fx-control-inner-background,-30.0%);
+	-fx-cursor: text;
+}
+
+/* Leere Zellen in TableView */
+.table-row-cell:empty {
+    -fx-background-color: null;
+}
+
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0;
+}
+
+/* CheckBoxCell */
+.checkbox-cell {
+	-fx-alignment: center;
+}
+
+/* ButtonCell */
+.button-cell {
+	-fx-alignment: center;
+}
+
+/* NumberSpinnerCell */
+.numberspinner-cell {
+	-fx-padding: 0;
+}
+.numberspinner-cell .text-input {
+	-fx-background-color: transparent;
+	-fx-padding: 3 5 3 5;
+	-fx-prompt-text-fill: derive(-fx-control-inner-background,-30.0%);
+	-fx-cursor: text;
+}
+
+/* NumberSpinner */
+.number-spinner {
+    -fx-skin: "de.schulscheduler.ui.controls.NumberSpinnerSkin";
+    -fx-padding: 0 0 0 0;
+    -fx-alignment: center;
+}
+.number-spinner:focused {
+    -fx-background-color: 
+        -fx-focus-color,
+        -fx-control-inner-background,
+        -fx-faint-focus-color,
+        linear-gradient(from 0px 0px to 0px 5px, derive(-fx-control-inner-background, -9%), -fx-control-inner-background);
+    -fx-background-insets: -0.2, 1, -1.4, 3;
+    -fx-background-radius: 3, 2, 4, 0;
+}
+.number-spinner .text-field {
+    -fx-background-radius: 3 0 0 3, 2 0 0 2, 2 0 0 2;
+    -fx-background-insets: 1, 1;
+}
+.number-spinner .btn-increment {
+	-fx-cursor: default;
+	-fx-background-insets: 0 1 0 0, 0 1 0 0, 1 2 1 1, 2 3 2 2;
+    -fx-background-radius: 0 2 0 0, 0 2 0 0, 0 1 0 0, 0 0 0 0;
+}
+.number-spinner .btn-decrement {
+	-fx-cursor: default;
+	-fx-background-insets: 0 1 1 0, 0 1 1 0, 1 2 2 1, 2 3 3 2;
+    -fx-background-radius: 0 0 2 0, 0 0 2 0, 0 0 1 0, 0 0 0 0;
+}
+.number-spinner .arrow-up,
+.number-spinner .arrow-down {
+    -fx-padding: 3 3.5 3 3.5;
+    -fx-shape: "M 100 100 L 300 100 L 200 300 z";
+    -fx-background-color: #000000;
+}
+.number-spinner .arrow-up {
+	-fx-rotate: 180;
+}
+
+/* LinkingCell */
+.linking-cell .toggle-button:hover {
+	-fx-color: -fx-base;
+}
+.linking-cell .toggle-button:focused {
+	-fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+}
+.linking-cell .toggle-button:selected,
+.linking-cell .toggle-button:selected:focused {
+	-fx-color: lightGreen;
+	-fx-background-color: 
+        /*-fx-outer-border,*/ 
+        /*linear-gradient(to bottom, derive(-fx-color,75%), derive(-fx-color,2%)),*/ 
+        linear-gradient(to bottom, derive(-fx-color,-65.1%) 0%, derive(-fx-color,-50.2%) 90%, derive(-fx-color,-45.1%) 100%), 
+        linear-gradient(to bottom, derive(-fx-color,-52.8%) 0%, derive(-fx-color,-40.8%) 90%, derive(-fx-color,-35.7%) 100%),
+        linear-gradient(to bottom, derive(-fx-color,-44.3%) 0%, derive(-fx-color,-41.7%) 2% ,derive(-fx-color,-33.6%) 98%, derive(-fx-color,-35.7%) 100%); 
+}
+
+/* Menu */
+.menu-item .icon {
+	-fx-text-fill: black;
+}
+.menu-item:focused .icon {
+	-fx-text-fill: white;
+}
+
+/* ------------------------------------------- MultiSelectBox ----------------------------------------------- */
+.multiselectbox {
+	-fx-cursor: text;
+}
+
+.multiselect-label {
+	-fx-cursor: default;
+	-fx-padding: 0 3;
+	-fx-background-color: linear-gradient(to bottom,  #f6f8f9 0%,#e5ebee 32%,#d7dee3 63%,#f5f7f9 100%);
+
+    -fx-background-radius: 2.5; 
+    -fx-font-size: 1.1em;
+
+    -fx-wrap-text: true;
+    -fx-border-radius: 2.5;
+    -fx-border-width: 0.5;
+    -fx-border-color: black;
+    -fx-border-insets: 0.0;
+    -fx-alignment: center-left;
+}
+.multiselect-label-text {
+	-fx-text-fill: black;
+}
+.multiselect-before-delete {
+	-fx-border-color: red;
+	-fx-border-width: 1;
+}
+.multiselect-deletebutton {
+	-fx-cursor: hand; 
+   	-fx-background-image: url("../icons/MultiSelectBoxDelete.png");
+   	-fx-background-position: center;
+   	-fx-background-color: null;
+   	-fx-background-repeat: no-repeat;
+   	-fx-padding: 0 8;
+}
+.multiselect-deletebutton:hover {
+   	-fx-background-image: url("../icons/MultiSelectBoxDelete_over.png");
+}
+.multiselectbox-flowpane {
+   	-fx-border-color: BLACK;
+   	-fx-border-width: 0.5;
+   	-fx-border-radius: 2.5;
+   	-fx-padding: 2;
+   	-fx-alignment: center-left;
+}
+.table-cell .multiselectbox-flowpane {
+	-fx-border-width: 0;
+	-fx-border-color: null;
+}
+
+.multiselectbox-searchfield {
+   	-fx-background-color: null;
+   	-fx-text-fill: black;
+   	-fx-padding: 0 3;
+}
+
+.multiselectbox-searchfield:focused {
+   	-fx-background-color: null;
+   	-fx-text-fill: black;
+}
