@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+    <suppress checks="FileTabCharacter" files=".xml"/>
+    <suppress checks="FileTabCharacter" files=".schulscheduler"/>
+    <suppress checks="FileTabCharacter" files=".png"/>
+    <suppress checks="FileTabCharacter" files=".jks"/>
+    <suppress checks="FileTabCharacter" files=".ttf"/>
+    <suppress checks="FileTabCharacter" files=".ico"/>
+    <suppress checks="FileLength" files=".xml"/>
+    <suppress checks="FileLength" files=".schulscheduler"/>
+</suppressions>
