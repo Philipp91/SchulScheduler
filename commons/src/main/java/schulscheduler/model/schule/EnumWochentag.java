@@ -1,11 +1,11 @@
-package schulscheduler.model;
+package schulscheduler.model.schule;
 
 import schulscheduler.i18n.EnumMessages;
 
 /**
  * Die Wochentage
  */
-public enum EnumTag {
+public enum EnumWochentag {
     MONTAG, DIENSTAG, MITTWOCH, DONNERSTAG, FREITAG;
 
     private final String shortForm;
@@ -14,7 +14,7 @@ public enum EnumTag {
     /**
      * Lädt die Kurz- und Lang-Form aus enums.properties.
      */
-    private EnumTag() {
+    private EnumWochentag() {
         this.shortForm = EnumMessages.getInstance().getString(name() + "_short");
         this.longForm = EnumMessages.getInstance().getString(name() + "_long");
     }

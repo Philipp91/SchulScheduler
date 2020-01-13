@@ -3,17 +3,27 @@ package schulscheduler.model.base;
 import javafx.beans.property.SimpleStringProperty;
 import schulscheduler.javafx.MoreBindings;
 
+import javax.xml.bind.annotation.XmlElement;
+
 /**
  * Base class for elements with a name and short name that the user can enter.
  */
 public abstract class KuerzelElement extends NamedElement {
 
-    private final SimpleStringProperty kuerzel = new SimpleStringProperty();
+    private final SimpleStringProperty kuerzel = new SimpleStringProperty(this, "kuerzel");
 
     public KuerzelElement() {
-        idStringProperty().bind(MoreBindings.coalesceString(nameProperty(), idProperty().asString()));
+        idString.bind(MoreBindings.coalesceString(nameProperty(), idProperty().asString()));
+        toShortString.bind(MoreBindings.coalesceString(kuerzelProperty(), nameProperty(), typeAndIdExpression));
     }
 
+    public KuerzelElement(String name, String kuerzel) {
+        this();
+        setKuerzel(kuerzel);
+        setName(name);
+    }
+
+    @XmlElement(name = "kuerzel")
     public String getKuerzel() {
         return kuerzel.get();
     }

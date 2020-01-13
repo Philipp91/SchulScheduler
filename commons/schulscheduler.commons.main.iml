@@ -9,6 +9,13 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.openjfx:javafx-base:win:13" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:win:13" level="project" />
+    <orderEntry type="library" name="Gradle: org.codehaus.griffon:griffon-javafx:2.15.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.codehaus.griffon:griffon-core:2.15.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: javax.xml.bind:jaxb-api:2.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: javax.activation:javax.activation-api:1.2.0" level="project" />
+    <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
   </component>
 </module>

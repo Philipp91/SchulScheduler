@@ -11,10 +11,13 @@ java {
 javafx {
     version = '13'
     modules = [ 'javafx.base' ]
-    configuration = 'compileOnly'
 }
 
 dependencies {
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.codehaus.griffon:griffon-javafx:2.15.1'
+
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
     testImplementation 'org.hamcrest:hamcrest:2.2'
 }

@@ -1,8 +1,13 @@
 package schulscheduler.model.base;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringExpression;
+import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlID;
 
 /**
  * Base class for elements with an observable ID and toString.
@@ -12,16 +17,20 @@ public abstract class BaseElement implements IDElement {
 
     private final SimpleIntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
 
-    private final ReadOnlyStringWrapper idString = new ReadOnlyStringWrapper(); // For "overrides".
-    private final ReadOnlyStringWrapper toShortString = new ReadOnlyStringWrapper();
-    private final ReadOnlyStringWrapper toLongString = new ReadOnlyStringWrapper();
+    protected final ReadOnlyStringWrapper idString = new ReadOnlyStringWrapper(); // For "overrides".
+    protected final StringExpression typeAndIdExpression = Bindings.concat(getClass().getSimpleName(), " ", idString);
+    protected final ReadOnlyStringWrapper toShortString = new ReadOnlyStringWrapper();
+    protected final ReadOnlyStringWrapper toLongString = new ReadOnlyStringWrapper();
 
     public BaseElement() {
         idProperty.set(idCounter++);
         idString.bind(idProperty.asString());
-        toShortString.bind(Bindings.concat(getClass().getSimpleName(), " ", idString));
+        toShortString.bind(typeAndIdExpression);
+        toLongString.bind(typeAndIdExpression);
     }
 
+    @XmlAttribute(name = "id")
+    @XmlID
     @Override
     public Integer getId() {
         return idProperty.get();
@@ -38,8 +47,8 @@ public abstract class BaseElement implements IDElement {
         return idProperty;
     }
 
-    protected ReadOnlyStringWrapper idStringProperty() {
-        return idString;
+    protected ReadOnlyStringProperty idStringProperty() {
+        return idString.getReadOnlyProperty();
     }
 
     @Override
@@ -51,15 +60,15 @@ public abstract class BaseElement implements IDElement {
         return toShortString.get();
     }
 
-    public ReadOnlyStringWrapper toShortStringProperty() {
-        return toShortString;
+    public ReadOnlyStringProperty toShortStringProperty() {
+        return toShortString.getReadOnlyProperty();
     }
 
     public String toLongString() {
         return toLongString.get();
     }
 
-    public ReadOnlyStringWrapper toLongStringProperty() {
-        return toLongString;
+    public ReadOnlyStringProperty toLongStringProperty() {
+        return toLongString.getReadOnlyProperty();
     }
 }

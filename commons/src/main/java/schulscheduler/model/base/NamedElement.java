@@ -3,6 +3,7 @@ package schulscheduler.model.base;
 import javafx.beans.property.SimpleStringProperty;
 import schulscheduler.javafx.MoreBindings;
 
+import javax.xml.bind.annotation.XmlElement;
 import java.util.Comparator;
 
 /**
@@ -12,12 +13,19 @@ public abstract class NamedElement extends BaseElement implements Comparable<Nam
 
     protected static final Comparator<String> nullSafeStringComparator = Comparator.nullsFirst(String::compareToIgnoreCase);
 
-    private final SimpleStringProperty name = new SimpleStringProperty();
+    private final SimpleStringProperty name = new SimpleStringProperty(this, "name");
 
     public NamedElement() {
-        idStringProperty().bind(MoreBindings.coalesceString(nameProperty(), idProperty().asString()));
+        idString.bind(MoreBindings.coalesceString(nameProperty(), idProperty().asString()));
+        toShortString.bind(MoreBindings.coalesceString(nameProperty(), typeAndIdExpression));
     }
 
+    public NamedElement(String name) {
+        this();
+        setName(name);
+    }
+
+    @XmlElement(name = "name")
     public String getName() {
         return name.get();
     }
