@@ -1,14 +1,13 @@
 package schulscheduler.ui.controls;
 
 import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.text.*;
 
 /**
  * Diese Komponente parst Text, in dem Teile durch <tt>**</tt> oder <tt>//</tt> hervorgehoben werden, z.B.<br>
- * 
+ *
  * <pre>
  * Hiermit ist es möglich, Text **fett** oder //kursiv// darzustellen, oder sogar //**beides**{@literal /}/.
  * </pre>
@@ -26,17 +25,12 @@ public class TextFlowNode extends TextFlow {
 
     private final SimpleStringProperty text = new SimpleStringProperty(this, "text");
 
-    private final InvalidationListener onTextChanged = new InvalidationListener() {
-        public void invalidated(Observable observable) {
-            parseText();
-        }
-    };
-
     /**
      * Erstellt eine neue TextFlowNode.
      */
     public TextFlowNode() {
         getStyleClass().add(STYLE_CLASS);
+        InvalidationListener onTextChanged = observable -> parseText();
         text.addListener(onTextChanged);
     }
 
@@ -52,7 +46,7 @@ public class TextFlowNode extends TextFlow {
      * Fügt den gegebenen Inhalt hinzu. Wenn dieser die Trennzeichen {@link #BOLD_DELIMITER} und/oder
      * {@link #ITALIC_DELIMITER} enthält, wird er entsprechend aufgespaltet. Dazu ruft sich die Methode selbst rekursiv
      * auf und ändert entsprechend die Werte der Parameter <tt>bold</tt> und <tt>italic</tt>.
-     * 
+     *
      * @param content Der Inhalt.
      * @param bold True, wenn der Text derzeit fett gedruckt wird.
      * @param italic True, wenn der Text derzeit kursiv gedruckt wird.
@@ -79,7 +73,7 @@ public class TextFlowNode extends TextFlow {
 
     /**
      * Fügt einen {@link Text} zur Anzeige des gegebenen Inhalts hinzu.
-     * 
+     *
      * @param content Der hinzuzufügende Textabschnitt (wird nicht weiter auf Trennzeichen untersucht).
      * @param bold Ob der Textabschnitt fett gedruckt werden soll, oder nicht.
      * @param italic Ob der Textabschnitt kursiv gedruckt werden soll, oder nicht.

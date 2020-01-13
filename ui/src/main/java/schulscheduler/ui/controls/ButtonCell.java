@@ -3,8 +3,6 @@ package schulscheduler.ui.controls;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
@@ -14,7 +12,7 @@ import java.util.List;
 /**
  * Eine Tabellenzelle, die einen {@link Button} enthält. Wenn die Zelle an eine {@link BooleanProperty} gebunden wird,
  * gibt diese an, ob der Button disabled ist oder nicht.
- * 
+ *
  * @param <S> Der Typ der TableView (d.h. S == TableView&lt;S&gt;)
  */
 public class ButtonCell<S> extends BaseGraphicTableCell<S, Boolean> {
@@ -30,11 +28,7 @@ public class ButtonCell<S> extends BaseGraphicTableCell<S, Boolean> {
     public ButtonCell() {
         super("button-cell");
         forwardFocusChanges(this.button);
-        this.button.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                ((ButtonColumn<S>) getTableColumn()).onButtonClicked(getRowData());
-            }
-        });
+        this.button.setOnAction(event -> ((ButtonColumn<S>) getTableColumn()).onButtonClicked(getRowData()));
     }
 
     @Override
@@ -63,7 +57,7 @@ public class ButtonCell<S> extends BaseGraphicTableCell<S, Boolean> {
 
     /**
      * @return Das Element, das in der aktuellen Tabellenzeile dargestellt wird, oder <tt>null</tt>, wenn die Zeile leer
-     *         ist.
+     * ist.
      */
     private S getRowData() {
         int index = getIndex();

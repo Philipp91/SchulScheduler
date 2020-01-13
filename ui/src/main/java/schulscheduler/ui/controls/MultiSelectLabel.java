@@ -64,13 +64,10 @@ public class MultiSelectLabel<E> extends HBox {
         textLabel.getStyleClass().add("multiselect-label-text");
         // Initialisiert den Button
         deleteButton.getStyleClass().add("multiselect-deletebutton");
-        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                EventHandler<ItemClickedEvent<E>> handler = getOnDelete();
-                if (handler != null) {
-                    handler.handle(new ItemClickedEvent<E>(object));
-                }
+        deleteButton.setOnAction(event -> {
+            EventHandler<ItemClickedEvent<E>> handler = getOnDelete();
+            if (handler != null) {
+                handler.handle(new ItemClickedEvent<>(object));
             }
         });
         // Sub-Komponenten anzeigen

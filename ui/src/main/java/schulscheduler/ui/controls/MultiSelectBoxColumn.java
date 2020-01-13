@@ -5,14 +5,11 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.util.Callback;
 
 /**
  * Eine Tabellenspalte, die ihre Zellen als MultiSelectBoxen rendert, wenn sie editierbar ist, oder einfach eine
  * Auflistung der Items, wenn die Zelle nicht editierbar sein soll.
- * 
+ *
  * @param <S> Der Typ der TableView (d.h. S == TableView&lt;S&gt;)
  * @param <E> Der Typ für die MultiSelectBox
  */
@@ -32,13 +29,11 @@ public class MultiSelectBoxColumn<S, E extends Comparable<? super E>> extends Ba
      * Erstellt eine MultiSelectBoxColumn.
      */
     public MultiSelectBoxColumn() {
-        this.setCellFactory(new Callback<TableColumn<S, ObservableList<E>>, TableCell<S, ObservableList<E>>>() {
-            public TableCell<S, ObservableList<E>> call(TableColumn<S, ObservableList<E>> param) {
-                MultiSelectBoxCell<S, E> cell = new MultiSelectBoxCell<S, E>();
-                cell.itemsProperty().bind(items);
-                cell.promptTextProperty().bind(promptText);
-                return cell;
-            }
+        this.setCellFactory(param -> {
+            MultiSelectBoxCell<S, E> cell = new MultiSelectBoxCell<>();
+            cell.itemsProperty().bind(items);
+            cell.promptTextProperty().bind(promptText);
+            return cell;
         });
     }
 

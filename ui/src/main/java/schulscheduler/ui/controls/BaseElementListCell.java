@@ -22,32 +22,26 @@ public class BaseElementListCell<E> extends ListCell<E> {
      * @return Eine Factory für BeanListCells.
      */
     public static <E> Callback<ListView<E>, ListCell<E>> createFactory() {
-        return new Callback<ListView<E>, ListCell<E>>() {
-            public ListCell<E> call(ListView<E> listView) {
-                return new BaseElementListCell<E>();
-            }
-        };
+        return listView -> new BaseElementListCell<>();
     }
 
     /**
-     * @param <E>       Der Typ der Elemente im ListView.
+     * @param <E> Der Typ der Elemente im ListView.
      * @param converter Der Converter, der die Elemente für die Anzeige konvertiert.
      * @return Eine Factory für BeanListCells.
      */
     public static <E> Callback<ListView<E>, ListCell<E>> createFactory(StringConverter<E> converter) {
-        return new Callback<ListView<E>, ListCell<E>>() {
-            public ListCell<E> call(ListView<E> listView) {
-                BaseElementListCell<E> cell = new BaseElementListCell<E>();
-                cell.setConverter(converter);
-                return cell;
-            }
+        return listView -> {
+            BaseElementListCell<E> cell = new BaseElementListCell<>();
+            cell.setConverter(converter);
+            return cell;
         };
     }
 
     /**
      * Konvertiert die Elemente für die Anzeige.
      */
-    private final ObjectProperty<StringConverter<E>> converter = new SimpleObjectProperty<StringConverter<E>>(this, "converter", null);
+    private final ObjectProperty<StringConverter<E>> converter = new SimpleObjectProperty<>(this, "converter", null);
 
     /**
      * Das aktuell angezeigte Element.

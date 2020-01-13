@@ -7,7 +7,7 @@ import javafx.scene.Node;
 /**
  * Eine Tabellenzelle, die einen {@link NumberSpinner} enthält und an eine {@link ObjectProperty}&lt;{@link Number}&gt;
  * gebunden werden kann.
- * 
+ *
  * @param <S> Der Typ der TableView (d.h. S == TableView&lt;S&gt;)
  */
 public class NumberSpinnerCell<S> extends BaseGraphicTableCell<S, Number> {

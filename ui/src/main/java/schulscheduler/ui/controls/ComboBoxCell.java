@@ -4,13 +4,12 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.Label;
 import javafx.util.StringConverter;
 
 /**
@@ -24,7 +23,7 @@ public class ComboBoxCell<S, E> extends BaseGraphicTableCell<S, E> {
     /**
      * Die ComboBox, welche in der Zelle angezeigt wird.
      */
-    private final ComboBox<E> comboBox = new ComboBox<E>();
+    private final ComboBox<E> comboBox = new ComboBox<>();
 
     /**
      * Das Label, das angezeigt wird, wenn die ComboBox leer ist.
@@ -41,21 +40,17 @@ public class ComboBoxCell<S, E> extends BaseGraphicTableCell<S, E> {
         forwardFocusChanges(this.comboBox);
 
         // Wert leeren bei Strg+Click oder Shift+Click
-        this.comboBox.setOnMouseReleased(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                if (event.isControlDown() || event.isShiftDown()) {
-                    comboBox.getSelectionModel().clearSelection();
-                    comboBox.hide();
-                    event.consume();
-                }
+        this.comboBox.setOnMouseReleased(event -> {
+            if (event.isControlDown() || event.isShiftDown()) {
+                comboBox.getSelectionModel().clearSelection();
+                comboBox.hide();
+                event.consume();
             }
         });
-        this.comboBox.setCellFactory(new Callback<ListView<E>, ListCell<E>>() {
-            public ListCell<E> call(ListView<E> param) {
-                BaseElementListCell<E> result = new BaseElementListCell<E>();
-                result.converterProperty().bind(comboBox.converterProperty());
-                return result;
-            }
+        this.comboBox.setCellFactory(param -> {
+            BaseElementListCell<E> result = new BaseElementListCell<>();
+            result.converterProperty().bind(comboBox.converterProperty());
+            return result;
         });
         this.comboBox.setButtonCell(this.comboBox.getCellFactory().call(null));
         this.comboBox.setPlaceholder(placeholderLabel);

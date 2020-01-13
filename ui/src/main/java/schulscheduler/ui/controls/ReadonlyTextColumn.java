@@ -27,12 +27,10 @@ public class ReadonlyTextColumn<S, T> extends BasePropertyTableColumn<S, T> {
      * Erstellt eine ReadonlyTextColumn.
      */
     public ReadonlyTextColumn() {
-        this.setCellFactory(new Callback<TableColumn<S, T>, TableCell<S, T>>() {
-            public TableCell<S, T> call(TableColumn<S, T> column) {
-                TextFieldTableCell<S, T> cell = new TextFieldTableCell<>(getConverter());
-                cell.setEditable(false);
-                return cell;
-            }
+        this.setCellFactory(column -> {
+            TextFieldTableCell<S, T> cell = new TextFieldTableCell<>(getConverter());
+            cell.setEditable(false);
+            return cell;
         });
     }
 

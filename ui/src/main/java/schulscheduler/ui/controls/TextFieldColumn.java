@@ -23,12 +23,10 @@ public class TextFieldColumn<S> extends BasePropertyTableColumn<S, String> {
      * Erstellt eine TextFieldColumn.
      */
     public TextFieldColumn() {
-        this.setCellFactory(new Callback<TableColumn<S, String>, TableCell<S, String>>() {
-            public TableCell<S, String> call(TableColumn<S, String> param) {
-                TextFieldCell<S> cell = new TextFieldCell<>();
-                cell.promptTextProperty().bind(promptText);
-                return cell;
-            }
+        this.setCellFactory(param -> {
+            TextFieldCell<S> cell = new TextFieldCell<>();
+            cell.promptTextProperty().bind(promptText);
+            return cell;
         });
     }
 

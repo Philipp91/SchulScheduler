@@ -1,7 +1,5 @@
 package schulscheduler.ui.controls;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.StringProperty;
@@ -45,13 +43,11 @@ public class GroupPane extends StackPane {
         this.getStyleClass().add("group-pane");
         this.getChildren().add(title);
 
-        this.resizable.addListener(new InvalidationListener() {
-            public void invalidated(Observable observable) {
-                if (resizable.get() && resizeHandler == null) {
-                    resizeHandler = new ResizeHandler();
-                } else if (!resizable.get() && resizeHandler != null) {
-                    resizeHandler.destroy();
-                }
+        this.resizable.addListener(observable -> {
+            if (resizable.get() && resizeHandler == null) {
+                resizeHandler = new ResizeHandler();
+            } else if (!resizable.get() && resizeHandler != null) {
+                resizeHandler.destroy();
             }
         });
     }
@@ -179,7 +175,7 @@ public class GroupPane extends StackPane {
                 }
                 dragging = false;
                 setCursor(Cursor.DEFAULT);
-                
+
             } else if (event.getEventType() == MouseEvent.MOUSE_EXITED && !dragging) {
                 setCursor(Cursor.DEFAULT);
             }

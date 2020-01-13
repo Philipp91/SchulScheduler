@@ -1,7 +1,6 @@
 package schulscheduler.ui.controls;
 
 import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.property.Property;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -15,7 +14,7 @@ import javafx.scene.layout.StackPane;
  * den jeweiligen benachbarten Zellen synchronisiert sind, sodass es aussieht, als läge ein Button zwischen den Zeilen.
  * Das Aktivieren des Buttons setzt den Wert der oberen Stunde auf <tt>true</tt>. Ein Button kann nicht aktiviert
  * werden, wenn einer seiner Nachbarn aktiviert ist, das heißt er ist dann gesperrt.
- * 
+ *
  * @param <S> Der Typ der TableView (d.h. S == TableView&lt;S&gt;)
  */
 public class LinkingTableCell<S> extends TableCell<S, Boolean> {
@@ -59,21 +58,13 @@ public class LinkingTableCell<S> extends TableCell<S, Boolean> {
      * Wird ausgelöst, wenn einer der Nachbarn des oberen Buttons geklickt wird, das heißt entweder der untere Button
      * (currentProperty) oder der Button, der noch eins weiter oben ist (currentPrePreviousProperty).
      */
-    private final InvalidationListener onUpperNeighborsChanged = new InvalidationListener() {
-        public void invalidated(Observable observable) {
-            updateUpperButton();
-        }
-    };
+    private final InvalidationListener onUpperNeighborsChanged = observable -> updateUpperButton();
 
     /**
      * Wird ausgelöst, wenn einer der Nachbarn des unteren Buttons geklickt wird, das heißt entweder der obere Button
      * (currentPreviousProperty) oder der Button, der noch eins weiter unten ist (currentNextProperty).
      */
-    private final InvalidationListener onLowerNeighborsChanged = new InvalidationListener() {
-        public void invalidated(Observable observable) {
-            updateLowerButton();
-        }
-    };
+    private final InvalidationListener onLowerNeighborsChanged = observable -> updateLowerButton();
 
     /**
      * Erstellt eine normale, LinkingTableCell mit der Style-Class "linking-cell".
@@ -212,7 +203,7 @@ public class LinkingTableCell<S> extends TableCell<S, Boolean> {
 
     /**
      * Ruft die Property ab, die angibt, ob die Zeile <tt>index</tt> und die Zeile <tt>index+1</tt> verbunden sind.
-     * 
+     *
      * @param index Index der Property.
      * @return Die Property oder null, wenn die Zeile nicht existiert.
      */

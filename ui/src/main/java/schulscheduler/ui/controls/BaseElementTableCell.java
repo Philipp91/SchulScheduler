@@ -21,11 +21,7 @@ public class BaseElementTableCell<S, T> extends TableCell<S, T> {
      * @return Eine Factory für BeanTableCell.
      */
     public static <S, T> Callback<TableColumn<S, T>, TableCell<S, T>> createFactory() {
-        return new Callback<TableColumn<S, T>, TableCell<S, T>>() {
-            public TableCell<S, T> call(TableColumn<S, T> column) {
-                return new BaseElementTableCell<S, T>();
-            }
-        };
+        return column -> new BaseElementTableCell<S, T>();
     }
 
     /**

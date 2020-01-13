@@ -2,14 +2,11 @@ package schulscheduler.ui.controls;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.util.Callback;
 
 /**
  * Eine Tabellenspalte, die ihre Zellen als {@link NumberSpinner} rendert, wenn sie editierbar ist, oder einfach nur den
  * aktuellen Wert anzeigt, wenn die Zelle nicht editierbar sein soll.
- * 
+ *
  * @param <S> Der Typ der TableView (d.h. S == TableView&lt;S&gt;)
  */
 public class NumberSpinnerColumn<S> extends BasePropertyTableColumn<S, Number> {
@@ -34,20 +31,18 @@ public class NumberSpinnerColumn<S> extends BasePropertyTableColumn<S, Number> {
      * Erstellt eine NumberSpinnerColumn.
      */
     public NumberSpinnerColumn() {
-        this.setCellFactory(new Callback<TableColumn<S, Number>, TableCell<S, Number>>() {
-            public TableCell<S, Number> call(TableColumn<S, Number> param) {
-                NumberSpinnerCell<S> cell = new NumberSpinnerCell<S>();
-                cell.maxValueProperty().bind(maxValue);
-                cell.minValueProperty().bind(minValue);
-                cell.stepWidthProperty().bind(stepWidth);
-                return cell;
-            }
+        this.setCellFactory(param -> {
+            NumberSpinnerCell<S> cell = new NumberSpinnerCell<S>();
+            cell.maxValueProperty().bind(maxValue);
+            cell.minValueProperty().bind(minValue);
+            cell.stepWidthProperty().bind(stepWidth);
+            return cell;
         });
     }
 
     /**
      * Der maximal erlaubte Wert für das Feld (inklusive). Ein Wert von null bedeutet, dass es keine Begrenzung gibt.
-     * 
+     *
      * @return Die maxValue-Property.
      * @see #getMaxValue()
      * @see #setMaxValue(Number)
@@ -74,7 +69,7 @@ public class NumberSpinnerColumn<S> extends BasePropertyTableColumn<S, Number> {
 
     /**
      * Der minimal erlaubte Wert für das Feld (inklusive). Ein Wert von null bedeutet, dass es keine Begrenzung gibt.
-     * 
+     *
      * @return Die minValue-Property.
      * @see #getMinValue()
      * @see #setMinValue(Number)
@@ -102,7 +97,7 @@ public class NumberSpinnerColumn<S> extends BasePropertyTableColumn<S, Number> {
     /**
      * Die Schrittweite, d.h. das Intervall zur Erhöhung bzw. Verringerung des Wertes, wenn die Buttons angeklickt
      * werden.
-     * 
+     *
      * @return Die stepWidth-Property.
      * @see #getStepWidth()
      * @see #setStepWidth(Number)

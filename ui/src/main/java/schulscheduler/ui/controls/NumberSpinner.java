@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * Ein Eingabefeld für Zahlen mit Buttons zum Erhöhen/Verringern des Wertes per Mausklick.<br>
  * Quelle: http://myjavafx.blogspot.de/2013/05/developing-numberspinner-control.html (mit Genehmigung per ICQ)
  * https://bitbucket.org/sco0ter/extfx/src (Original ist unter MIT Lizenz)
- * 
+ *
  * @author Christian Schudt
  * @author Philipp Keck
  */
@@ -21,7 +21,7 @@ public class NumberSpinner extends TextField {
     /**
      * Der aktuelle Wert des Feldes.
      */
-    private final ObjectProperty<Number> value = new SimpleObjectProperty<Number>(this, "value") {
+    private final ObjectProperty<Number> value = new SimpleObjectProperty<>(this, "value") {
         @Override
         protected void invalidated() {
             if (!isBound() && value.get() != null) {
@@ -38,7 +38,7 @@ public class NumberSpinner extends TextField {
     /**
      * Der maximal erlaubte Wert für das Feld (inklusive, Standard ist kein Limit).
      */
-    private final ObjectProperty<Number> maxValue = new SimpleObjectProperty<Number>(this, "maxValue") {
+    private final ObjectProperty<Number> maxValue = new SimpleObjectProperty<>(this, "maxValue") {
         @Override
         protected void invalidated() {
             if (maxValue.get() != null) {
@@ -55,7 +55,7 @@ public class NumberSpinner extends TextField {
     /**
      * Der minimal erlaubte Wert für das Feld (inklusive, Standard ist kein Limit).
      */
-    private final ObjectProperty<Number> minValue = new SimpleObjectProperty<Number>(this, "minValue") {
+    private final ObjectProperty<Number> minValue = new SimpleObjectProperty<>(this, "minValue") {
         @Override
         protected void invalidated() {
             if (minValue.get() != null) {
@@ -72,7 +72,7 @@ public class NumberSpinner extends TextField {
     /**
      * Die Schrittweite beim Klick der Buttons (Standardwert ist 1).
      */
-    private final ObjectProperty<Number> stepWidth = new SimpleObjectProperty<Number>(this, "stepWidth", 1);
+    private final ObjectProperty<Number> stepWidth = new SimpleObjectProperty<>(this, "stepWidth", 1);
 
     /**
      * Das verwendete Format für die Zahlen.
@@ -88,7 +88,7 @@ public class NumberSpinner extends TextField {
 
     /**
      * Erstellt eine neue NumberSpinner-Komponente mit der CSS-Klasse "number-spinner".
-     * 
+     *
      * @param standalone True, wenn der Spinner alleine (und nicht in einer {@link NumberSpinnerCell}) verwendet wird.
      */
     public NumberSpinner(boolean standalone) {
@@ -101,7 +101,7 @@ public class NumberSpinner extends TextField {
 
     /**
      * Wird vom Skin aufgerufen, wenn das Textfeld fokussiert wurde.
-     * 
+     *
      * @param value True, wenn das Textfeld fokussiert ist.
      */
     void setFocusedInternal(boolean value) {
@@ -111,7 +111,7 @@ public class NumberSpinner extends TextField {
     /**
      * Der aktuelle Wert des Feldes. Ein Wert von null, {@link Double#NaN} oder andere unendliche Werte werden als
      * leeres Textfeld angezeigt.
-     * 
+     *
      * @return Die value-Property.
      * @see #getValue()
      * @see #setValue(Number)
@@ -138,7 +138,7 @@ public class NumberSpinner extends TextField {
 
     /**
      * Der maximal erlaubte Wert für das Feld (inklusive). Ein Wert von null bedeutet, dass es keine Begrenzung gibt.
-     * 
+     *
      * @return Die maxValue-Property.
      * @see #getMaxValue()
      * @see #setMaxValue(Number)
@@ -165,7 +165,7 @@ public class NumberSpinner extends TextField {
 
     /**
      * Der minimal erlaubte Wert für das Feld (inklusive). Ein Wert von null bedeutet, dass es keine Begrenzung gibt.
-     * 
+     *
      * @return Die minValue-Property.
      * @see #getMinValue()
      * @see #setMinValue(Number)
@@ -193,7 +193,7 @@ public class NumberSpinner extends TextField {
     /**
      * Die Schrittweite, d.h. das Intervall zur Erhöhung bzw. Verringerung des Wertes, wenn die Buttons angeklickt
      * werden.
-     * 
+     *
      * @return Die stepWidth-Property.
      * @see #getStepWidth()
      * @see #setStepWidth(Number)
@@ -220,10 +220,10 @@ public class NumberSpinner extends TextField {
 
     /**
      * Der Converter der vom Datenformat ins textuelle Darstellungsformat und zurück konvertiert.
-     * 
+     *
      * @return Die numberStringConverter-Property.
      * @see #getNumberStringConverter()
-     * @see #setNumberStringConverter(javafx.util.converter.StringConverter)
+     * @see #setNumberStringConverter(StringConverter)
      */
     public final ObjectProperty<StringConverter<Number>> numberStringConverterProperty() {
         return numberStringConverter;
@@ -239,7 +239,7 @@ public class NumberSpinner extends TextField {
 
     /**
      * @param numberStringConverter Der Converter der vom Datenformat ins textuelle Darstellungsformat und zurück
-     *            konvertiert.
+     * konvertiert.
      * @see #numberStringConverterProperty()
      */
     public final void setNumberStringConverter(final StringConverter<Number> numberStringConverter) {
@@ -254,8 +254,8 @@ public class NumberSpinner extends TextField {
     }
 
     /**
-     * Setzt einen neuen {@link #setNumberStringConverter(NumberStringConverter)} mit dem gegebenen Pattern.
-     * 
+     * Setzt einen neuen {@link #setNumberStringConverter(StringConverter)} mit dem gegebenen Pattern.
+     *
      * @param pattern Das Format in dem die Zahlen angezeigt werden sollen.
      */
     public final void setPattern(final String pattern) {

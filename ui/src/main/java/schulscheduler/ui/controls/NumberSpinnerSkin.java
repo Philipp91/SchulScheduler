@@ -4,9 +4,6 @@ import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.DoubleExpression;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -96,37 +93,33 @@ public class NumberSpinnerSkin extends StackPane implements Skin<NumberSpinner> 
      */
     private void initTextField() {
 
-        textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean wasFocused, Boolean isFocused) {
-                if (textField.isEditable() && isFocused) {
-                    // Beim Reinklicken ins Textfeld den gesamten Inhalt markieren.
-                    Platform.runLater(textField::selectAll);
-                } else if (!isFocused) {
-                    // Beim Verlassen des Felds den Wert validieren.
-                    parseText();
-                    displayCurrentValue();
-                }
-                // Den aktuellen Fokus-Zustand an die äußere Komponente weiterleiten.
-                numberSpinner.setFocusedInternal(isFocused);
+        textField.focusedProperty().addListener((observableValue, wasFocused, isFocused) -> {
+            if (textField.isEditable() && isFocused) {
+                // Beim Reinklicken ins Textfeld den gesamten Inhalt markieren.
+                Platform.runLater(textField::selectAll);
+            } else if (!isFocused) {
+                // Beim Verlassen des Felds den Wert validieren.
+                parseText();
+                displayCurrentValue();
             }
+            // Den aktuellen Fokus-Zustand an die äußere Komponente weiterleiten.
+            numberSpinner.setFocusedInternal(isFocused);
         });
 
         // Pfeil-Hoch und Pfeil-Runter abfangen, um den Wert entsprechend zu verändern.
-        textField.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent keyEvent) {
-                if (!keyEvent.isConsumed()) {
-                    if (keyEvent.getCode() == KeyCode.UP) {
-                        btnIncrement.fire();
-                        keyEvent.consume();
-                    } else if (keyEvent.getCode() == KeyCode.DOWN) {
-                        btnDecrement.fire();
-                        keyEvent.consume();
-                    } else if (keyEvent.getCode() == KeyCode.ENTER) {
-                        parseText();
-                        displayCurrentValue();
-                        textField.selectAll();
-                        keyEvent.consume();
-                    }
+        textField.addEventFilter(KeyEvent.KEY_PRESSED, keyEvent -> {
+            if (!keyEvent.isConsumed()) {
+                if (keyEvent.getCode() == KeyCode.UP) {
+                    btnIncrement.fire();
+                    keyEvent.consume();
+                } else if (keyEvent.getCode() == KeyCode.DOWN) {
+                    btnDecrement.fire();
+                    keyEvent.consume();
+                } else if (keyEvent.getCode() == KeyCode.ENTER) {
+                    parseText();
+                    displayCurrentValue();
+                    textField.selectAll();
+                    keyEvent.consume();
                 }
             }
         });

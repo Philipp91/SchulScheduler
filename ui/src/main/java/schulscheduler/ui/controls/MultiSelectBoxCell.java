@@ -10,7 +10,7 @@ import javafx.scene.control.ContentDisplay;
 
 /**
  * Eine Tabellenzelle, die eine {@link MultiSelectBox} enthält und an eine {@link ListProperty} gebunden werden kann.
- * 
+ *
  * @param <S> Der Typ der TableView (d.h. S == TableView&lt;S&gt;)
  * @param <E> Der Typ der MultiSelectBox
  */
@@ -19,7 +19,7 @@ public class MultiSelectBoxCell<S, E extends Comparable<? super E>> extends Base
     /**
      * Die MultiSelectBox, welche in der Zelle angezeigt wird.
      */
-    private final MultiSelectBox<E> multiSelectBox = new MultiSelectBox<E>();
+    private final MultiSelectBox<E> multiSelectBox = new MultiSelectBox<>();
 
     /**
      * Erstellt eine neue MultiSelectBox

@@ -1,6 +1,5 @@
 package schulscheduler.ui.controls;
 
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContentDisplay;
@@ -11,7 +10,7 @@ import javafx.util.Callback;
 /**
  * Eine Tabellenzelle, die eine nicht editierbare {@link CheckBox} enthält und an ein {@link ObservableValue}
  * &lt;Boolean&gt; gebunden werden kann.
- * 
+ *
  * @param <S> Der Typ der TableView (d.h. S == TableView&lt;S&gt;)
  */
 public class ReadonlyCheckBoxCell<S> extends TableCell<S, Boolean> {
@@ -21,11 +20,7 @@ public class ReadonlyCheckBoxCell<S> extends TableCell<S, Boolean> {
      * @return Eine Factory für nicht editierbare CheckBox-Zellen.
      */
     public static <S> Callback<TableColumn<S, Boolean>, TableCell<S, Boolean>> createFactory() {
-        return new Callback<TableColumn<S, Boolean>, TableCell<S, Boolean>>() {
-            public TableCell<S, Boolean> call(TableColumn<S, Boolean> param) {
-                return new ReadonlyCheckBoxCell<>();
-            }
-        };
+        return param -> new ReadonlyCheckBoxCell<>();
     }
 
     /**
@@ -45,11 +40,9 @@ public class ReadonlyCheckBoxCell<S> extends TableCell<S, Boolean> {
         setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
         getStyleClass().add("checkbox-cell");
         this.checkBox.setDisable(true);
-        this.checkBox.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue) {
-                    onCheckBoxFocus();
-                }
+        this.checkBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                onCheckBoxFocus();
             }
         });
     }

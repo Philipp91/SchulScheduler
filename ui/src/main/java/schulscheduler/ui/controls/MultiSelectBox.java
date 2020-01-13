@@ -15,7 +15,7 @@ import javafx.scene.control.Skin;
  * werden. In der Liste kann nach einzelnen Einträgen gefiltert werden. Wenn ein Eintrag ausgewählt wurde, wird dieser
  * anschließend in einem Flowpane, welches die ausgewählten Einträge anzeigt, hinzugefügt. Bereits ausgewählte Einträge
  * können anschließend wieder gelöscht werden.
- * 
+ *
  * @param <E> Der Typ der auswählbaren Einträge.
  */
 public class MultiSelectBox<E extends Comparable<? super E>> extends Control {
@@ -23,7 +23,7 @@ public class MultiSelectBox<E extends Comparable<? super E>> extends Control {
     /**
      * Enthält die ausgewählten Einträge.
      */
-    private final ListProperty<E> selected = new SimpleListProperty<E>(FXCollections.<E> observableArrayList());
+    private final ListProperty<E> selected = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     /**
      * Der Placeholder Text, der angezeigt wird, wenn keine Einträge ausgewählt sind.
@@ -33,7 +33,7 @@ public class MultiSelectBox<E extends Comparable<? super E>> extends Control {
     /**
      * Enthält die gesamte Anzahl an Einträgen, die ausgewählt werden können.
      */
-    private final ListProperty<E> items = new SimpleListProperty<E>(FXCollections.<E> observableArrayList());
+    private final ListProperty<E> items = new SimpleListProperty<>(FXCollections.observableArrayList());
 
     /**
      * Erstellt eine neue MultiSelectBox und erstellt einen neuen Skin für diese Klasse.
@@ -44,12 +44,12 @@ public class MultiSelectBox<E extends Comparable<? super E>> extends Control {
 
     @Override
     protected Skin<?> createDefaultSkin() {
-        return new MultiSelectBoxSkin<E>(this);
+        return new MultiSelectBoxSkin<>(this);
     }
 
     /**
      * Gibt die ausgewählten Einträge zurück.
-     * 
+     *
      * @return value
      */
     public ListProperty<E> selectedProperty() {
@@ -58,7 +58,7 @@ public class MultiSelectBox<E extends Comparable<? super E>> extends Control {
 
     /**
      * Gibt die Items, die ausgewählt werden können zurück.
-     * 
+     *
      * @return items ObservableList die die Items enthält.
      */
     public ObservableList<E> getItems() {
@@ -67,7 +67,7 @@ public class MultiSelectBox<E extends Comparable<? super E>> extends Control {
 
     /**
      * Legt die Liste an Einträgen fest, die ausgewählt werden können.
-     * 
+     *
      * @param items Die Liste mit Items, die ausgewählt werden sollen.
      */
     public void setItems(ObservableList<E> items) {
@@ -76,7 +76,7 @@ public class MultiSelectBox<E extends Comparable<? super E>> extends Control {
 
     /**
      * Gibt die Property für die Itemliste zurück.
-     * 
+     *
      * @return items Die Liste mit den items.
      */
     public ListProperty<E> itemsProperty() {
@@ -85,7 +85,7 @@ public class MultiSelectBox<E extends Comparable<? super E>> extends Control {
 
     /**
      * Gibt die Observablist der Property für die selektierten items zurück.
-     * 
+     *
      * @return items, die selektiert wurden.
      */
     public ObservableList<E> getSelected() {

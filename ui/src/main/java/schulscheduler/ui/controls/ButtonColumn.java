@@ -5,14 +5,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.util.Callback;
 import schulscheduler.ui.ItemClickedEvent;
 
 /**
  * Eine Tabellenspalte, die ihre Zellen als Buttons rendert.
- * 
+ *
  * @param <S> Der Typ der TableView (d.h. S == TableView&lt;S&gt;)
  */
 public class ButtonColumn<S> extends BasePropertyTableColumn<S, Boolean> {
@@ -31,18 +28,16 @@ public class ButtonColumn<S> extends BasePropertyTableColumn<S, Boolean> {
      * Erstellt eine ButtonColumn.
      */
     public ButtonColumn() {
-        this.setCellFactory(new Callback<TableColumn<S, Boolean>, TableCell<S, Boolean>>() {
-            public TableCell<S, Boolean> call(TableColumn<S, Boolean> param) {
-                ButtonCell<S> cell = new ButtonCell<>();
-                cell.labelProperty().bind(label);
-                return cell;
-            }
+        this.setCellFactory(param -> {
+            ButtonCell<S> cell = new ButtonCell<>();
+            cell.labelProperty().bind(label);
+            return cell;
         });
     }
 
     /**
      * Führt die {@link #getOnAction()} für das angeklickte Element aus.
-     * 
+     *
      * @param item Das angeklickte Element (Datensatz der angeklickten Zeile).
      */
     void onButtonClicked(S item) {

@@ -21,13 +21,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Popup;
 import javafx.stage.Window;
-import javafx.stage.WindowEvent;
 import schulscheduler.i18n.Messages;
 import schulscheduler.model.base.KuerzelElement;
 import schulscheduler.model.base.NamedElement;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -50,7 +48,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     /**
      * Listener für die Scene in der sich die MultiSelectBox befindet.
      */
-    private static final ChangeListener<Scene> SCENE_LISTENER = new ChangeListener<Scene>() {
+    private static final ChangeListener<Scene> SCENE_LISTENER = new ChangeListener<>() {
         @Override
         public void changed(ObservableValue<? extends Scene> observable, Scene oldValue, Scene newValue) {
             if (oldValue != null) {
@@ -65,18 +63,10 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
                     addListener(newValue.getWindow());
                     // Falls das Fenster mit dem Popup geschlossen wird.
                     if (newValue.getWindow().getOnHiding() == null) {
-                        newValue.getWindow().setOnHiding(new EventHandler<WindowEvent>() {
-                            public void handle(WindowEvent event) {
-                                POPUP.hide();
-                            }
-                        });
+                        newValue.getWindow().setOnHiding(event -> POPUP.hide());
                     }
                     if (newValue.getWindow().getOnCloseRequest() == null) {
-                        newValue.getWindow().setOnCloseRequest(new EventHandler<WindowEvent>() {
-                            public void handle(WindowEvent event) {
-                                POPUP.hide();
-                            }
-                        });
+                        newValue.getWindow().setOnCloseRequest(event -> POPUP.hide());
                     }
                 }
             }
@@ -86,26 +76,19 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     /**
      * Listener für das Fenster in der sich die MultiSelectBox befindet.
      */
-    private static final ChangeListener<Window> WINDOW_LISTENER = new ChangeListener<Window>() {
-        @Override
-        public void changed(ObservableValue<? extends Window> observable, Window oldValue, Window newValue) {
-            if (oldValue != null) {
-                oldValue.sceneProperty().removeListener(SCENE_LISTENER);
-                removeListener(oldValue);
+    private static final ChangeListener<Window> WINDOW_LISTENER = (observable, oldValue, newValue) -> {
+        if (oldValue != null) {
+            oldValue.sceneProperty().removeListener(SCENE_LISTENER);
+            removeListener(oldValue);
+        }
+        if (newValue != null) {
+            newValue.sceneProperty().addListener(SCENE_LISTENER);
+            if (newValue.getScene() != null) {
+                SCENE_LISTENER.changed(newValue.sceneProperty(), null, newValue.getScene());
             }
-            if (newValue != null) {
-                newValue.sceneProperty().addListener(SCENE_LISTENER);
-                if (newValue.getScene() != null) {
-                    SCENE_LISTENER.changed(newValue.sceneProperty(), null, newValue.getScene());
-                }
-                addListener(newValue);
-                if (newValue.getOnCloseRequest() == null) {
-                    newValue.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                        public void handle(WindowEvent event) {
-                            POPUP.hide();
-                        }
-                    });
-                }
+            addListener(newValue);
+            if (newValue.getOnCloseRequest() == null) {
+                newValue.setOnCloseRequest(event -> POPUP.hide());
             }
         }
     };
@@ -113,11 +96,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     /**
      * Wird ausgelöst, wenn sich die Fenstergröße ändert.
      */
-    private static final InvalidationListener WINDOW_SIZE_LISTENER = new InvalidationListener() {
-        public void invalidated(Observable obserable) {
-            POPUP.hide();
-        }
-    };
+    private static final InvalidationListener WINDOW_SIZE_LISTENER = obserable -> POPUP.hide();
 
     /**
      * Die MultiSelectBox, die der Skin darstellen soll.
@@ -132,7 +111,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     /**
      * ListView mit den Einträgen.
      */
-    private final ListView<E> lstEntries = new ListView<E>();
+    private final ListView<E> lstEntries = new ListView<>();
 
     /**
      * Suchfeld zum Filtern.
@@ -158,23 +137,17 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     /**
      * Wird ausgelöst bei Änderungen im Filtertext.
      */
-    private final ChangeListener<String> textListener = new ChangeListener<String>() {
-        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-            searchEntries(newValue.toLowerCase());
-        }
-    };
+    private final ChangeListener<String> textListener = (observable, oldValue, newValue) -> searchEntries(newValue.toLowerCase());
 
     /**
      * Wird ausgelöst bei Änderungen an der Größe der MultiSelectBox.
      */
-    private final ChangeListener<Number> onSizeChange = new ChangeListener<Number>() {
-        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-            positionPopup();
-            setSearchfieldLength();
-        }
+    private final ChangeListener<Number> onSizeChange = (observable, oldValue, newValue) -> {
+        positionPopup();
+        setSearchfieldLength();
     };
 
-    private final ChangeListener<Number> onFlowPaneHeightChanged = new ChangeListener<Number>() {
+    private final ChangeListener<Number> onFlowPaneHeightChanged = new ChangeListener<>() {
         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
             double newHeight = newValue.doubleValue();
             if (newHeight < MIN_HEIGHT) {
@@ -190,19 +163,17 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     /**
      * Wird ausgelöst, wenn sich die gewählten Einträge ändern.
      */
-    private final ListChangeListener<E> selectedChange = new ListChangeListener<E>() {
-        public void onChanged(javafx.collections.ListChangeListener.Change<? extends E> change) {
-            while (change.next()) {
-                if (change.wasRemoved()) {
-                    removeFlowpaneLabels(change.getRemoved());
-                }
-                if (change.wasAdded()) {
-                    removeDeleteStyleClass();
-                    addFlowpaneLabels(change.getAddedSubList());
-                }
+    private final ListChangeListener<E> selectedChange = change -> {
+        while (change.next()) {
+            if (change.wasRemoved()) {
+                removeFlowpaneLabels(change.getRemoved());
             }
-            setSearchfieldLength();
+            if (change.wasAdded()) {
+                removeDeleteStyleClass();
+                addFlowpaneLabels(change.getAddedSubList());
+            }
         }
+        setSearchfieldLength();
     };
 
     /**
@@ -218,59 +189,48 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     /**
      * Wird ausgelöst, wenn sich die Anzahl an auswählbaren Items ändert.
      */
-    private final InvalidationListener changeItemsSize = new InvalidationListener() {
-        @Override
-        public void invalidated(Observable observable) {
-            // Aktualisiert die Größe der Auswahlliste, wenn sich der Inhalt ändert
-            lstEntries.setPrefHeight(lstEntries.getFixedCellSize() * selectableItems.size() + 3);
-        }
+    private final InvalidationListener changeItemsSize = observable -> {
+        // Aktualisiert die Größe der Auswahlliste, wenn sich der Inhalt ändert
+        lstEntries.setPrefHeight(lstEntries.getFixedCellSize() * selectableItems.size() + 3);
     };
 
     /**
      * Auswahlliste ausblenden, wenn Textfield defokussiert wird.
      */
-    private final ChangeListener<Boolean> onSearchFieldFocusLost = new ChangeListener<Boolean>() {
-        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-            if (!newValue && (!flowPane.isHover() || POPUP.isFocused())) {
-                // Prüft, ob ein Klick auf das Flowpane stattfindet. Falls nein, wird die Tastatur benutzt um die
-                // MultiSelectBox zu verlassen und das Menü wird ausgeblendet.
-                // Falls ja, wird ein Mausklick ausgeführt. Die Aus- bzw. Einblendaktion wird durch die onTextFieldClick
-                // methode behandelt.
-                if (!flowPane.isPressed()) {
-                    removeDeleteStyleClass();
-                    POPUP.hide();
-                }
+    private final ChangeListener<Boolean> onSearchFieldFocusLost = (observable, oldValue, newValue) -> {
+        if (!newValue && (!flowPane.isHover() || POPUP.isFocused())) {
+            // Prüft, ob ein Klick auf das Flowpane stattfindet. Falls nein, wird die Tastatur benutzt um die
+            // MultiSelectBox zu verlassen und das Menü wird ausgeblendet.
+            // Falls ja, wird ein Mausklick ausgeführt. Die Aus- bzw. Einblendaktion wird durch die onTextFieldClick
+            // methode behandelt.
+            if (!flowPane.isPressed()) {
+                removeDeleteStyleClass();
+                POPUP.hide();
             }
-            setSearchfieldLength();
         }
+        setSearchfieldLength();
     };
 
     /**
      * Wird ausgelöst, wenn der Nutzer einen Eintrag in der Auswahlliste anklickt. Dieser wird dann ausgewählt und das
      * Popup geschlossen.
      */
-    private final EventHandler<MouseEvent> onListEntryClick = new EventHandler<MouseEvent>() {
-        public void handle(MouseEvent event) {
-            selectEntry();
-        }
-    };
+    private final EventHandler<MouseEvent> onListEntryClick = event -> selectEntry();
 
     /**
      * Wird ausgelöst, wenn der Nutzer das Suchfeld anklickt (bzw. das Flowpane drumrum). Dann wird das Popup angezeigt
      * oder ausgeblendet.
      */
-    private final EventHandler<MouseEvent> onTextFieldClick = new EventHandler<MouseEvent>() {
-        public void handle(MouseEvent event) {
-            searchField.requestFocus();
-            searchField.end();
-            removeDeleteStyleClass();
-            if (POPUP.isShowing()) {
-                POPUP.hide();
-            } else {
-                showPopup();
-                if (lstEntries.getSelectionModel().isEmpty()) {
-                    lstEntries.getSelectionModel().selectFirst();
-                }
+    private final EventHandler<MouseEvent> onTextFieldClick = event -> {
+        searchField.requestFocus();
+        searchField.end();
+        removeDeleteStyleClass();
+        if (POPUP.isShowing()) {
+            POPUP.hide();
+        } else {
+            showPopup();
+            if (lstEntries.getSelectionModel().isEmpty()) {
+                lstEntries.getSelectionModel().selectFirst();
             }
         }
     };
@@ -278,7 +238,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     /**
      * Wird ausgelöst, wenn eine Taste gedrückt wird.
      */
-    private final EventHandler<KeyEvent> onKeyPressed = new EventHandler<KeyEvent>() {
+    private final EventHandler<KeyEvent> onKeyPressed = new EventHandler<>() {
         public void handle(KeyEvent event) {
             // Überprüft, ob der Tastendruck dazu benutzt wird, um die Auswahlliste anzuzeigen.
             if (event.getSource() == searchField) {
@@ -329,11 +289,9 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     /**
      * Leitet Fokussierungen des äußeren Controls an {@link #searchField} weiter.
      */
-    private final ChangeListener<Boolean> onControlFocused = new ChangeListener<Boolean>() {
-        public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-            if (newValue) {
-                searchField.requestFocus();
-            }
+    private final ChangeListener<Boolean> onControlFocused = (observable, oldValue, newValue) -> {
+        if (newValue) {
+            searchField.requestFocus();
         }
     };
 
@@ -394,7 +352,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
         lstEntries.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         lstEntries.setOnMouseClicked(onListEntryClick);
         lstEntries.setOnKeyPressed(onKeyPressed);
-        lstEntries.setCellFactory(BaseElementListCell.<E>createFactory());
+        lstEntries.setCellFactory(BaseElementListCell.createFactory());
 
         selectableItems.addListener(changeItemsSize);
         sceneProperty().addListener(SCENE_LISTENER);
@@ -452,7 +410,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
      * KuerzelElementBean handelt, werden Kuerzel und Name abgeglichen. Falls es sich um ein NamedElementBean handelt,
      * wird der Name abgeglichen. Sonstige Objekte werden mit ihrer toString() Methode abgeglichen.
      *
-     * @param obj        Das Objekt, das abgeglichen werden soll.
+     * @param obj Das Objekt, das abgeglichen werden soll.
      * @param searchText Der Text, nachdem gesucht werden soll.
      * @return true, wenn das Objekt mit dem Suchtext übereinstimmt, andernfalls false.
      */
@@ -471,7 +429,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
     /**
      * Vergleicht 2 Strings miteinander.
      *
-     * @param value      Der Wert eines Elements in Stringform, der abgeglichen werden soll.
+     * @param value Der Wert eines Elements in Stringform, der abgeglichen werden soll.
      * @param searchText Der Suchtext, nachdem gesucht werden soll.
      * @return true, wenn der Wert des elements nicht null ist und den Suchtext enthält, andernfalls false.
      */
@@ -541,19 +499,14 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
      * @param searchString Der Text, nach dem gefiltert wird.
      */
     private void sortList(String searchString) {
-        FXCollections.sort(selectableItems, new Comparator<E>() {
-            @Override
-            public int compare(E o1, E o2) {
-                return Integer.compare(getPriority(searchString, o2), getPriority(searchString, o1));
-            }
-        });
+        FXCollections.sort(selectableItems, (o1, o2) -> Integer.compare(getPriority(searchString, o2), getPriority(searchString, o1)));
     }
 
     /**
      * Prüft, von welchem Objekttyp ein Element ist und gibt die Priorität im Vergleich zu dem Suchstring zurück.
      *
      * @param searchString Der Suchstring, nach dem gefiltert wird.
-     * @param element      Das Element, das abzugleichen ist.
+     * @param element Das Element, das abzugleichen ist.
      * @return 1, falls das Element mit dem String identisch ist, 0 falls das Element mit dem Suchstring beginnt und -1
      * wenn der Suchstring im Element enthalten ist.
      */
@@ -573,7 +526,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
      * Vergleicht 2 Strings miteinander und gibt die Priorität der Übereinstimmung zurück.
      *
      * @param searchString Der String, nach dem gesucht wird.
-     * @param element      Das Element in dem nach dem Suchstring gesucht wird.
+     * @param element Das Element in dem nach dem Suchstring gesucht wird.
      * @return 1, falls die 2 Strings identisch sind, 0 falls das element mit dem Suchstring beginnt und -1 wenn der
      * Suchstring im element enthalten ist.
      */
@@ -607,11 +560,9 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
 
         // Benötigt, da bei normalen Funktionsaufruf das Suchfeld nicht
         // fokusiert wird.
-        Platform.runLater(new Runnable() {
-            public void run() {
-                searchField.requestFocus();
-                searchField.end();
-            }
+        Platform.runLater(() -> {
+            searchField.requestFocus();
+            searchField.end();
         });
         setSearchfieldLength();
     }
@@ -660,7 +611,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
      * @param list Liste mit items die gelöscht werden sollen.
      */
     private void removeFlowpaneLabels(List<? extends E> list) {
-        List<MultiSelectLabel<E>> delete = new ArrayList<MultiSelectLabel<E>>();
+        List<MultiSelectLabel<E>> delete = new ArrayList<>();
         for (E object : list) {
             for (MultiSelectLabel<E> label : labels) {
                 if (label.getObject() == object) {
@@ -682,7 +633,7 @@ public class MultiSelectBoxSkin<E extends Comparable<? super E>> extends StackPa
      */
     private void addFlowpaneLabels(List<? extends E> list) {
         for (E object : list) {
-            final MultiSelectLabel<E> label = new MultiSelectLabel<E>(object);
+            final MultiSelectLabel<E> label = new MultiSelectLabel<>(object);
             label.setOnDelete(event -> deleteEntry(label.getObject()));
             labels.add(label);
             flowPane.getChildren().add(flowPane.getChildren().size() - 1, label);

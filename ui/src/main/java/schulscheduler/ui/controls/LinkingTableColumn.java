@@ -1,18 +1,11 @@
 package schulscheduler.ui.controls;
 
 import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.util.Callback;
 
 /**
  * Eine Tabellenspalte, die aus {@link LinkingTableCell}s besteht, sodass zwischen je zwei Zeilen ein Button angezeigt
  * wird, mit dem die beiden Zeilen verbunden werden können.
- * 
+ *
  * @param <S> Der Typ der TableView (d.h. S == TableView&lt;S&gt;)
  */
 public class LinkingTableColumn<S> extends BasePropertyTableColumn<S, Boolean> {
@@ -35,11 +28,7 @@ public class LinkingTableColumn<S> extends BasePropertyTableColumn<S, Boolean> {
      * das am einfachsten auslösen indem man seine CellFactory ändert.<br>
      * => Neue CellFactory (die dasselbe tut wie die alte) generieren und setzen.
      */
-    private final InvalidationListener baseListChanged = new InvalidationListener() {
-        public void invalidated(Observable observable) {
-            updateCellFactory();
-        }
-    };
+    private final InvalidationListener baseListChanged = observable -> updateCellFactory();
 
     /**
      * Erstellt eine LinkingTableColumn.
@@ -47,14 +36,12 @@ public class LinkingTableColumn<S> extends BasePropertyTableColumn<S, Boolean> {
     public LinkingTableColumn() {
         updateCellFactory();
 
-        tableViewProperty().addListener(new ChangeListener<TableView<S>>() {
-            public void changed(ObservableValue<? extends TableView<S>> observable, TableView<S> oldTableView, TableView<S> newTableView) {
-                if (oldTableView != null) {
-                    oldTableView.itemsProperty().removeListener(baseListChanged);
-                }
-                if (newTableView != null) {
-                    newTableView.itemsProperty().addListener(baseListChanged);
-                }
+        tableViewProperty().addListener((observable, oldTableView, newTableView) -> {
+            if (oldTableView != null) {
+                oldTableView.itemsProperty().removeListener(baseListChanged);
+            }
+            if (newTableView != null) {
+                newTableView.itemsProperty().addListener(baseListChanged);
             }
         });
     }
@@ -63,11 +50,7 @@ public class LinkingTableColumn<S> extends BasePropertyTableColumn<S, Boolean> {
      * Erstelt eine neue CellFactory und gibt sie an die Spalte weiter.
      */
     private void updateCellFactory() {
-        this.setCellFactory(new Callback<TableColumn<S, Boolean>, TableCell<S, Boolean>>() {
-            public TableCell<S, Boolean> call(TableColumn<S, Boolean> param) {
-                return new LinkingTableCell<>();
-            }
-        });
+        this.setCellFactory(param -> new LinkingTableCell<>());
     }
 
 }
