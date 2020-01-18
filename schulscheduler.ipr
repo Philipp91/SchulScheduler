@@ -45,6 +45,8 @@
     <bytecodeTargetLevel target="13">
       <module name="schulscheduler.commons.main" target="13" />
       <module name="schulscheduler.commons.test" target="13" />
+      <module name="schulscheduler.scip.main" target="13" />
+      <module name="schulscheduler.scip.test" target="13" />
       <module name="schulscheduler.ui.main" target="13" />
       <module name="schulscheduler.ui.test" target="13" />
     </bytecodeTargetLevel>
@@ -54,6 +56,7 @@
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -65,6 +68,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/commons" />
+            <option value="$PROJECT_DIR$/scip" />
             <option value="$PROJECT_DIR$/ui" />
           </set>
         </option>
@@ -106,6 +110,9 @@
       <module fileurl="file://$PROJECT_DIR$/commons/schulscheduler.commons.iml" filepath="$PROJECT_DIR$/commons/schulscheduler.commons.iml" />
       <module fileurl="file://$PROJECT_DIR$/commons/schulscheduler.commons.main.iml" filepath="$PROJECT_DIR$/commons/schulscheduler.commons.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/commons/schulscheduler.commons.test.iml" filepath="$PROJECT_DIR$/commons/schulscheduler.commons.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scip/schulscheduler.scip.iml" filepath="$PROJECT_DIR$/scip/schulscheduler.scip.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scip/schulscheduler.scip.main.iml" filepath="$PROJECT_DIR$/scip/schulscheduler.scip.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/scip/schulscheduler.scip.test.iml" filepath="$PROJECT_DIR$/scip/schulscheduler.scip.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui/schulscheduler.ui.iml" filepath="$PROJECT_DIR$/ui/schulscheduler.ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui/schulscheduler.ui.main.iml" filepath="$PROJECT_DIR$/ui/schulscheduler.ui.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui/schulscheduler.ui.test.iml" filepath="$PROJECT_DIR$/ui/schulscheduler.ui.test.iml" />
@@ -136,6 +143,7 @@
   </component>
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/scip/JSCIPOpt" vcs="Git" />
   </component>
   <component name="libraryTable">
     <library name="Gradle: com.google.code.findbugs:jsr305:3.0.2">
