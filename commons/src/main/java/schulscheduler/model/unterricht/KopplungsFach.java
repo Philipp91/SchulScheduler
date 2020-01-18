@@ -1,12 +1,13 @@
 package schulscheduler.model.unterricht;
 
+import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.fxmisc.easybind.EasyBind;
 import schulscheduler.model.NoUndoTracking;
 import schulscheduler.model.base.BaseElement;
 import schulscheduler.model.schule.Fach;
@@ -18,17 +19,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 @XmlRootElement(name = "kopplungsFach")
-class KopplungsFach extends BaseElement {
+public class KopplungsFach extends BaseElement {
 
     private final SimpleObjectProperty<Fach> fach = new SimpleObjectProperty<>(this, "fach"); // Constant Reference
     private final SimpleListProperty<Lehrer> lehrer = new SimpleListProperty<>(this, "lehrer", FXCollections.observableArrayList()); // Reference
 
-    private final BooleanBinding hart;
+    private final Binding<Boolean> hart;
 
     public KopplungsFach() {
         toShortString.bind(Bindings.concat(fach));
         toLongString.bind(toShortString);
-        hart = Bindings.selectBoolean(fach, "hart");
+        hart = EasyBind.select(fach).selectObject(Fach::hartProperty).orElse(false);
+    }
+
+    public KopplungsFach(Fach fach) {
+        this();
+        this.fach.set(fach);
     }
 
     @XmlElement(name = "fach")
@@ -58,10 +64,10 @@ class KopplungsFach extends BaseElement {
     }
 
     public boolean isHart() {
-        return hart.get();
+        return hart.getValue();
     }
 
-    public BooleanBinding hartBinding() {
+    public Binding<Boolean> hartBinding() {
         return hart;
     }
 

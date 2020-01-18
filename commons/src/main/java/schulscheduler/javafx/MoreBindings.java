@@ -1,16 +1,17 @@
 package schulscheduler.javafx;
 
-import griffon.javafx.beans.binding.CollectionBindings;
-import griffon.javafx.collections.ElementObservableList;
+import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
-import javafx.util.Callback;
+import org.fxmisc.easybind.EasyBind;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * Functions that should really be in {@link Bindings} in the JavaFX SDK.
@@ -62,13 +63,8 @@ public class MoreBindings {
      * @param <T> The outer type.
      * @return A binding for the joined string.
      */
-    public static final <T> StringBinding join(final String delimiter, final ObservableList<T> items,
-                                               final Callback<T, ObservableValue<String>> toString) {
-        return CollectionBindings.joinList(
-                // Ensures that the binding is updated also when the inner strings update.
-                new ElementObservableList<>(items, item -> new ObservableValue[]{toString.call(item)}),
-                delimiter,
-                item -> toString.call(item).getValue()
-        );
+    public static final <T> Binding<String> join(final String delimiter, final ObservableList<T> items,
+                                                 final Function<T, ObservableValue<String>> toString) {
+        return EasyBind.combine(EasyBind.map(items, toString), stream -> stream.collect(Collectors.joining(delimiter)));
     }
 }

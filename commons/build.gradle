@@ -16,7 +16,7 @@ javafx {
 dependencies {
     implementation "com.google.code.findbugs:jsr305:${findbugsVersion}"
     implementation "javax.xml.bind:jaxb-api:2.3.1"
-    implementation "org.codehaus.griffon:griffon-javafx:${griffonVersion}"
+    implementation "org.fxmisc.easybind:easybind:${easybindVersion}"
 
     testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
     testImplementation "org.hamcrest:hamcrest:${hamcrestVersion}"

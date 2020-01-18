@@ -1,14 +1,12 @@
 package schulscheduler.model.unterricht;
 
-import griffon.javafx.beans.binding.MatchingBindings;
-import griffon.javafx.collections.ElementObservableList;
+import javafx.beans.binding.Binding;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.When;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.fxmisc.easybind.EasyBind;
 import schulscheduler.javafx.MoreBindings;
 import schulscheduler.model.NoUndoTracking;
 
@@ -23,7 +21,7 @@ public class Kopplung extends Unterrichtseinheit {
     private final SimpleListProperty<Klasse> klassen = new SimpleListProperty<>(this, "klassen", FXCollections.observableArrayList()); // Reference
     private final SimpleListProperty<Zuweisung> zuweisungen = new SimpleListProperty<>(this, "zuweisungen", FXCollections.observableArrayList()); // Reference
     private final SimpleListProperty<KopplungsFach> faecher = new SimpleListProperty<>(this, "faecher", FXCollections.observableArrayList());
-    private final BooleanBinding hart;
+    private final Binding<Boolean> hart;
 
     public Kopplung() {
         toShortString.bind(new When(klassen.emptyProperty().or(faecher.emptyProperty()))
@@ -34,10 +32,7 @@ public class Kopplung extends Unterrichtseinheit {
                 )));
         toLongString.bind(toShortString);
 
-        hart = MatchingBindings.anyMatch(
-                new ElementObservableList<>(faecher, fach -> new ObservableValue[]{Objects.requireNonNull(fach).hartBinding()}),
-                KopplungsFach::isHart
-        );
+        hart = EasyBind.combine(EasyBind.map(faecher, KopplungsFach::hartBinding), stream -> stream.anyMatch(hart -> hart));
     }
 
     /**
@@ -96,10 +91,10 @@ public class Kopplung extends Unterrichtseinheit {
     }
 
     public boolean isHart() {
-        return hart.get();
+        return hart.getValue();
     }
 
-    public BooleanBinding hartBinding() {
+    public Binding<Boolean> hartBinding() {
         return hart;
     }
 

@@ -9,7 +9,7 @@ ext {
     // Main dependencies
     daggerVersion = '2.25.3'
     findbugsVersion = '3.0.2'
-    griffonVersion = '2.15.1'
+    easybindVersion = '1.0.4-SNAPSHOT'
 
     // Development dependencies
     junitVersion = '5.5.2'
@@ -19,9 +19,12 @@ ext {
 
 allprojects {
     repositories {
-        jcenter() 
+        jcenter()
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
     }
-    
+
     apply plugin: 'idea'
 }
 
