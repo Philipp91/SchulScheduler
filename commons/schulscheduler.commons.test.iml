@@ -16,11 +16,15 @@
     <orderEntry type="library" name="Gradle: javax.xml.bind:jaxb-api:2.3.1" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.5.2" level="project" />
     <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest:2.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.mockito:mockito-core:2.28.2" level="project" />
     <orderEntry type="library" name="Gradle: javax.activation:javax.activation-api:1.2.0" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.5.2" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.5.2" level="project" />
-    <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1" level="project" />
+    <orderEntry type="library" name="Gradle: net.bytebuddy:byte-buddy:1.9.10" level="project" />
+    <orderEntry type="library" name="Gradle: net.bytebuddy:byte-buddy-agent:1.9.10" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.5.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.objenesis:objenesis:2.6" level="project" />
+    <orderEntry type="library" name="Gradle: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-commons:1.5.2" level="project" />
     <orderEntry type="library" name="Gradle: org.apiguardian:apiguardian-api:1.1.0" level="project" />

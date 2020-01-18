@@ -1,23 +1,23 @@
 plugins {
-  id 'application'
-  id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version "${javafxpluginVersion}"
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_13
-    targetCompatibility = JavaVersion.VERSION_13
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
 }
 
 javafx {
-    version = '13'
-    modules = [ 'javafx.base', 'javafx.controls', 'javafx.fxml' ]
+    version = javafxVersion
+    modules = ['javafx.base', 'javafx.controls', 'javafx.fxml']
 }
 
 dependencies {
     implementation project(':commons')
 
-    implementation 'com.google.dagger:dagger:2.25.3'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.25.3'
+    implementation "com.google.dagger:dagger:${daggerVersion}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
 }
 
 mainClassName = 'schulscheduler.main.Bootstrap'

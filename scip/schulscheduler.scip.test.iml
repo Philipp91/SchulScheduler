@@ -18,12 +18,12 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.5.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-base:win:13" level="project" />
+    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.5.2" level="project" />
     <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest:2.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.codehaus.griffon:griffon-javafx:2.15.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.codehaus.griffon:griffon-core:2.15.1" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.5.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.codehaus.griffon:griffon-core:2.15.1" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.5.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: javax.xml.bind:jaxb-api:2.3.1" level="project" />

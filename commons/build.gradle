@@ -1,25 +1,26 @@
 plugins {
     id 'java-library'
-    id 'org.openjfx.javafxplugin' version '0.0.8'
+    id 'org.openjfx.javafxplugin' version "${javafxpluginVersion}"
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_13
-    targetCompatibility = JavaVersion.VERSION_13
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
 }
 
 javafx {
-    version = '13'
-    modules = [ 'javafx.base' ]
+    version = javafxVersion
+    modules = ['javafx.base']
 }
 
 dependencies {
-    implementation 'com.google.code.findbugs:jsr305:3.0.2'
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
-    implementation 'org.codehaus.griffon:griffon-javafx:2.15.1'
+    implementation "com.google.code.findbugs:jsr305:${findbugsVersion}"
+    implementation "javax.xml.bind:jaxb-api:2.3.1"
+    implementation "org.codehaus.griffon:griffon-javafx:${griffonVersion}"
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
-    testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
+    testImplementation "org.hamcrest:hamcrest:${hamcrestVersion}"
+    testImplementation "org.mockito:mockito-core:${mockitoVersion}"
 }
 
 test {
