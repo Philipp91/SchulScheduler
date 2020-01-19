@@ -8,10 +8,14 @@ import schulscheduler.model.eingabe.Eingabedaten;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.IOException;
 import java.util.Objects;
 
 @XmlRootElement(name = "ergebnisdaten")
 public class Ergebnisdaten {
+
+    @XmlElement(name = "modelVersion")
+    public final int modelVersion = 1;
 
     private final SimpleObjectProperty<Eingabedaten> eingabedaten = new SimpleObjectProperty<>(this, "eingabedaten");
 

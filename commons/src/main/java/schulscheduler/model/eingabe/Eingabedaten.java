@@ -9,10 +9,16 @@ import schulscheduler.model.schule.*;
 import schulscheduler.model.unterricht.*;
 
 import javax.annotation.Nonnull;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.IOException;
 import java.util.*;
 
+@XmlRootElement(name = "eingabedaten")
 public class Eingabedaten {
+
+    @XmlElement(name = "modelVersion")
+    public final int modelVersion = 1;
 
     private final SimpleListProperty<Stunde> stunden = new SimpleListProperty<>(this, "stunden", FXCollections.observableList(new java.util.ArrayList<>()));
     private final SimpleListProperty<Zeitslot> zeitslots = new SimpleListProperty<>(this, "zeitslots", FXCollections.observableList(new java.util.ArrayList<>()));
@@ -273,6 +279,7 @@ public class Eingabedaten {
         }
     }
 
+    @XmlElement(name = "stunden")
     public ObservableList<Stunde> getStunden() {
         return stunden.get();
     }
@@ -285,6 +292,7 @@ public class Eingabedaten {
         this.stunden.set(stunden);
     }
 
+    @XmlElement(name = "zeitslots")
     public ObservableList<Zeitslot> getZeitslots() {
         return zeitslots.get();
     }
@@ -297,6 +305,7 @@ public class Eingabedaten {
         this.zeitslots.set(zeitslots);
     }
 
+    @XmlElement(name = "lehrer")
     public ObservableList<Lehrer> getLehrer() {
         return lehrer.get();
     }
@@ -309,6 +318,7 @@ public class Eingabedaten {
         this.lehrer.set(lehrer);
     }
 
+    @XmlElement(name = "faecher")
     public ObservableList<Fach> getFaecher() {
         return faecher.get();
     }
@@ -321,6 +331,7 @@ public class Eingabedaten {
         this.faecher.set(faecher);
     }
 
+    @XmlElement(name = "klassen")
     public ObservableList<Klasse> getKlassen() {
         return klassen.get();
     }
@@ -333,6 +344,7 @@ public class Eingabedaten {
         this.klassen.set(klassen);
     }
 
+    @XmlElement(name = "profile")
     public ObservableList<Profil> getProfile() {
         return profile.get();
     }
@@ -345,6 +357,7 @@ public class Eingabedaten {
         this.profile.set(profile);
     }
 
+    @XmlElement(name = "zuweisungen")
     public ObservableList<Zuweisung> getZuweisungen() {
         return zuweisungen.get();
     }
@@ -357,6 +370,7 @@ public class Eingabedaten {
         this.zuweisungen.set(zuweisungen);
     }
 
+    @XmlElement(name = "kopplungen")
     public ObservableList<Kopplung> getKopplungen() {
         return kopplungen.get();
     }
@@ -369,6 +383,7 @@ public class Eingabedaten {
         this.kopplungen.set(kopplungen);
     }
 
+    @XmlElement(name = "parameter")
     public BerechnungsParameter getParameter() {
         return parameter.get();
     }

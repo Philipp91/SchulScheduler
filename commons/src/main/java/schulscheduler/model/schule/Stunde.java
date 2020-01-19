@@ -24,7 +24,7 @@ public class Stunde extends BaseElement implements Comparable<Stunde> {
 
     public Stunde() {
         toShortString.bind(nummer.asString());
-        toLongString.bind(Bindings.format("Stunde %i", nummer));
+        toLongString.bind(Bindings.format("Stunde %s", nummer));
     }
 
     public Stunde(int nummer) {
