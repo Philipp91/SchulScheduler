@@ -57,7 +57,7 @@ public class Zeitslot extends BaseElement implements Comparable<Zeitslot> {
         this.stunde.set(stunde);
     }
 
-    @XmlElement(name = "wochentag")
+    @XmlElement(name = "tag")
     public EnumWochentag getWochentag() {
         return wochentag.get();
     }

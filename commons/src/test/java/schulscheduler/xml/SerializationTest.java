@@ -28,6 +28,7 @@ public class SerializationTest {
         assertThat(data.getStunden().get(0).getNummer(), is(1));
         assertThat(data.getStunden().get(0).getBeginn(), is("07:40"));
         assertThat(data.getZeitslots().get(0).getStunde(), is(sameInstance(data.getStunden().get(0))));
+        assertThat(data.getZeitslots().get(0).toShortString(), is("Mo1"));
 
         assertThat(data.getKopplungen().get(0).getKlassen().get(0), is(sameInstance(data.getKlassen().get(0))));
         assertThat(data.getKopplungen().get(0).getFaecher().get(0).getFach().getKuerzel(), is("Re"));
