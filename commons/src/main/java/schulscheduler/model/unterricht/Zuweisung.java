@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 @XmlRootElement(name = "zuweisung")
 public class Zuweisung extends Unterrichtseinheit {
@@ -26,7 +27,7 @@ public class Zuweisung extends Unterrichtseinheit {
     private final SimpleObjectProperty<Klasse> klasse = new SimpleObjectProperty<>(this, "klasse"); // Constant Reference
 
     public Zuweisung() {
-        toShortString.bind(Bindings.format("{0}-{1}", klasse, fach));
+        toShortString.bind(Bindings.format("%s-%s", klasse, fach));
         toLongString.bind(Bindings.concat("Zuweisung ", toShortString));
     }
 
@@ -37,6 +38,21 @@ public class Zuweisung extends Unterrichtseinheit {
         setLehrer(lehrer);
         this.fach.set(fach);
         this.klasse.set(klasse);
+    }
+
+    @Override
+    public Stream<Klasse> getAllKlassen() {
+        return Stream.of(klasse.get());
+    }
+
+    @Override
+    public Stream<Lehrer> getAllLehrer() {
+        return Stream.of(lehrer.get());
+    }
+
+    @Override
+    public Stream<Fach> getAllFaecher() {
+        return Stream.of(fach.get());
     }
 
     /**

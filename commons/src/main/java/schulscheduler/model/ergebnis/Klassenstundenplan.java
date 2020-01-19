@@ -5,9 +5,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import schulscheduler.model.NoUndoTracking;
 import schulscheduler.model.unterricht.Klasse;
 
+import javax.annotation.Nonnull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Collection;
 import java.util.Objects;
 
 @XmlRootElement(name = "klassenstundenplan")
@@ -18,6 +20,12 @@ public class Klassenstundenplan extends Stundenplan {
     public Klassenstundenplan() {
         toShortString.bind(Bindings.concat(klasse));
         toLongString.bind(Bindings.concat("Klasse ", klasse));
+    }
+
+    public Klassenstundenplan(@Nonnull Klasse klasse, @Nonnull Collection<Unterricht> unterrichte) {
+        this();
+        setKlasse(klasse);
+        getUnterricht().setAll(unterrichte);
     }
 
     @XmlElement(name = "klasse")

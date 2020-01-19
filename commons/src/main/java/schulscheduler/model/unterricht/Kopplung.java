@@ -9,11 +9,14 @@ import javafx.collections.ObservableList;
 import org.fxmisc.easybind.EasyBind;
 import schulscheduler.javafx.MoreBindings;
 import schulscheduler.model.NoUndoTracking;
+import schulscheduler.model.schule.Fach;
+import schulscheduler.model.schule.Lehrer;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 @XmlRootElement(name = "kopplung")
 public class Kopplung extends Unterrichtseinheit {
@@ -33,6 +36,21 @@ public class Kopplung extends Unterrichtseinheit {
         toLongString.bind(toShortString);
 
         hart = EasyBind.combine(EasyBind.map(faecher, KopplungsFach::hartBinding), stream -> stream.anyMatch(hart -> hart));
+    }
+
+    @Override
+    public Stream<Klasse> getAllKlassen() {
+        return klassen.stream();
+    }
+
+    @Override
+    public Stream<Lehrer> getAllLehrer() {
+        return faecher.stream().flatMap(fach -> fach.getLehrer().stream());
+    }
+
+    @Override
+    public Stream<Fach> getAllFaecher() {
+        return faecher.stream().map(KopplungsFach::getFach);
     }
 
     /**

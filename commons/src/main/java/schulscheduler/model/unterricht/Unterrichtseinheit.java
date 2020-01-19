@@ -6,18 +6,36 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import schulscheduler.model.NoUndoTracking;
 import schulscheduler.model.base.BaseElement;
+import schulscheduler.model.schule.Fach;
+import schulscheduler.model.schule.Lehrer;
 import schulscheduler.model.schule.Zeitslot;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 @XmlRootElement(name = "unterrichtseinheit")
 public abstract class Unterrichtseinheit extends BaseElement {
 
     private final SimpleIntegerProperty wochenstunden = new SimpleIntegerProperty(this, "wochenstunden");
     private final SimpleListProperty<Zeitslot> fixeStunden = new SimpleListProperty<>(this, "fixeStunden", FXCollections.observableArrayList()); // Reference
+
+    /**
+     * @return Alle Klassen, die an dieser Unterrichtseinheit beteiligt sind, d.h. die anwesend sein müssen.
+     */
+    public abstract Stream<Klasse> getAllKlassen();
+
+    /**
+     * @return Alle Lehrer, die an dieser Unterrichtseinheit beteiligt sind, d.h. die anwesend sein müssen.
+     */
+    public abstract Stream<Lehrer> getAllLehrer();
+
+    /**
+     * @return Alle Fächer, die im Rahmen dieser Unterrichtseinheit unterrichtet werden.
+     */
+    public abstract Stream<Fach> getAllFaecher();
 
     @XmlElement(name = "wochenstunden")
     public int getWochenstunden() {
