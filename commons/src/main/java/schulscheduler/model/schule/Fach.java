@@ -45,12 +45,13 @@ public class Fach extends KuerzelElement {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Fach fach = (Fach) o;
         return isHart() == fach.isHart();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(isHart());
+        return Objects.hash(super.hashCode(), isHart());
     }
 }

@@ -31,12 +31,13 @@ public class Profil extends NamedElement {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Profil profil = (Profil) o;
         return Objects.equals(getEintraege(), profil.getEintraege());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEintraege());
+        return Objects.hash(super.hashCode(), getEintraege());
     }
 }

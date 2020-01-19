@@ -102,6 +102,7 @@ public class Lehrer extends KuerzelElement {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Lehrer lehrer = (Lehrer) o;
         return getDeputat() == lehrer.getDeputat() &&
                 Objects.equals(getLehrt(), lehrer.getLehrt()) &&
@@ -111,6 +112,6 @@ public class Lehrer extends KuerzelElement {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getDeputat(), getLehrt(), getVerfuegbarkeit(), isFreierTag());
+        return Objects.hash(super.hashCode(), getDeputat(), getLehrt(), getVerfuegbarkeit(), isFreierTag());
     }
 }

@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
+import java.util.Objects;
 
 /**
  * Base class for elements with an observable ID and toString.
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.XmlID;
 public abstract class BaseElement implements IDElement {
     private static int idCounter = 0;
 
-    private final SimpleIntegerProperty idProperty = new SimpleIntegerProperty(this, "id");
+    private final SimpleIntegerProperty id = new SimpleIntegerProperty(this, "id");
 
     protected final ReadOnlyStringWrapper idString = new ReadOnlyStringWrapper(); // For "overrides".
     protected final StringExpression typeAndIdExpression = Bindings.concat(getClass().getSimpleName(), " ", idString);
@@ -23,8 +24,8 @@ public abstract class BaseElement implements IDElement {
     protected final ReadOnlyStringWrapper toLongString = new ReadOnlyStringWrapper();
 
     public BaseElement() {
-        idProperty.set(idCounter++);
-        idString.bind(idProperty.asString());
+        id.set(idCounter++);
+        idString.bind(id.asString());
         toShortString.bind(typeAndIdExpression);
         toLongString.bind(typeAndIdExpression);
     }
@@ -33,18 +34,18 @@ public abstract class BaseElement implements IDElement {
     @XmlID
     @Override
     public Integer getId() {
-        return idProperty.get();
+        return id.get();
     }
 
     public void setId(final Integer id) {
-        idProperty.set(id);
+        this.id.set(id);
         if ((idCounter < id)) {
             idCounter = id;
         }
     }
 
     public SimpleIntegerProperty idProperty() {
-        return idProperty;
+        return id;
     }
 
     protected ReadOnlyStringProperty idStringProperty() {
@@ -70,5 +71,18 @@ public abstract class BaseElement implements IDElement {
 
     public ReadOnlyStringProperty toLongStringProperty() {
         return toLongString.getReadOnlyProperty();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BaseElement that = (BaseElement) o;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 }
