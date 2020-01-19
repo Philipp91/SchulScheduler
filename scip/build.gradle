@@ -9,8 +9,10 @@ java {
 
 dependencies {
     implementation project(':commons')
+    implementation project(':solver')
     implementation files('JSCIPOpt/build/Release/scip.jar')
 
+    testImplementation project(path: ':commons', configuration: 'testClasses')
     testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
     testImplementation "org.hamcrest:hamcrest:${hamcrestVersion}"
 }
