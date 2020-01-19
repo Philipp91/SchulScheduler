@@ -21,20 +21,24 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-base:win:13" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter:5.5.2" level="project" />
     <orderEntry type="library" name="Gradle: org.hamcrest:hamcrest:2.2" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.codehaus.griffon:griffon-javafx:2.15.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.5.2" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.codehaus.griffon:griffon-core:2.15.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.5.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.google.code.findbugs:jsr305:3.0.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: javax.xml.bind:jaxb-api:2.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-params:5.5.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.5.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.glassfish.jaxb:jaxb-runtime:2.3.2" level="project" />
     <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-commons:1.5.2" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: javax.activation:javax.activation-api:1.2.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.fxmisc.easybind:easybind:1.0.4-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Gradle: org.apiguardian:apiguardian-api:1.1.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: javax.activation:javax.activation-api:1.2.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.jvnet.staxex:stax-ex:1.8.1" level="project" />
     <orderEntry type="library" name="Gradle: org.opentest4j:opentest4j:1.2.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: javax.inject:javax.inject:1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.slf4j:slf4j-api:1.7.25" level="project" />
-    <orderEntry type="module" module-name="schulscheduler.commons.main" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.glassfish.jaxb:txw2:2.3.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.sun.istack:istack-commons-runtime:3.0.8" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.5.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.sun.xml.fastinfoset:FastInfoset:1.2.16" level="project" />
+    <orderEntry type="module" module-name="schulscheduler.commons.main" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: jakarta.activation:jakarta.activation-api:1.2.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.platform:junit-platform-engine:1.5.2" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="schulscheduler.scip.main" />

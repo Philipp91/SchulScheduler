@@ -5,10 +5,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import schulscheduler.model.eingabe.Eingabedaten;
+import schulscheduler.xml.Serialization;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.IOException;
 import java.util.Objects;
 
 @XmlRootElement(name = "ergebnisdaten")
@@ -24,14 +24,10 @@ public class Ergebnisdaten {
     private final SimpleListProperty<Klassenstundenplan> klassenStundenplaene = new SimpleListProperty<>(this, "klassenStundenplaene", FXCollections.observableArrayList());
 
     /**
-     * @return A deep-copy of this using Java Object Serialization (JOS).
+     * @return A deep-copy of this using XML serialization.
      */
     public Ergebnisdaten copy() {
-//        try {
-        return null; // TODO Serialization.javaClone(this);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        return Serialization.xmlClone(this);
     }
 
     @XmlElement(name = "eingabedaten")

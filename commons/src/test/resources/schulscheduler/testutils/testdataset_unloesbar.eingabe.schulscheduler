@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<eingabedaten>
+    <modelVersion>1</modelVersion>
+    <faecher id="61">
+        <name>Mathe</name>
+        <kuerzel>M</kuerzel>
+        <hart>false</hart>
+    </faecher>
+    <klassen id="68">
+        <name>5</name>
+    </klassen>
+    <lehrer id="62">
+        <name>Meier</name>
+        <kuerzel>Me</kuerzel>
+        <deputat>6</deputat>
+        <freierTag>false</freierTag>
+        <lehrt>61</lehrt>
+        <verfuegbarkeit id="63">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>2</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="64">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>3</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="65">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>4</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="66">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>5</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="67">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>6</zeitslot>
+        </verfuegbarkeit>
+    </lehrer>
+    <parameter>
+        <harteFaecherFolgen>MITTEL</harteFaecherFolgen>
+        <lehrerHohlstunden>MITTEL</lehrerHohlstunden>
+        <rechendauer>MITTEL</rechendauer>
+        <unerwuenschteLehrerZeitslots>MITTEL</unerwuenschteLehrerZeitslots>
+        <weicheNachmittagsFaecher>MITTEL</weicheNachmittagsFaecher>
+    </parameter>
+    <stunden id="1">
+        <beginn>07:40</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>08:25</ende>
+        <unterrichtsprioritaet>MAXIMAL</unterrichtsprioritaet>
+        <nummer>1</nummer>
+    </stunden>
+    <zeitslots id="2">
+        <stunde>1</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="3">
+        <stunde>1</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="4">
+        <stunde>1</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="5">
+        <stunde>1</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="6">
+        <stunde>1</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zuweisungen id="73">
+        <wochenstunden>6</wochenstunden>
+        <fach>61</fach>
+        <klasse>68</klasse>
+        <lehrer>62</lehrer>
+    </zuweisungen>
+</eingabedaten>

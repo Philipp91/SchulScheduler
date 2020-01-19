@@ -7,11 +7,11 @@ import javafx.collections.ObservableList;
 import schulscheduler.i18n.DefaultValues;
 import schulscheduler.model.schule.*;
 import schulscheduler.model.unterricht.*;
+import schulscheduler.xml.Serialization;
 
 import javax.annotation.Nonnull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.IOException;
 import java.util.*;
 
 @XmlRootElement(name = "eingabedaten")
@@ -31,14 +31,10 @@ public class Eingabedaten {
     private final SimpleObjectProperty<BerechnungsParameter> parameter = new SimpleObjectProperty<>(this, "parameter");
 
     /**
-     * @return A deep-copy of this using Java Object Serialization (JOS).
+     * @return A deep-copy of this using XML serialization.
      */
     public Eingabedaten copy() {
-//        try {
-            return null; // TODO Serialization.javaClone(this);
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        return Serialization.xmlClone(this);
     }
 
     /**

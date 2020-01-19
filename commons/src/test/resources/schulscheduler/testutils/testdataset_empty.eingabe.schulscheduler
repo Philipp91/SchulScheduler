@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<eingabedaten>
+    <modelVersion>1</modelVersion>
+    <parameter>
+        <harteFaecherFolgen>MITTEL</harteFaecherFolgen>
+        <lehrerHohlstunden>MITTEL</lehrerHohlstunden>
+        <rechendauer>MITTEL</rechendauer>
+        <unerwuenschteLehrerZeitslots>MITTEL</unerwuenschteLehrerZeitslots>
+        <weicheNachmittagsFaecher>MITTEL</weicheNachmittagsFaecher>
+    </parameter>
+    <stunden id="1">
+        <beginn>07:40</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>08:25</ende>
+        <unterrichtsprioritaet>SEHR_HOCH</unterrichtsprioritaet>
+        <nummer>1</nummer>
+    </stunden>
+    <stunden id="7">
+        <beginn>08:30</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>09:15</ende>
+        <unterrichtsprioritaet>SEHR_HOCH</unterrichtsprioritaet>
+        <nummer>2</nummer>
+    </stunden>
+    <stunden id="13">
+        <beginn>09:25</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>10:10</ende>
+        <unterrichtsprioritaet>SEHR_HOCH</unterrichtsprioritaet>
+        <nummer>3</nummer>
+    </stunden>
+    <stunden id="19">
+        <beginn>10:15</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>11:00</ende>
+        <unterrichtsprioritaet>SEHR_HOCH</unterrichtsprioritaet>
+        <nummer>4</nummer>
+    </stunden>
+    <stunden id="25">
+        <beginn>11:10</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>11:55</ende>
+        <unterrichtsprioritaet>HOCH</unterrichtsprioritaet>
+        <nummer>5</nummer>
+    </stunden>
+    <stunden id="31">
+        <beginn>12:00</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>12:45</ende>
+        <unterrichtsprioritaet>HOCH</unterrichtsprioritaet>
+        <nummer>6</nummer>
+    </stunden>
+    <stunden id="37">
+        <beginn>13:30</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>14:15</ende>
+        <unterrichtsprioritaet>MITTEL</unterrichtsprioritaet>
+        <nummer>7</nummer>
+    </stunden>
+    <stunden id="43">
+        <beginn>14:20</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>15:05</ende>
+        <unterrichtsprioritaet>MITTEL</unterrichtsprioritaet>
+        <nummer>8</nummer>
+    </stunden>
+    <stunden id="49">
+        <beginn>15:15</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>16:00</ende>
+        <unterrichtsprioritaet>NIEDRIG</unterrichtsprioritaet>
+        <nummer>9</nummer>
+    </stunden>
+    <stunden id="55">
+        <beginn>16:05</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>16:50</ende>
+        <unterrichtsprioritaet>NIEDRIG</unterrichtsprioritaet>
+        <nummer>10</nummer>
+    </stunden>
+    <zeitslots id="2">
+        <stunde>1</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="3">
+        <stunde>1</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="4">
+        <stunde>1</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="5">
+        <stunde>1</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="6">
+        <stunde>1</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zeitslots id="8">
+        <stunde>7</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="9">
+        <stunde>7</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="10">
+        <stunde>7</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="11">
+        <stunde>7</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="12">
+        <stunde>7</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zeitslots id="14">
+        <stunde>13</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="15">
+        <stunde>13</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="16">
+        <stunde>13</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="17">
+        <stunde>13</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="18">
+        <stunde>13</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zeitslots id="20">
+        <stunde>19</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="21">
+        <stunde>19</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="22">
+        <stunde>19</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="23">
+        <stunde>19</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="24">
+        <stunde>19</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zeitslots id="26">
+        <stunde>25</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="27">
+        <stunde>25</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="28">
+        <stunde>25</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="29">
+        <stunde>25</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="30">
+        <stunde>25</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zeitslots id="32">
+        <stunde>31</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="33">
+        <stunde>31</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="34">
+        <stunde>31</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="35">
+        <stunde>31</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="36">
+        <stunde>31</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zeitslots id="38">
+        <stunde>37</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="39">
+        <stunde>37</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="40">
+        <stunde>37</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="41">
+        <stunde>37</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="42">
+        <stunde>37</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zeitslots id="44">
+        <stunde>43</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="45">
+        <stunde>43</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="46">
+        <stunde>43</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="47">
+        <stunde>43</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="48">
+        <stunde>43</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zeitslots id="50">
+        <stunde>49</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="51">
+        <stunde>49</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="52">
+        <stunde>49</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="53">
+        <stunde>49</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="54">
+        <stunde>49</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zeitslots id="56">
+        <stunde>55</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="57">
+        <stunde>55</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="58">
+        <stunde>55</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="59">
+        <stunde>55</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="60">
+        <stunde>55</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+</eingabedaten>

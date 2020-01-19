@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<eingabedaten>
+    <modelVersion>1</modelVersion>
+    <faecher id="20">
+        <name>Englisch</name>
+        <kuerzel>E</kuerzel>
+        <hart>true</hart>
+    </faecher>
+    <faecher id="21">
+        <name>Mathematik</name>
+        <kuerzel>M</kuerzel>
+        <hart>true</hart>
+    </faecher>
+    <faecher id="22">
+        <name>Religion evangelisch</name>
+        <kuerzel>Re</kuerzel>
+        <hart>false</hart>
+    </faecher>
+    <faecher id="23">
+        <name>Religion katholisch</name>
+        <kuerzel>Rk</kuerzel>
+        <hart>false</hart>
+    </faecher>
+    <faecher id="24">
+        <name>Sport</name>
+        <kuerzel>SP</kuerzel>
+        <hart>false</hart>
+    </faecher>
+    <klassen id="17">
+        <name>5a</name>
+    </klassen>
+    <klassen id="18">
+        <name>5b</name>
+    </klassen>
+    <klassen id="19">
+        <name>5c</name>
+    </klassen>
+    <kopplungen id="98">
+        <wochenstunden>2</wochenstunden>
+        <faecher id="96">
+            <fach>22</fach>
+            <lehrer>38</lehrer>
+        </faecher>
+        <faecher id="97">
+            <fach>23</fach>
+            <lehrer>52</lehrer>
+        </faecher>
+        <klassen>17</klassen>
+        <klassen>18</klassen>
+        <klassen>19</klassen>
+        <zuweisungen>83</zuweisungen>
+        <zuweisungen>84</zuweisungen>
+        <zuweisungen>88</zuweisungen>
+        <zuweisungen>89</zuweisungen>
+        <zuweisungen>93</zuweisungen>
+        <zuweisungen>94</zuweisungen>
+    </kopplungen>
+    <kopplungen id="100">
+        <wochenstunden>1</wochenstunden>
+        <faecher id="99">
+            <fach>24</fach>
+            <lehrer>66</lehrer>
+            <lehrer>80</lehrer>
+        </faecher>
+        <klassen>17</klassen>
+        <klassen>18</klassen>
+        <klassen>19</klassen>
+        <zuweisungen>85</zuweisungen>
+        <zuweisungen>90</zuweisungen>
+        <zuweisungen>95</zuweisungen>
+    </kopplungen>
+    <kopplungen id="102">
+        <fixeStunden>176</fixeStunden>
+        <wochenstunden>2</wochenstunden>
+        <faecher id="101">
+            <fach>20</fach>
+            <lehrer>66</lehrer>
+        </faecher>
+        <klassen>17</klassen>
+        <klassen>18</klassen>
+        <zuweisungen>81</zuweisungen>
+        <zuweisungen>86</zuweisungen>
+    </kopplungen>
+    <lehrer id="38">
+        <name>Albert</name>
+        <kuerzel>Alb</kuerzel>
+        <deputat>4</deputat>
+        <freierTag>false</freierTag>
+        <lehrt>22</lehrt>
+        <lehrt>21</lehrt>
+        <verfuegbarkeit id="25">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>2</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="26">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>3</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="27">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>4</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="28">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>5</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="29">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>6</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="30">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>8</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="31">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>9</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="32">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>10</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="33">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>11</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="34">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>13</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="35">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>14</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="36">
+            <verfuegbarkeit>NICHT</verfuegbarkeit>
+            <zeitslot>15</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="37">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>16</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="172">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>171</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="177">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>176</zeitslot>
+        </verfuegbarkeit>
+    </lehrer>
+    <lehrer id="52">
+        <name>Brehm</name>
+        <kuerzel>Bre</kuerzel>
+        <deputat>6</deputat>
+        <freierTag>false</freierTag>
+        <lehrt>21</lehrt>
+        <lehrt>23</lehrt>
+        <verfuegbarkeit id="39">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>2</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="40">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>3</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="41">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>4</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="42">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>5</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="43">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>6</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="44">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>8</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="45">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>9</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="46">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>10</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="47">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>11</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="48">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>13</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="49">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>14</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="50">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>15</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="51">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>16</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="173">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>171</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="178">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>176</zeitslot>
+        </verfuegbarkeit>
+    </lehrer>
+    <lehrer id="66">
+        <name>Maier</name>
+        <kuerzel>Mai</kuerzel>
+        <deputat>4</deputat>
+        <freierTag>false</freierTag>
+        <lehrt>24</lehrt>
+        <lehrt>20</lehrt>
+        <verfuegbarkeit id="53">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>2</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="54">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>3</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="55">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>4</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="56">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>5</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="57">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>6</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="58">
+            <verfuegbarkeit>NICHT</verfuegbarkeit>
+            <zeitslot>8</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="59">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>9</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="60">
+            <verfuegbarkeit>NICHT</verfuegbarkeit>
+            <zeitslot>10</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="61">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>11</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="62">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>13</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="63">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>14</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="64">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>15</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="65">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>16</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="174">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>171</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="179">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>176</zeitslot>
+        </verfuegbarkeit>
+    </lehrer>
+    <lehrer id="80">
+        <name>Pfeifer</name>
+        <kuerzel>Pfe</kuerzel>
+        <deputat>5</deputat>
+        <freierTag>false</freierTag>
+        <lehrt>24</lehrt>
+        <lehrt>20</lehrt>
+        <verfuegbarkeit id="67">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>2</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="68">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>3</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="69">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>4</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="70">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>5</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="71">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>6</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="72">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>8</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="73">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>9</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="74">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>10</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="75">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>11</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="76">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>13</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="77">
+            <verfuegbarkeit>EINGESCHRAENKT</verfuegbarkeit>
+            <zeitslot>14</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="78">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>15</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="79">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>16</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="175">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>171</zeitslot>
+        </verfuegbarkeit>
+        <verfuegbarkeit id="180">
+            <verfuegbarkeit>NORMAL</verfuegbarkeit>
+            <zeitslot>176</zeitslot>
+        </verfuegbarkeit>
+    </lehrer>
+    <parameter>
+        <harteFaecherFolgen>MITTEL</harteFaecherFolgen>
+        <lehrerHohlstunden>MITTEL</lehrerHohlstunden>
+        <rechendauer>MITTEL</rechendauer>
+        <unerwuenschteLehrerZeitslots>MITTEL</unerwuenschteLehrerZeitslots>
+        <weicheNachmittagsFaecher>MITTEL</weicheNachmittagsFaecher>
+    </parameter>
+    <profile id="110">
+        <name>5</name>
+        <eintraege id="105">
+            <fach>20</fach>
+            <wochenstunden>2</wochenstunden>
+        </eintraege>
+        <eintraege id="106">
+            <fach>22</fach>
+            <wochenstunden>2</wochenstunden>
+        </eintraege>
+        <eintraege id="107">
+            <fach>23</fach>
+            <wochenstunden>2</wochenstunden>
+        </eintraege>
+        <eintraege id="108">
+            <fach>21</fach>
+            <wochenstunden>2</wochenstunden>
+        </eintraege>
+        <eintraege id="109">
+            <fach>24</fach>
+            <wochenstunden>2</wochenstunden>
+        </eintraege>
+    </profile>
+    <stunden id="1">
+        <beginn>07:40</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>08:25</ende>
+        <unterrichtsprioritaet>MAXIMAL</unterrichtsprioritaet>
+        <nummer>1</nummer>
+    </stunden>
+    <stunden id="7">
+        <beginn>08:30</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>09:15</ende>
+        <gesperrtAm>FREITAG</gesperrtAm>
+        <unterrichtsprioritaet>HOCH</unterrichtsprioritaet>
+        <nummer>2</nummer>
+    </stunden>
+    <stunden id="12">
+        <beginn>09:30</beginn>
+        <doppelstunde>false</doppelstunde>
+        <ende>10:15</ende>
+        <gesperrtAm>FREITAG</gesperrtAm>
+        <unterrichtsprioritaet>NIEDRIG</unterrichtsprioritaet>
+        <nummer>3</nummer>
+    </stunden>
+    <zeitslots id="2">
+        <stunde>1</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="3">
+        <stunde>1</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="4">
+        <stunde>1</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="5">
+        <stunde>1</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="6">
+        <stunde>1</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zeitslots id="8">
+        <stunde>7</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="9">
+        <stunde>7</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="10">
+        <stunde>7</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="11">
+        <stunde>7</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="13">
+        <stunde>12</stunde>
+        <tag>MONTAG</tag>
+    </zeitslots>
+    <zeitslots id="14">
+        <stunde>12</stunde>
+        <tag>DIENSTAG</tag>
+    </zeitslots>
+    <zeitslots id="15">
+        <stunde>12</stunde>
+        <tag>MITTWOCH</tag>
+    </zeitslots>
+    <zeitslots id="16">
+        <stunde>12</stunde>
+        <tag>DONNERSTAG</tag>
+    </zeitslots>
+    <zeitslots id="171">
+        <stunde>7</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zeitslots id="176">
+        <stunde>12</stunde>
+        <tag>FREITAG</tag>
+    </zeitslots>
+    <zuweisungen id="81">
+        <wochenstunden>2</wochenstunden>
+        <fach>20</fach>
+        <klasse>17</klasse>
+    </zuweisungen>
+    <zuweisungen id="82">
+        <wochenstunden>2</wochenstunden>
+        <fach>21</fach>
+        <klasse>17</klasse>
+        <lehrer>52</lehrer>
+    </zuweisungen>
+    <zuweisungen id="83">
+        <wochenstunden>2</wochenstunden>
+        <fach>22</fach>
+        <klasse>17</klasse>
+    </zuweisungen>
+    <zuweisungen id="84">
+        <wochenstunden>2</wochenstunden>
+        <fach>23</fach>
+        <klasse>17</klasse>
+    </zuweisungen>
+    <zuweisungen id="85">
+        <wochenstunden>2</wochenstunden>
+        <fach>24</fach>
+        <klasse>17</klasse>
+        <lehrer>66</lehrer>
+    </zuweisungen>
+    <zuweisungen id="86">
+        <wochenstunden>2</wochenstunden>
+        <fach>20</fach>
+        <klasse>18</klasse>
+        <lehrer>66</lehrer>
+    </zuweisungen>
+    <zuweisungen id="87">
+        <wochenstunden>2</wochenstunden>
+        <fach>21</fach>
+        <klasse>18</klasse>
+        <lehrer>38</lehrer>
+    </zuweisungen>
+    <zuweisungen id="88">
+        <wochenstunden>2</wochenstunden>
+        <fach>22</fach>
+        <klasse>18</klasse>
+    </zuweisungen>
+    <zuweisungen id="89">
+        <wochenstunden>2</wochenstunden>
+        <fach>23</fach>
+        <klasse>18</klasse>
+    </zuweisungen>
+    <zuweisungen id="90">
+        <wochenstunden>2</wochenstunden>
+        <fach>24</fach>
+        <klasse>18</klasse>
+        <lehrer>80</lehrer>
+    </zuweisungen>
+    <zuweisungen id="91">
+        <wochenstunden>2</wochenstunden>
+        <fach>20</fach>
+        <klasse>19</klasse>
+        <lehrer>80</lehrer>
+    </zuweisungen>
+    <zuweisungen id="92">
+        <fixeStunden>171</fixeStunden>
+        <wochenstunden>2</wochenstunden>
+        <fach>21</fach>
+        <klasse>19</klasse>
+        <lehrer>52</lehrer>
+    </zuweisungen>
+    <zuweisungen id="93">
+        <wochenstunden>2</wochenstunden>
+        <fach>22</fach>
+        <klasse>19</klasse>
+    </zuweisungen>
+    <zuweisungen id="94">
+        <wochenstunden>2</wochenstunden>
+        <fach>23</fach>
+        <klasse>19</klasse>
+    </zuweisungen>
+    <zuweisungen id="95">
+        <wochenstunden>2</wochenstunden>
+        <fach>24</fach>
+        <klasse>19</klasse>
+        <lehrer>80</lehrer>
+    </zuweisungen>
+</eingabedaten>

@@ -137,6 +137,11 @@
       <option name="name" value="BintrayJCenter" />
       <option name="url" value="https://jcenter.bintray.com/" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven" />
+      <option name="name" value="maven" />
+      <option name="url" value="https://oss.sonatype.org/content/repositories/snapshots/" />
+    </remote-repository>
   </component>
   <component name="SvnBranchConfigurationManager">
     <option name="mySupportsUserInfoFilter" value="true" />
@@ -273,6 +278,42 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup/javapoet/1.11.1/8da7f5aaa62c6e22f53d360b2d0e21f6fa35ef32/javapoet-1.11.1-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Gradle: com.sun.istack:istack-commons-runtime:3.0.8">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.istack/istack-commons-runtime/3.0.8/d6a97364045aa6b99bf2d3c566a3f98599c2d296/istack-commons-runtime-3.0.8.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.istack/istack-commons-runtime/3.0.8/3ca86990732cc05853c591cc454c98ba8ac3e06/istack-commons-runtime-3.0.8-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: com.sun.xml.fastinfoset:FastInfoset:1.2.16">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.xml.fastinfoset/FastInfoset/1.2.16/4eb6a0adad553bf759ffe86927df6f3b848c8bea/FastInfoset-1.2.16.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.sun.xml.fastinfoset/FastInfoset/1.2.16/cf4f90b0099ac1fe58e4dad1edecd27025672724/FastInfoset-1.2.16-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: jakarta.activation:jakarta.activation-api:1.2.1">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/jakarta.activation/jakarta.activation-api/1.2.1/562a587face36ec7eff2db7f2fc95425c6602bc1/jakarta.activation-api-1.2.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/jakarta.activation/jakarta.activation-api/1.2.1/6fe481428613e57af220e17b9ebf3475fb27efb8/jakarta.activation-api-1.2.1-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: jakarta.xml.bind:jakarta.xml.bind-api:2.3.2">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/jakarta.xml.bind/jakarta.xml.bind-api/2.3.2/8d49996a4338670764d7ca4b85a1c4ccf7fe665d/jakarta.xml.bind-api-2.3.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/jakarta.xml.bind/jakarta.xml.bind-api/2.3.2/8f7b9baa75556d2c03371c7e4b45b484683c7d28/jakarta.xml.bind-api-2.3.2-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Gradle: javax.activation:javax.activation-api:1.2.0">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/javax.activation/javax.activation-api/1.2.0/85262acf3ca9816f9537ca47d5adeabaead7cb16/javax.activation-api-1.2.0.jar!/" />
@@ -371,24 +412,6 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.checkerframework/checker-qual/2.5.2/ebb8ebccd42218434674f3e1d9022c13df1c19f8/checker-qual-2.5.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Gradle: org.codehaus.griffon:griffon-core:2.15.1">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.griffon/griffon-core/2.15.1/d652f906426e35d102a03b911b738a721bf158c9/griffon-core-2.15.1.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.griffon/griffon-core/2.15.1/6ad6cbf0f261436ba0a5e2035752f14fa89ad897/griffon-core-2.15.1-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.codehaus.griffon:griffon-javafx:2.15.1">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.griffon/griffon-javafx/2.15.1/987bf561eeed55294d5a7722fb0d9d33e8743b03/griffon-javafx-2.15.1.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.griffon/griffon-javafx/2.15.1/36f5751bad1df3e42aaca1d9109c8acfb27d4f56/griffon-javafx-2.15.1-sources.jar!/" />
-      </SOURCES>
-    </library>
     <library name="Gradle: org.codehaus.mojo:animal-sniffer-annotations:1.17">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.17/f97ce6decaea32b36101e37979f8b647f00681fb/animal-sniffer-annotations-1.17.jar!/" />
@@ -398,6 +421,34 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.codehaus.mojo/animal-sniffer-annotations/1.17/8fb5b5ad9c9723951b9fccaba5bb657fa6064868/animal-sniffer-annotations-1.17-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.fxmisc.easybind:easybind:1.0.4-SNAPSHOT">
+      <CLASSES>
+        <root url="file://$APPLICATION_HOME_DIR$/jbr/bin/Could not find org.fxmisc.easybind:easybind:1.0.4-SNAPSHOT." />
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.fxmisc.easybind/easybind/1.0.4-SNAPSHOT/4d63c256038afd09462603102e425739a815bde7/easybind-1.0.4-SNAPSHOT.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.fxmisc.easybind/easybind/1.0.4-SNAPSHOT/139e89b351c0b0e0ea841e5100608d9033351894/easybind-1.0.4-SNAPSHOT-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.glassfish.jaxb:jaxb-runtime:2.3.2">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-runtime/2.3.2/5528bc882ea499a09d720b42af11785c4fc6be2a/jaxb-runtime-2.3.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/jaxb-runtime/2.3.2/9c2033de9f6f23ca45b77496e1d260875c93c532/jaxb-runtime-2.3.2-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Gradle: org.glassfish.jaxb:txw2:2.3.2">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/txw2/2.3.2/ce5be7da2e442c25ec14c766cb60cb802741727b/txw2-2.3.2.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.glassfish.jaxb/txw2/2.3.2/294dff1d7635508067320ded761b73bf3729b2ff/txw2-2.3.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Gradle: org.hamcrest:hamcrest:2.2">
@@ -501,6 +552,15 @@
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.5.2/6fc5769022fca2530aa2372824a2784a1e741d3f/junit-platform-engine-1.5.2-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Gradle: org.jvnet.staxex:stax-ex:1.8.1">
+      <CLASSES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jvnet.staxex/stax-ex/1.8.1/78011e483a21102fb4858f3e8f269a677e50aa23/stax-ex-1.8.1.jar!/" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jvnet.staxex/stax-ex/1.8.1/9a46c7d2b4baa07f67f062da02d31fe84f3d26ea/stax-ex-1.8.1-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Gradle: org.mockito:mockito-core:2.28.2">
       <CLASSES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.mockito/mockito-core/2.28.2/91110215a8cb9b77a46e045ee758f77d79167cc0/mockito-core-2.28.2.jar!/" />
@@ -591,15 +651,6 @@
       <JAVADOC />
       <SOURCES>
         <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/41d55b3c2254de9837b4ec8923cbd371b8a7eab5/opentest4j-1.2.0-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Gradle: org.slf4j:slf4j-api:1.7.25">
-      <CLASSES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/da76ca59f6a57ee3102f8f9bd9cee742973efa8a/slf4j-api-1.7.25.jar!/" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES>
-        <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.25/962153db4a9ea71b79d047dfd1b2a0d80d8f4739/slf4j-api-1.7.25-sources.jar!/" />
       </SOURCES>
     </library>
   </component>
