@@ -1,5 +1,6 @@
 rootProject.name = 'schulscheduler'
 
 include 'commons'
+include 'solver'
 include 'scip'
 include 'ui'

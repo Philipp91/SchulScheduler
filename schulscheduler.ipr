@@ -47,6 +47,8 @@
       <module name="schulscheduler.commons.test" target="13" />
       <module name="schulscheduler.scip.main" target="13" />
       <module name="schulscheduler.scip.test" target="13" />
+      <module name="schulscheduler.solver.main" target="13" />
+      <module name="schulscheduler.solver.test" target="13" />
       <module name="schulscheduler.ui.main" target="13" />
       <module name="schulscheduler.ui.test" target="13" />
     </bytecodeTargetLevel>
@@ -69,6 +71,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/commons" />
             <option value="$PROJECT_DIR$/scip" />
+            <option value="$PROJECT_DIR$/solver" />
             <option value="$PROJECT_DIR$/ui" />
           </set>
         </option>
@@ -113,6 +116,9 @@
       <module fileurl="file://$PROJECT_DIR$/scip/schulscheduler.scip.iml" filepath="$PROJECT_DIR$/scip/schulscheduler.scip.iml" />
       <module fileurl="file://$PROJECT_DIR$/scip/schulscheduler.scip.main.iml" filepath="$PROJECT_DIR$/scip/schulscheduler.scip.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/scip/schulscheduler.scip.test.iml" filepath="$PROJECT_DIR$/scip/schulscheduler.scip.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/solver/schulscheduler.solver.iml" filepath="$PROJECT_DIR$/solver/schulscheduler.solver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/solver/schulscheduler.solver.main.iml" filepath="$PROJECT_DIR$/solver/schulscheduler.solver.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/solver/schulscheduler.solver.test.iml" filepath="$PROJECT_DIR$/solver/schulscheduler.solver.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui/schulscheduler.ui.iml" filepath="$PROJECT_DIR$/ui/schulscheduler.ui.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui/schulscheduler.ui.main.iml" filepath="$PROJECT_DIR$/ui/schulscheduler.ui.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/ui/schulscheduler.ui.test.iml" filepath="$PROJECT_DIR$/ui/schulscheduler.ui.test.iml" />

@@ -1,0 +1,25 @@
+plugins {
+    id 'java-library'
+    id 'org.openjfx.javafxplugin' version "${javafxpluginVersion}"
+}
+
+java {
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+}
+
+javafx {
+    version = javafxVersion
+    modules = ['javafx.base']
+}
+
+dependencies {
+    implementation project(':commons')
+
+    testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
+    testImplementation "org.hamcrest:hamcrest:${hamcrestVersion}"
+}
+
+test {
+    useJUnitPlatform()
+}
