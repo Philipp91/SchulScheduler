@@ -74,6 +74,11 @@ public class Zuweisung extends Unterrichtseinheit {
         return fach;
     }
 
+    public void setFach(Fach fach) {
+        if (this.fach.getValue() != null) throw new IllegalStateException("Cannot overwrite constant property");
+        this.fach.set(fach);
+    }
+
     @XmlElement(name = "klasse")
     @XmlIDREF
     public Klasse getKlasse() {
@@ -82,6 +87,11 @@ public class Zuweisung extends Unterrichtseinheit {
 
     public ReadOnlyObjectProperty<Klasse> klasseProperty() {
         return klasse;
+    }
+
+    public void setKlasse(Klasse klasse) {
+        if (this.klasse.getValue() != null) throw new IllegalStateException("Cannot overwrite constant property");
+        this.klasse.set(klasse);
     }
 
     @Override

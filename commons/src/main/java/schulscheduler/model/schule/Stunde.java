@@ -56,8 +56,14 @@ public class Stunde extends BaseElement implements Comparable<Stunde> {
         return nummer.get();
     }
 
+
     public ReadOnlyIntegerProperty nummerProperty() {
         return nummer;
+    }
+
+    public void setNummer(int nummer) {
+        if (this.nummer.get() > 0) throw new IllegalStateException("Cannot overwrite constant property");
+        this.nummer.set(nummer);
     }
 
     @XmlElement(name = "beginn")

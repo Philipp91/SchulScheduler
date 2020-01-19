@@ -15,12 +15,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 
 public class SerializationTest {
+
+    @Test
+    public void testLoadSmallTestdataset() {
+        Eingabedaten data = TestData.readSmallTestdataset(); // Note that this uses deserialization under the hood.
+        assertThat(data.getStunden(), hasSize(3));
+        assertThat(data.getStunden().get(0).getNummer(), is(1));
+        assertThat(data.getStunden().get(0).getBeginn(), is("07:40"));
+        assertThat(data.getZeitslots().get(0).getStunde(), is(sameInstance(data.getStunden().get(0))));
+
+        assertThat(data.getKopplungen().get(0).getKlassen().get(0), is(sameInstance(data.getKlassen().get(0))));
+        assertThat(data.getKopplungen().get(0).getFaecher().get(0).getFach().getKuerzel(), is("Re"));
+    }
 
     @Test
     public void testSaveAndLoadEingabedaten(@TempDir Path folder) throws IOException, JAXBException {

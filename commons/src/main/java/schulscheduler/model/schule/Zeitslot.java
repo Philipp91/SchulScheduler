@@ -52,6 +52,11 @@ public class Zeitslot extends BaseElement implements Comparable<Zeitslot> {
         return stunde;
     }
 
+    public void setStunde(Stunde stunde) {
+        if (this.stunde.getValue() != null) throw new IllegalStateException("Cannot overwrite constant property");
+        this.stunde.set(stunde);
+    }
+
     @XmlElement(name = "wochentag")
     public EnumWochentag getWochentag() {
         return wochentag.get();
@@ -59,6 +64,11 @@ public class Zeitslot extends BaseElement implements Comparable<Zeitslot> {
 
     public ReadOnlyObjectProperty<EnumWochentag> wochentagProperty() {
         return wochentag;
+    }
+
+    public void setWochentag(EnumWochentag wochentag) {
+        if (this.wochentag.getValue() != null) throw new IllegalStateException("Cannot overwrite constant property");
+        this.wochentag.set(wochentag);
     }
 
     @Override

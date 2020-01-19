@@ -42,6 +42,7 @@ public class LehrerVerfuegbarkeit extends BaseElement {
     }
 
     public void setZeitslot(Zeitslot zeitslot) {
+        if (this.zeitslot.getValue() != null) throw new IllegalStateException("Cannot overwrite constant property");
         this.zeitslot.set(zeitslot);
     }
 

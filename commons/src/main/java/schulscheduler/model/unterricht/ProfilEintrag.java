@@ -39,6 +39,11 @@ public class ProfilEintrag extends BaseElement {
         return fach;
     }
 
+    public void setFach(Fach fach) {
+        if (this.fach.getValue() != null) throw new IllegalStateException("Cannot overwrite constant property");
+        this.fach.set(fach);
+    }
+
     @XmlElement(name = "wochenstunden")
     public int getWochenstunden() {
         return wochenstunden.get();
