@@ -10,6 +10,7 @@ import schulscheduler.model.schule.Fach;
 import schulscheduler.model.schule.Lehrer;
 import schulscheduler.model.schule.Zeitslot;
 
+import javax.annotation.Nonnull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -36,6 +37,24 @@ public abstract class Unterrichtseinheit extends BaseElement {
      * @return Alle Fächer, die im Rahmen dieser Unterrichtseinheit unterrichtet werden.
      */
     public abstract Stream<Fach> getAllFaecher();
+
+    /**
+     * @param klasse Eine Klasse.
+     * @return True, wenn die Klasse an diesem Unterricht teilnimmt.
+     */
+    public abstract boolean hasKlasse(@Nonnull Klasse klasse);
+
+    /**
+     * @param lehrer Ein Lehrer.
+     * @return True, wenn der Lehrer an diesem Unterricht teilnimmt.
+     */
+    public abstract boolean hasLehrer(@Nonnull Lehrer lehrer);
+
+    /**
+     * @param fach Ein Fach.
+     * @return True, wenn das Fach in diesem Unterricht unterrichtet wird.
+     */
+    public abstract boolean hasFach(@Nonnull Fach fach);
 
     @XmlElement(name = "wochenstunden")
     public int getWochenstunden() {

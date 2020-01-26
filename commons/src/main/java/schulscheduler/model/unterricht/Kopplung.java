@@ -12,6 +12,7 @@ import schulscheduler.model.NoUndoTracking;
 import schulscheduler.model.schule.Fach;
 import schulscheduler.model.schule.Lehrer;
 
+import javax.annotation.Nonnull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -51,6 +52,21 @@ public class Kopplung extends Unterrichtseinheit {
     @Override
     public Stream<Fach> getAllFaecher() {
         return faecher.stream().map(KopplungsFach::getFach);
+    }
+
+    @Override
+    public boolean hasKlasse(@Nonnull Klasse klasse) {
+        return klassen.contains(klasse);
+    }
+
+    @Override
+    public boolean hasLehrer(@Nonnull Lehrer lehrer) {
+        return faecher.stream().anyMatch(kopplungsFach -> kopplungsFach.getLehrer().contains(lehrer));
+    }
+
+    @Override
+    public boolean hasFach(@Nonnull Fach fach) {
+        return faecher.stream().anyMatch(kopplungsFach -> fach.equals(kopplungsFach.getFach()));
     }
 
     /**

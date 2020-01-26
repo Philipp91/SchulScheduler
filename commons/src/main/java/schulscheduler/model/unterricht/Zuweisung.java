@@ -55,6 +55,21 @@ public class Zuweisung extends Unterrichtseinheit {
         return Stream.of(fach.get());
     }
 
+    @Override
+    public boolean hasKlasse(@Nonnull Klasse klasse) {
+        return klasse.equals(getKlasse());
+    }
+
+    @Override
+    public boolean hasLehrer(@Nonnull Lehrer lehrer) {
+        return lehrer.equals(getLehrer());
+    }
+
+    @Override
+    public boolean hasFach(@Nonnull Fach fach) {
+        return fach.equals(getFach());
+    }
+
     /**
      * Überprüft, ob diese Zuweisung gekoppelt ist.
      *
