@@ -8,6 +8,7 @@ import schulscheduler.model.ergebnis.Ergebnisdaten;
 import schulscheduler.model.ergebnis.Klassenstundenplan;
 import schulscheduler.model.ergebnis.Lehrerstundenplan;
 import schulscheduler.model.ergebnis.Unterricht;
+import schulscheduler.model.schule.EnumVerfuegbarkeit;
 import schulscheduler.model.schule.EnumWochentag;
 import schulscheduler.model.schule.Fach;
 import schulscheduler.model.schule.Lehrer;
@@ -16,6 +17,7 @@ import schulscheduler.model.unterricht.Klasse;
 import schulscheduler.model.unterricht.Kopplung;
 import schulscheduler.model.unterricht.Unterrichtseinheit;
 import schulscheduler.model.unterricht.Zuweisung;
+import schulscheduler.solver.EnumConstraints;
 import schulscheduler.xml.Serialization;
 
 import javax.annotation.Nonnull;
@@ -171,14 +173,14 @@ public class BinaryLP {
                 einheitVars.put(zeitslot, addVariable(einheit.toShortString() + "-" + zeitslot.toShortString()));
             }
             // Diese Unterrichtseinheit muss genau #Wochenstunden Mal stattfinden.
-            addConstraint(new SumEq("Wochenstunden-" + einheit.toShortString(),
+            addConstraint(new SumEq(EnumConstraints.WOCHENSTUNDEN.get(einheit, einheit.getWochenstunden()),
                     new ArrayList<>(einheitVars.values()), einheit.getWochenstunden()));
         });
 
         for (var zeitslot : eingabe.getZeitslots()) {
             Stream.concat(klassenUnterricht.entrySet().stream(), lehrerUnterricht.entrySet().stream()).forEach(entry -> {
                 // Der Lehrer bzw. die Klasse kann am gegebenen Zeitslot an maximal einem Unterricht teilnehmen.
-                addConstraint(new SumLeq(entry.getKey().toShortString() + "-Konflikt",
+                addConstraint(new SumLeq(EnumConstraints.KONFLIKTFREIHEIT.get(entry.getKey(), zeitslot),
                         entry.getValue().stream().map(einheit -> mainVariables.get(einheit).get(zeitslot)).collect(Collectors.toList()), 1));
             });
         }
@@ -193,19 +195,17 @@ public class BinaryLP {
             Unterrichtseinheit einheit = einheitVars.getKey();
             for (var zeitslotVar : einheitVars.getValue().entrySet()) {
                 Zeitslot zeitslot = zeitslotVar.getKey();
-                Boolean forcedValue = null;
                 if (einheit.getFixeStunden().contains(zeitslot)) {
                     if (zeitslot.isGesperrt()) {
                         throw new IllegalArgumentException("Fixe Stunde auf gesperrtem Zeitslot");
                     }
-                    forcedValue = true;
-                } else if (zeitslot.isGesperrt()) {
-                    forcedValue = false;
-                }
-                if (forcedValue != null) {
                     addConstraint(new ForceValue(
-                            "Gesperrt-" + einheit.toShortString() + "-" + zeitslot.toShortString(),
-                            zeitslotVar.getValue(), forcedValue));
+                            EnumConstraints.FIXE_STUNDE.get(einheit, zeitslot),
+                            zeitslotVar.getValue(), true));
+                } else if (zeitslot.isGesperrt()) {
+                    addConstraint(new ForceValue(
+                            EnumConstraints.GESPERRTE_STUNDE.get(einheit, zeitslot),
+                            zeitslotVar.getValue(), false));
                 }
             }
         }
@@ -254,7 +254,7 @@ public class BinaryLP {
                 Zeitslot z2 = doppelstunde.getValue();
                 if (z1.compareTo(z2) < 0) { // Doppelte Constraints verhindern, weil alle Paare doppelt vorhanden sind.
                     addConstraint(new VarEq(
-                            "Doppelstunde-" + einheit.toShortString() + "-" + z1.toShortString(),
+                            EnumConstraints.DOPPELSTUNDE.get(einheit, z1, z2),
                             mainVars.get(z1), mainVars.get(z2)
                     ));
                 }
@@ -269,11 +269,11 @@ public class BinaryLP {
             for (Map.Entry<Zeitslot, Zeitslot> doppelstunde : doppelstunden.entrySet()) {
                 Zeitslot z1 = doppelstunde.getKey();
                 Zeitslot z2 = doppelstunde.getValue();
-                String name = "Einzelstunde-" + einheit.toShortString() + "-" + z1.toShortString();
-                BinaryVariable einzelstunde = addVariable(name);
+                String name = EnumConstraints.EINZELSTUNDE.get(einheit, z1);
+                BinaryVariable einzelstunde = addVariable(name + "-Var");
                 einzelstundenVars.add(einzelstunde);
                 addConstraint(new VarImpliesOr(
-                        name + "-Constraint",
+                        name,
                         mainVars.get(z1), // Wenn erster Slot stattfindet, dann
                         Arrays.asList(
                                 mainVars.get(z2),  // muss der zweite auch stattfinden
@@ -281,7 +281,7 @@ public class BinaryLP {
                         )
                 ));
             }
-            addConstraint(new SumLeq("MaxEinzelstunden-" + einheit.toShortString(), einzelstundenVars, erlaubteEinzelstunden));
+            addConstraint(new SumLeq(EnumConstraints.MAX_EINZELSTUNDEN.get(einheit), einzelstundenVars, erlaubteEinzelstunden));
         }
     }
 
@@ -303,8 +303,7 @@ public class BinaryLP {
                         .filter(u -> u.hasKlasse(klasse) && u.hasFach(fach)).collect(Collectors.toList());
                 if (unterrichte.isEmpty()) continue;
                 for (EnumWochentag wochentag : EnumWochentag.values()) {
-                    createFachProTagConstraints(unterrichte, wochentag,
-                            "FachProTag-" + klasse.toShortString() + "-" + fach.toShortString());
+                    createFachProTagConstraints(klasse, fach, unterrichte, wochentag);
                 }
             }
         }
@@ -319,13 +318,14 @@ public class BinaryLP {
      * zweite Stunden an dem Tag wenn überhaupt nur direkt vor oder nach der fixen Stunde stattfindet.
      * Wenn zwei oder mehr Stunden an dem Tag fixiert sind, ist der Constraint überflüssig.
      *
+     * @param klasse Die Klasse, zu der die `unterrichte` gehören.
+     * @param fach Das Fach, zu dem die `unterrichte` gehören.
      * @param unterrichte Die Unterrichte von einer Klasse in einem bestimmten Fach.
      * @param wochentag Der Wochentag, für den die Constraints hinzugefügt werden.
-     * @param namePrefix Ein Präfix für die hinzugefügten Constraints (identifiziert Klasse+Fach).
      */
-    private void createFachProTagConstraints(@Nonnull List<Unterrichtseinheit> unterrichte,
-                                             @Nonnull EnumWochentag wochentag,
-                                             @Nonnull String namePrefix) {
+    private void createFachProTagConstraints(@Nonnull Klasse klasse, @Nonnull Fach fach,
+                                             @Nonnull List<Unterrichtseinheit> unterrichte,
+                                             @Nonnull EnumWochentag wochentag) {
         final long totalFixeStunden = unterrichte.stream()
                 .mapToLong(u -> u.getFixeStunden().stream().filter(z -> z.getWochentag() == wochentag).count()).sum();
         if (totalFixeStunden >= 2) {
@@ -339,7 +339,7 @@ public class BinaryLP {
                     .forEach(laterslot -> {
                         // oneslot -> -laterslot  <==>  -oneslot \/ -laterslot  <==>  (oneslot+laterslot) <= 1
                         addConstraint(new SumLeq(
-                                namePrefix + "-" + oneslot.toShortString() + "-" + laterslot.toShortString(),
+                                EnumConstraints.FACH_PRO_TAG.get(klasse, fach, oneslot, laterslot),
                                 Stream.concat(
                                         unterrichte.stream().map(u -> mainVariables.get(u).get(oneslot)),
                                         unterrichte.stream().map(u -> mainVariables.get(u).get(laterslot))
