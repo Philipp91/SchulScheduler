@@ -1,5 +1,6 @@
 package schulscheduler.solver.binary;
 
+import javafx.util.Pair;
 import schulscheduler.collections.IDElementMap;
 import schulscheduler.collections.IDElementSet;
 import schulscheduler.model.eingabe.Eingabedaten;
@@ -16,7 +17,12 @@ import schulscheduler.model.unterricht.Zuweisung;
 import schulscheduler.xml.Serialization;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -58,11 +64,20 @@ public class BinaryLP {
      */
     private final Map<Lehrer, Set<Unterrichtseinheit>> lehrerUnterricht = new IDElementMap<>();
 
+    /**
+     * Konstruktor, der das SchulScheduler-Problem in ein binäres ILP übersetzt, dass dann (direkt nach dem
+     * Konstruktor-Aufruf) über die öffentlichen Getter dieser Klasse abgeholt werden kann.
+     *
+     * @param eingabe Die Problemformulierung im SchulScheduler-Datenmodell.
+     */
     public BinaryLP(@Nonnull Eingabedaten eingabe) {
         this.eingabe = Serialization.xmlClone(Objects.requireNonNull(eingabe));
         subtractKopplungen();
         fillMaps();
         createMainVariablesAndConstraints();
+
+        createGesperrteAndFixeStundenConstraints();
+        createDoppelstundenConstraints();
         if (allVariables.isEmpty() || mainVariables.isEmpty()) {
             throw new IllegalArgumentException("Probleminstanz ist leer");
         }
@@ -113,12 +128,19 @@ public class BinaryLP {
     }
 
     /**
+     * @return Alle Zuweisungen und Kopplungen, d.h. alles was verplant werden muss.
+     */
+    private Stream<Unterrichtseinheit> getUnterrichtseinheiten() {
+        return Stream.concat(eingabe.getZuweisungen().stream(), eingabe.getKopplungen().stream());
+    }
+
+    /**
      * Füllt {@link #klassenUnterricht} und {@link #lehrerUnterricht}.
      */
     private void fillMaps() {
         eingabe.getKlassen().forEach(klasse -> klassenUnterricht.put(klasse, new IDElementSet<>()));
         eingabe.getLehrer().forEach(lehrer -> lehrerUnterricht.put(lehrer, new IDElementSet<>()));
-        Stream.concat(eingabe.getZuweisungen().stream(), eingabe.getKopplungen().stream()).forEach(einheit -> {
+        getUnterrichtseinheiten().forEach(einheit -> {
             einheit.getAllKlassen().forEach(klasse -> klassenUnterricht.get(klasse).add(einheit));
             einheit.getAllLehrer().forEach(lehrer -> lehrerUnterricht.get(lehrer).add(einheit));
         });
@@ -128,7 +150,7 @@ public class BinaryLP {
      * Füllt {@link #mainVariables} mit einer binären Variable pro Zuweisung/Kopplung und Zeitslot.
      */
     private void createMainVariablesAndConstraints() {
-        Stream.concat(eingabe.getZuweisungen().stream(), eingabe.getKopplungen().stream()).forEach(einheit -> {
+        getUnterrichtseinheiten().forEach(einheit -> {
             if (mainVariables.containsKey(einheit)) throw new AssertionError();
             if (einheit.getWochenstunden() == 0) throw new AssertionError();
             Map<Zeitslot, BinaryVariable> einheitVars = new IDElementMap<>();
@@ -148,6 +170,109 @@ public class BinaryLP {
                         entry.getValue().stream().map(einheit -> mainVariables.get(einheit).get(zeitslot)).collect(Collectors.toList()), 1));
             });
         }
+    }
+
+    /**
+     * Harte Bedingung: An gesperrten Zeitslots darf kein Unterricht stattfinden.
+     * Harte Bedingung: Fixe Stunden müssen genau zum fixierten Zeitpunkt stattfinden.
+     */
+    private void createGesperrteAndFixeStundenConstraints() {
+        for (var einheitVars : mainVariables.entrySet()) {
+            Unterrichtseinheit einheit = einheitVars.getKey();
+            for (var zeitslotVar : einheitVars.getValue().entrySet()) {
+                Zeitslot zeitslot = zeitslotVar.getKey();
+                Boolean forcedValue = null;
+                if (einheit.getFixeStunden().contains(zeitslot)) {
+                    if (zeitslot.isGesperrt()) {
+                        throw new IllegalArgumentException("Fixe Stunde auf gesperrtem Zeitslot");
+                    }
+                    forcedValue = true;
+                } else if (zeitslot.isGesperrt()) {
+                    forcedValue = false;
+                }
+                if (forcedValue != null) {
+                    addConstraint(new ForceValue(
+                            "Gesperrt-" + einheit.toShortString() + "-" + zeitslot.toShortString(),
+                            zeitslotVar.getValue(), forcedValue));
+                }
+            }
+        }
+    }
+
+    /**
+     * Harte Bedingung: In Stunden-Paaren, die als Doppelstunde markiert sind, muss derselbe Unterricht in beiden
+     * Stunden (oder in keiner) stattfinden. Ausnahme: Unterrichte mit insgesamt ungerader Stundenzahl dürfen diese
+     * Regel ein Mal (in der ganzen Woche) verletzen.
+     */
+    private void createDoppelstundenConstraints() {
+        Map<Zeitslot, Zeitslot> doppelstunden = eingabe.getZeitslots().stream()
+                .map(z1 -> new Pair<>(z1, eingabe.getZeitslots().stream().filter(z1::isDoppelstundeWith).findAny()))
+                .filter(p -> p.getValue().isPresent())
+                .collect(Collectors.toUnmodifiableMap(Pair::getKey, p -> p.getValue().get()));
+        getUnterrichtseinheiten().forEach(einheit -> createDoppelstundenConstraints(doppelstunden, einheit));
+    }
+
+    private void createDoppelstundenConstraints(@Nonnull Map<Zeitslot, Zeitslot> doppelstunden,
+                                                @Nonnull Unterrichtseinheit einheit) {
+        final Map<Zeitslot, BinaryVariable> mainVars = mainVariables.get(einheit);
+
+        // Wenn die Stundenzahl insgesamt ungerade ist, muss eine Einzelstunde toleriert werden.
+        int erlaubteEinzelstunden = einheit.getWochenstunden() % 2 == 0 ? 0 : 1;
+
+        // Jede fixe Stunde, die eine Doppelstunde sein müsste, bei der aber die andere Stunde nicht auch fixiert ist,
+        // muss durch eine normal planbare Stunde ausgeglichen werden. Wenn es zu wenige normal planbare Stunden gibt,
+        // müssen ggf. mehr Einzelstunden toleriert werden. Im Extremfall sind alle fixierten Stunden einzeln.
+        int fixeEinzelstunden = (int) einheit.getFixeStunden().stream()
+                .filter(doppelstunden::containsKey) // Müsste eine Doppelstunde sein
+                .filter(z1 -> !einheit.getFixeStunden().contains(doppelstunden.get(z1))) // Andere ist nicht fixiert
+                .count();
+        int nichtfixierteStunden = einheit.getWochenstunden() - einheit.getFixeStunden().size();
+        erlaubteEinzelstunden += Math.max(0, fixeEinzelstunden - nichtfixierteStunden);
+
+        if (erlaubteEinzelstunden == 0) {
+            // Im einfachen Fall können die Doppelstunden einfach erzwungen werden.
+            for (Map.Entry<Zeitslot, Zeitslot> doppelstunde : doppelstunden.entrySet()) {
+                Zeitslot z1 = doppelstunde.getKey();
+                Zeitslot z2 = doppelstunde.getValue();
+                if (z1.compareTo(z2) < 0) { // Doppelte Constraints verhindern, weil alle Paare doppelt vorhanden sind.
+                    addConstraint(new VarEq(
+                            "Doppelstunde-" + einheit.toShortString() + "-" + z1.toShortString(),
+                            mainVars.get(z1), mainVars.get(z2)
+                    ));
+                }
+            }
+        } else {
+            // Wenn Einzelstunden erlaubt sind, müssen sie gezählt werden.
+            // Pro Zeitslot, der eine Einzelstunde sein kann, gibt es eine binäre Hilfsvariable, die auf wahr
+            // gesetzt wird, wenn es sich um eine Einzelstunde handelt. Wenn der Unterricht in z1 stattfindet,
+            // dann muss es eine Einzelstunde sein, oder der Unterricht muss auch in z2 stattfinden.
+            final List<BinaryVariable> einzelstundenVars = new ArrayList<>();
+            // Hinweis: Diese Schleife wird pro Zeitslot-Paar zwei Mal durchlaufen, jeder Zeitslot ist mal der Key.
+            for (Map.Entry<Zeitslot, Zeitslot> doppelstunde : doppelstunden.entrySet()) {
+                Zeitslot z1 = doppelstunde.getKey();
+                Zeitslot z2 = doppelstunde.getValue();
+                String name = "Einzelstunde-" + einheit.toShortString() + "-" + z1.toShortString();
+                BinaryVariable einzelstunde = addVariable(name);
+                einzelstundenVars.add(einzelstunde);
+                addConstraint(new VarImpliesOr(
+                        name + "-Constraint",
+                        mainVars.get(z1), // Wenn erster Slot stattfindet, dann
+                        Arrays.asList(
+                                mainVars.get(z2),  // muss der zweite auch stattfinden
+                                einzelstunde // oder es muss sich um eine Einzelstunde handeln.
+                        )
+                ));
+            }
+            addConstraint(new SumLeq("MaxEinzelstunden-" + einheit.toShortString(), einzelstundenVars, erlaubteEinzelstunden));
+        }
+    }
+
+    /**
+     * Harte Bedingung: Eine Klasse darf maximal 2 Stunden pro Tag im selben Fach haben. Ausnahme: Fixe Stunden
+     * Harte Bedingung: Wenn es 2 Stunden an einem Tag sind, müssen sie aufeinanderfolgend sein. Ausnahme: Gesperrte Zeitslots.
+     */
+    private void createFachProTagConstraints() {
+
     }
 
     /**

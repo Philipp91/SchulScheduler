@@ -36,6 +36,10 @@ public class Zeitslot extends BaseElement implements Comparable<Zeitslot> {
         return this.getStunde() != null && getStunde().getGesperrtAm().contains(this.getWochentag());
     }
 
+    public boolean isDoppelstundeWith(@Nonnull Zeitslot other) {
+        return getWochentag() == other.getWochentag() && getStunde().isDoppelstundeWith(other.getStunde());
+    }
+
     @Override
     public int compareTo(@Nonnull Zeitslot other) {
         return COMPARATOR.compare(this, other);
