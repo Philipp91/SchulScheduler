@@ -8,7 +8,20 @@ import javax.annotation.Nullable;
  */
 public class BinaryVariable {
 
+    /**
+     * Name der Variablen, zum Debuggen.
+     */
     private final String name;
+
+    /**
+     * Multiplikator der Variablen in der Zielfunktion. Ein höherer Wert bedeutet, dass die Variable bevorzugt auf 1
+     * gesetzt wird.
+     */
+    private double objectiveFactor = 0.0;
+
+    /**
+     * Der zugewiesene Wert in der Problemlösung. Bleibt null solange das Problem nicht gelöst ist.
+     */
     private Boolean solution;
 
     BinaryVariable(@Nonnull String name) {
@@ -18,6 +31,14 @@ public class BinaryVariable {
     @Nonnull
     public String getName() {
         return name;
+    }
+
+    public double getObjectiveFactor() {
+        return objectiveFactor;
+    }
+
+    public void addObjectiveFactor(double add) {
+        objectiveFactor += add;
     }
 
     @Nullable

@@ -44,11 +44,13 @@ public class ScipSolver implements Solver {
         if (!varMap.isEmpty()) throw new IllegalStateException("There can only be one concurrent computation");
         final BinaryLP binaryLP = new BinaryLP(eingabe);
         scip.create("SchulScheduler");
+        scip.maximization();
         try {
             for (BinaryVariable variable : binaryLP.getVariables()) {
                 varMap.put(
                         variable,
-                        scip.createVar(variable.getName(), /*lb=*/0.0, /*ub=*/1.0, /*obj=*/0, SCIP_Vartype.SCIP_VARTYPE_BINARY)
+                        scip.createVar(variable.getName(), /*lb=*/0.0, /*ub=*/1.0,
+                                /*obj=*/variable.getObjectiveFactor(), SCIP_Vartype.SCIP_VARTYPE_BINARY)
                 );
             }
             try {
@@ -67,7 +69,9 @@ public class ScipSolver implements Solver {
                 }
 
                 // This is the main, long blocking call.
+                scip.setRealParam("limits/time", 600); // In seconds
                 scip.solve();
+                scip.printStatistics();
 
                 Solution solution = scip.getBestSol();
                 if (solution == null) return null;
