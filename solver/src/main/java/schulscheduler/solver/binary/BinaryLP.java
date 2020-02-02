@@ -84,6 +84,8 @@ public class BinaryLP {
         createGesperrteAndFixeStundenConstraints();
         createDoppelstundenConstraints();
         createFachProTagConstraints();
+        createLehrerVerfuegbarkeitConstraints();
+
         if (allVariables.isEmpty() || mainVariables.isEmpty()) {
             throw new IllegalArgumentException("Probleminstanz ist leer");
         }
@@ -345,6 +347,31 @@ public class BinaryLP {
                                         unterrichte.stream().map(u -> mainVariables.get(u).get(laterslot))
                                 ).collect(Collectors.toList()), 1));
                     });
+        }
+    }
+
+    /**
+     * Harte Bedingung: Zu Zeitslots, zu denen ein Lehrer {@link EnumVerfuegbarkeit#NICHT} verfügbar ist, kann kein
+     * Unterricht für ihn stattfinden.
+     * Weiche Bedingung: Wenn ein Lehrer {@link EnumVerfuegbarkeit#EINGESCHRAENKT} verfügbar ist, soll der Unterricht
+     * wenn möglich nicht dann geplant werden.
+     */
+    public void createLehrerVerfuegbarkeitConstraints() {
+        for (Lehrer lehrer : eingabe.getLehrer()) {
+            lehrer.getVerfuegbarkeit().stream().filter(v -> v.getVerfuegbarkeit() != EnumVerfuegbarkeit.NORMAL).forEach(verfEntry -> {
+                getUnterrichtseinheiten().filter(u -> u.hasLehrer(lehrer)).forEach(unterricht -> {
+                    BinaryVariable variable = mainVariables.get(unterricht).get(verfEntry.getZeitslot());
+                    if (verfEntry.getVerfuegbarkeit() == EnumVerfuegbarkeit.NICHT) {
+                        addConstraint(new ForceValue(
+                                EnumConstraints.LEHRER_NICHT_VERFUEGBAR.get(lehrer, verfEntry.getZeitslot()),
+                                variable, false));
+                    } else if (verfEntry.getVerfuegbarkeit() == EnumVerfuegbarkeit.EINGESCHRAENKT) {
+                        variable.addObjectiveFactor(-1.0);
+                    } else {
+                        throw new AssertionError();
+                    }
+                });
+            });
         }
     }
 
