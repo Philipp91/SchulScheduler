@@ -85,6 +85,7 @@ public class BinaryLP {
         createDoppelstundenConstraints();
         createFachProTagConstraints();
         createLehrerVerfuegbarkeitConstraints();
+        createUnterrichtsPrioritaetConstraints();
 
         if (allVariables.isEmpty() || mainVariables.isEmpty()) {
             throw new IllegalArgumentException("Probleminstanz ist leer");
@@ -358,6 +359,7 @@ public class BinaryLP {
      */
     public void createLehrerVerfuegbarkeitConstraints() {
         for (Lehrer lehrer : eingabe.getLehrer()) {
+            //noinspection CodeBlock2Expr
             lehrer.getVerfuegbarkeit().stream().filter(v -> v.getVerfuegbarkeit() != EnumVerfuegbarkeit.NORMAL).forEach(verfEntry -> {
                 getUnterrichtseinheiten().filter(u -> u.hasLehrer(lehrer)).forEach(unterricht -> {
                     BinaryVariable variable = mainVariables.get(unterricht).get(verfEntry.getZeitslot());
@@ -372,6 +374,47 @@ public class BinaryLP {
                     }
                 });
             });
+        }
+    }
+
+    /**
+     * Harte Bedingung: Bei Stunden/Zeitslots mit Unterrichtspriorität MAXIMAL (Pflicht/Kernstunde) muss pro Klasse
+     * mindestens einer der möglichen Unterrichte stattfinden.
+     * Weiche Bedingung: Bei anderen Prioritäten werden die Unterrichte entsprechend bevorzugt oder nicht.
+     */
+    public void createUnterrichtsPrioritaetConstraints() {
+        for (Zeitslot zeitslot : eingabe.getZeitslots()) {
+            double gewicht;
+            switch (zeitslot.getStunde().getUnterrichtsprioritaet()) {
+                case MAXIMAL:
+                    // Harte Bedingung pro Klasse.
+                    for (Klasse klasse : eingabe.getKlassen()) {
+                        List<BinaryVariable> klasseZeitslotVars = getUnterrichtseinheiten()
+                                .filter(u -> u.hasKlasse(klasse))
+                                .map(u -> mainVariables.get(u).get(zeitslot))
+                                .collect(Collectors.toList());
+                        addConstraint(new SumGeq(EnumConstraints.KERNSTUNDE.get(klasse, zeitslot), klasseZeitslotVars, 1));
+                    }
+                    continue;
+                case NULL:
+                case MITTEL:
+                    continue; // Keine Beeinflussung.
+                case NIEDRIG:
+                    gewicht = -1;
+                    break;
+                case HOCH:
+                    gewicht = 1;
+                    break;
+                case SEHR_HOCH:
+                    gewicht = 2;
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            // Weiche Bedingung eigentlich auch pro Klasse, aber äquivalent implementiert als pro Unterricht,
+            // gewichtet nach Anzahl teilnehmender Klassen.
+            getUnterrichtseinheiten().forEach(einheit ->
+                    mainVariables.get(einheit).get(zeitslot).addObjectiveFactor(gewicht * einheit.getAllKlassen().count()));
         }
     }
 

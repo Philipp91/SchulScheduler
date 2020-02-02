@@ -10,6 +10,7 @@ import schulscheduler.solver.binary.BinaryLP;
 import schulscheduler.solver.binary.BinaryVariable;
 import schulscheduler.solver.binary.Constraint;
 import schulscheduler.solver.binary.ForceValue;
+import schulscheduler.solver.binary.SumGeq;
 import schulscheduler.solver.binary.SumLeq;
 import schulscheduler.solver.binary.SumOp;
 import schulscheduler.solver.binary.VarEq;
@@ -123,7 +124,7 @@ public class ScipSolver implements Solver {
                 constraint.getName(),
                 constraint.getLhsVariables(),
                 constraint instanceof SumLeq ? -scip.infinity() : constraint.getRhsValue(),
-                constraint.getRhsValue()
+                constraint instanceof SumGeq ? scip.infinity() : constraint.getRhsValue()
         );
     }
 

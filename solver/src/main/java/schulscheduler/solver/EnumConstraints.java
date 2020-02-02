@@ -67,6 +67,12 @@ public enum EnumConstraints {
      */
     LEHRER_NICHT_VERFUEGBAR,
 
+    /**
+     * Parameter: Klasse k, Zeitslot z
+     * Bedeutung: `k` muss zum Zeitpunkt `z` Unterricht haben, also keine unbetreute Freistunde.
+     */
+    KERNSTUNDE,
+
     ; // Enum-Ende
 
     /**
