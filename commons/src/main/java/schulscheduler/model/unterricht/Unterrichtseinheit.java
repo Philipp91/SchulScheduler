@@ -51,6 +51,11 @@ public abstract class Unterrichtseinheit extends BaseElement {
     public abstract boolean hasLehrer(@Nonnull Lehrer lehrer);
 
     /**
+     * @return True wenn mindestens eines der unterrichteten Fächer hart ist.
+     */
+    public abstract boolean isHart();
+
+    /**
      * @param fach Ein Fach.
      * @return True, wenn das Fach in diesem Unterricht unterrichtet wird.
      */

@@ -124,6 +124,7 @@ public class Kopplung extends Unterrichtseinheit {
         this.faecher.set(faecher);
     }
 
+    @Override
     public boolean isHart() {
         return hart.getValue();
     }

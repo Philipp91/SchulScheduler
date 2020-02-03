@@ -86,6 +86,7 @@ public class BinaryLP {
         createFachProTagConstraints();
         createLehrerVerfuegbarkeitConstraints();
         createUnterrichtsPrioritaetConstraints();
+        createHarteFaecherConstraints();
 
         if (allVariables.isEmpty() || mainVariables.isEmpty()) {
             throw new IllegalArgumentException("Probleminstanz ist leer");
@@ -357,7 +358,7 @@ public class BinaryLP {
      * Weiche Bedingung: Wenn ein Lehrer {@link EnumVerfuegbarkeit#EINGESCHRAENKT} verfügbar ist, soll der Unterricht
      * wenn möglich nicht dann geplant werden.
      */
-    public void createLehrerVerfuegbarkeitConstraints() {
+    private void createLehrerVerfuegbarkeitConstraints() {
         for (Lehrer lehrer : eingabe.getLehrer()) {
             //noinspection CodeBlock2Expr
             lehrer.getVerfuegbarkeit().stream().filter(v -> v.getVerfuegbarkeit() != EnumVerfuegbarkeit.NORMAL).forEach(verfEntry -> {
@@ -382,7 +383,7 @@ public class BinaryLP {
      * mindestens einer der möglichen Unterrichte stattfinden.
      * Weiche Bedingung: Bei anderen Prioritäten werden die Unterrichte entsprechend bevorzugt oder nicht.
      */
-    public void createUnterrichtsPrioritaetConstraints() {
+    private void createUnterrichtsPrioritaetConstraints() {
         for (Zeitslot zeitslot : eingabe.getZeitslots()) {
             double gewicht;
             switch (zeitslot.getStunde().getUnterrichtsprioritaet()) {
@@ -416,6 +417,41 @@ public class BinaryLP {
             getUnterrichtseinheiten().forEach(einheit ->
                     mainVariables.get(einheit).get(zeitslot).addObjectiveFactor(gewicht * einheit.getAllKlassen().count()));
         }
+    }
+
+    /**
+     * Harte Bedingung: Vier aufeinanderfolgende harte Fächer vermeiden.
+     * Weiche Bedingung: Harte Fächer am Nachmittag vermeiden.
+     * TODO Eine Stunde sollte wissen, ob sie am Vormittag/Nachmittag ist, sodass man hier nicht 6 hartkodieren muss.
+     * TOOD Und die vier aufeinanderfolgenden Stunden sollen dann auch nicht die Mittagspause überlappoen.
+     */
+    private void createHarteFaecherConstraints() {
+        // Maximal 3 von vier aufeinanderfolgenden Stunden dürfen ein hartes Fach sein.
+        final int windowSize = 4;
+        final int maxHarteFaecher = 3;
+        for (EnumWochentag wochentag : EnumWochentag.values()) {
+            List<Zeitslot> tagZeitslots = getZeitslotsForTag(wochentag);
+            for (int beginIndex = 0; beginIndex <= tagZeitslots.size() - windowSize; beginIndex++) {
+                List<Zeitslot> zeitslots = tagZeitslots.subList(beginIndex, beginIndex + windowSize);
+                for (Klasse klasse : eingabe.getKlassen()) {
+                    List<BinaryVariable> windowVars = mainVariables.entrySet().stream()
+                            .filter(entry -> entry.getKey().hasKlasse(klasse) && entry.getKey().isHart())
+                            .flatMap(entry -> zeitslots.stream().map(z -> entry.getValue().get(z)))
+                            .collect(Collectors.toList());
+                    if (!windowVars.isEmpty()) {
+                        addConstraint(new SumLeq(EnumConstraints.MAX_HARTE_FAECHER.get(klasse, zeitslots.get(0)), windowVars, maxHarteFaecher));
+                    }
+                }
+            }
+        }
+
+        // Harte Fächer am Nachmittag vermeiden.
+        final int numVormittagsStunden = 6;
+        mainVariables.entrySet().stream()
+                .filter(einheitEntry -> einheitEntry.getKey().isHart())
+                .forEach(einheitEntry -> einheitEntry.getValue().entrySet().stream()
+                        .filter(entry -> entry.getKey().getStunde().getNummer() > numVormittagsStunden)
+                        .forEach(zeitslotEntry -> zeitslotEntry.getValue().addObjectiveFactor(-1)));
     }
 
     /**

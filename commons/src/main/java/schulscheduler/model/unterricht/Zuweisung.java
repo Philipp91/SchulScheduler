@@ -70,6 +70,11 @@ public class Zuweisung extends Unterrichtseinheit {
         return fach.equals(getFach());
     }
 
+    @Override
+    public boolean isHart() {
+        return getFach().isHart();
+    }
+
     /**
      * Überprüft, ob diese Zuweisung gekoppelt ist.
      *

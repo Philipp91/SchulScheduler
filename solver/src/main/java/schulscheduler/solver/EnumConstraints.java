@@ -73,6 +73,12 @@ public enum EnumConstraints {
      */
     KERNSTUNDE,
 
+    /**
+     * PARAMETER: Klasse k, Zeitslot z
+     * Bedeutung: `k` darf in den vier Zeitslots startend ab `z` höchstens drei harte Fächer haben.
+     */
+    MAX_HARTE_FAECHER,
+
     ; // Enum-Ende
 
     /**
