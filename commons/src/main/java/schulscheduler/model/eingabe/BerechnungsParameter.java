@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 @XmlRootElement(name = "berechnungsParameter")
-class BerechnungsParameter {
+public class BerechnungsParameter {
 
     // Hier sind die Werte NULL, NIEDRIG, MITTEL, HOCH erlaubt, also
     // EnumGewichtung#berechnungPrioritaetValues()

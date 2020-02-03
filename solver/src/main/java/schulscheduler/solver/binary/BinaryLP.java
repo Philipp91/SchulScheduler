@@ -4,6 +4,7 @@ import javafx.util.Pair;
 import schulscheduler.collections.IDElementMap;
 import schulscheduler.collections.IDElementSet;
 import schulscheduler.model.eingabe.Eingabedaten;
+import schulscheduler.model.eingabe.EnumGewichtung;
 import schulscheduler.model.ergebnis.Ergebnisdaten;
 import schulscheduler.model.ergebnis.Klassenstundenplan;
 import schulscheduler.model.ergebnis.Lehrerstundenplan;
@@ -86,7 +87,8 @@ public class BinaryLP {
         createFachProTagConstraints();
         createLehrerVerfuegbarkeitConstraints();
         createUnterrichtsPrioritaetConstraints();
-        createHarteFaecherConstraints();
+        createHarteFaecherFolgenConstraints(eingabe.getParameter().getHarteFaecherFolgen());
+        createHarteFaecherNachmittagsConstraints(eingabe.getParameter().getWeicheNachmittagsFaecher());
 
         if (allVariables.isEmpty() || mainVariables.isEmpty()) {
             throw new IllegalArgumentException("Probleminstanz ist leer");
@@ -420,13 +422,15 @@ public class BinaryLP {
     }
 
     /**
-     * Harte Bedingung: Vier aufeinanderfolgende harte Fächer vermeiden.
-     * Weiche Bedingung: Harte Fächer am Nachmittag vermeiden.
-     * TODO Eine Stunde sollte wissen, ob sie am Vormittag/Nachmittag ist, sodass man hier nicht 6 hartkodieren muss.
-     * TOOD Und die vier aufeinanderfolgenden Stunden sollen dann auch nicht die Mittagspause überlappoen.
+     * Weiche Bedingung: Vier aufeinanderfolgende harte Fächer vermeiden.
+     *
+     * @param gewichtung Die Gewichtung dieses Constraints.
      */
-    private void createHarteFaecherConstraints() {
+    private void createHarteFaecherFolgenConstraints(EnumGewichtung gewichtung) {
+        if (gewichtung == null || gewichtung == EnumGewichtung.NULL) return;
+        final double factor = -convertGewichtungToFactor(gewichtung);
         // Maximal 3 von vier aufeinanderfolgenden Stunden dürfen ein hartes Fach sein.
+        // TOOD Vier Stunden zählen nicht als aufeinanderfolgend wenn sie die Mittagspause überlappen.
         final int windowSize = 4;
         final int maxHarteFaecher = 3;
         for (EnumWochentag wochentag : EnumWochentag.values()) {
@@ -438,20 +442,48 @@ public class BinaryLP {
                             .filter(entry -> entry.getKey().hasKlasse(klasse) && entry.getKey().isHart())
                             .flatMap(entry -> zeitslots.stream().map(z -> entry.getValue().get(z)))
                             .collect(Collectors.toList());
-                    if (!windowVars.isEmpty()) {
-                        addConstraint(new SumLeq(EnumConstraints.MAX_HARTE_FAECHER.get(klasse, zeitslots.get(0)), windowVars, maxHarteFaecher));
-                    }
+                    if (windowVars.isEmpty()) continue;
+                    String name = EnumConstraints.MAX_HARTE_FAECHER.get(klasse, zeitslots.get(0));
+                    // Wenn die Toleranz-Variable auf 1 gesetzt wird (was Zielfunktion kostet), dann sind 3+1=4 harte
+                    // Fächer in der 4er-Sequenz erlaubt, also wäre der Constraint dann gegen Bezahlung verletzt.
+                    BinaryVariable toleranceVars = addVariable(name + "-Tolerance");
+                    toleranceVars.addObjectiveFactor(factor);
+                    windowVars.add(toleranceVars);
+                    addConstraint(new SumLeq(name, windowVars, maxHarteFaecher));
                 }
             }
         }
+    }
 
+    /**
+     * Weiche Bedingung: Harte Fächer am Nachmittag vermeiden.
+     * TODO Eine Stunde sollte wissen, ob sie am Vormittag/Nachmittag ist, sodass man hier nicht 6 hartkodieren muss.
+     *
+     * @param gewichtung Die Gewichtung dieses Constraints.
+     */
+    private void createHarteFaecherNachmittagsConstraints(EnumGewichtung gewichtung) {
+        if (gewichtung == null || gewichtung == EnumGewichtung.NULL) return;
+        final double factor = -convertGewichtungToFactor(gewichtung);
         // Harte Fächer am Nachmittag vermeiden.
         final int numVormittagsStunden = 6;
         mainVariables.entrySet().stream()
                 .filter(einheitEntry -> einheitEntry.getKey().isHart())
                 .forEach(einheitEntry -> einheitEntry.getValue().entrySet().stream()
                         .filter(entry -> entry.getKey().getStunde().getNummer() > numVormittagsStunden)
-                        .forEach(zeitslotEntry -> zeitslotEntry.getValue().addObjectiveFactor(-1)));
+                        .forEach(zeitslotEntry -> zeitslotEntry.getValue().addObjectiveFactor(factor)));
+    }
+
+    private static double convertGewichtungToFactor(EnumGewichtung gewichtung) {
+        switch (gewichtung) {
+            case NIEDRIG:
+                return 1;
+            case MITTEL:
+                return 2;
+            case HOCH:
+                return 4;
+            default:
+                throw new IllegalArgumentException("Expected one of BERECHNUNG_PRIORITAET_VALUES, got " + gewichtung);
+        }
     }
 
     /**
