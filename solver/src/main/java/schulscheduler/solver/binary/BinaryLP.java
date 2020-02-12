@@ -89,6 +89,8 @@ public class BinaryLP {
         createUnterrichtsPrioritaetConstraints();
         createHarteFaecherFolgenConstraints(eingabe.getParameter().getHarteFaecherFolgen());
         createHarteFaecherNachmittagsConstraints(eingabe.getParameter().getWeicheNachmittagsFaecher());
+        // TODO Lehrer-Hohlstunden-Vermeidung
+        // TODO Freier Tag für Lehrer
 
         if (allVariables.isEmpty() || mainVariables.isEmpty()) {
             throw new IllegalArgumentException("Probleminstanz ist leer");

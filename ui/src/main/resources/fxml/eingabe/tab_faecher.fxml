@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import schulscheduler.ui.controls.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="schulscheduler.ui.eingabe.FaecherController">
+    <top>
+        <fx:include source="wizard.fxml" fx:id="wizard"/>
+    </top>
+    <center>
+
+        <BorderPane>
+            <top>
+                <HBox styleClass="top-area">
+                    <Button text="%hinzufuegen" onAction="#addFach">
+                        <graphic>
+                            <Icon icon="PLUS"/>
+                        </graphic>
+                    </Button>
+                    <Button text="%loeschen" onAction="#deleteFach">
+                        <graphic>
+                            <Icon icon="TRASH_ALT"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+            </top>
+            <center>
+
+                <TableView fx:id="tblFaecher">
+                    <placeholder>
+                        <Button text="%emptyFaecherListButton" onAction="#addFach"/>
+                    </placeholder>
+                    <columns>
+                        <TextFieldColumn text="%fach" property="name" promptText="%placeholderName" prefWidth="200"/>
+                        <TextFieldColumn text="%kuerzel" property="kuerzel" promptText="%placeholderKuerzel"
+                                         prefWidth="100"/>
+                        <CheckBoxColumn text="%hart" property="hart"/>
+                    </columns>
+                </TableView>
+
+            </center>
+        </BorderPane>
+
+    </center>
+</BorderPane>

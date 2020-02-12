@@ -1,5 +1,6 @@
 package schulscheduler.solver;
 
+import jscip.SCIP_ParamEmphasis;
 import jscip.SCIP_Vartype;
 import jscip.Scip;
 import jscip.Solution;
@@ -70,6 +71,7 @@ public class ScipSolver implements Solver {
                 }
 
                 // This is the main, long blocking call.
+                // scip.setEmphasis(SCIP_ParamEmphasis.SCIP_PARAMEMPHASIS_OPTIMALITY, true);
                 scip.setRealParam("limits/time", 600); // In seconds
                 scip.solve();
                 scip.printStatistics();

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import schulscheduler.ui.controls.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="schulscheduler.ui.eingabe.InnerWizardController"
+			styleClass="wizard">
+    <left>
+        <VBox styleClass="icon-container">
+            <ImageView fitWidth="32" fitHeight="32">
+                <image>
+                    <Image url="icons/info.png"/>
+                </image>
+            </ImageView>
+        </VBox>
+    </left>
+    <center>
+        <VBox alignment="CENTER">
+            <TextFlowNode fx:id="wizardText"/>
+        </VBox>
+    </center>
+    <right>
+        <VBox styleClass="button-container">
+            <HBox styleClass="button-container">
+                <Button fx:id="backButton" text="%zurueck" onAction="#goBack">
+                    <graphic>
+                        <Icon icon="ARROW_LEFT"/>
+                    </graphic>
+                </Button>
+                <Button fx:id="forwardButton" text="%weiter" onAction="#goForward" contentDisplay="RIGHT">
+                    <graphic>
+                        <Icon icon="ARROW_RIGHT"/>
+                    </graphic>
+                </Button>
+            </HBox>
+            <HBox styleClass="button-container">
+                <Button fx:id="undoButton" onAction="#undoLastChange" contentDisplay="GRAPHIC_ONLY">
+                    <graphic>
+                        <Icon icon="UNDO"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="%tooltip_undo"/>
+                    </tooltip>
+                </Button>
+                <Button fx:id="redoButton" onAction="#redoLastUndo" contentDisplay="GRAPHIC_ONLY">
+                    <graphic>
+                        <Icon icon="REPEAT"/>
+                    </graphic>
+                    <tooltip>
+                        <Tooltip text="%tooltip_redo"/>
+                    </tooltip>
+                </Button>
+                <Button text="%speichern" onAction="#save">
+                    <graphic>
+                        <Icon icon="SAVE"/>
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
+    </right>
+</BorderPane>
+

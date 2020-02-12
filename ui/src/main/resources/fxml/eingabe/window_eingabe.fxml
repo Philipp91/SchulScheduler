@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import schulscheduler.ui.controls.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+			fx:controller="schulscheduler.ui.eingabe.EingabeWindowController"
+			prefWidth="1000">
+
+    <top>
+        <MenuBar>
+            <Menu text="%menu_datei">
+                <IconMenuItem text="%menu_neu" accelerator="Ctrl+N" onAction="#openNewEingabeWindow" icon="FILE_ALT"/>
+                <IconMenuItem text="%menu_oeffnen" accelerator="Ctrl+O" onAction="#open" icon="FOLDER_OPEN_ALT"/>
+                <IconMenuItem text="%menu_speichern" accelerator="Ctrl+S" onAction="#save" icon="SAVE"/>
+                <IconMenuItem text="%menu_speichernUnter" accelerator="Ctrl+Shift+S" onAction="#saveAs"/>
+                <SeparatorMenuItem/>
+                <IconMenuItem text="%menu_sicherungskopieOeffnen" onAction="#openAutoSavedFile"/>
+                <IconMenuItem text="%menu_workspaceAendern" onAction="#changeWorkspace"/>
+                <IconMenuItem text="%menu_berechnungsUebersicht" onAction="#openBerechnungsUebersicht" icon="LIST"/>
+                <SeparatorMenuItem/>
+                <IconMenuItem text="%menu_fenster_schliessen" onAction="#closeWindow" icon="TIMES"/>
+                <IconMenuItem text="%menu_beenden" onAction="#handleBeendenAction" accelerator="Ctrl+Q"
+                              icon="SIGN_OUT"/>
+            </Menu>
+            <Menu text="%menu_bearbeiten">
+                <IconMenuItem fx:id="mnuUndo" text="%menu_rueckgaengig"
+                              accelerator="Ctrl+Z" onAction="#undoLastChange" icon="UNDO"/>
+                <IconMenuItem fx:id="mnuRedo" text="%menu_wiederherstellen"
+                              accelerator="Ctrl+Y" onAction="#redoLastUndo" icon="REPEAT"/>
+                <IconMenuItem text="%menu_einstellungen"
+                              onAction="#openSettings" icon="GEARS"/>
+            </Menu>
+            <Menu text="%menu_help">
+                <IconMenuItem text="%menu_about" onAction="#openAboutDialog" icon="INFO_CIRCLE"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <center>
+        <BorderPane xmlns:fx="http://javafx.com/fxml">
+            <center>
+                <TabPane fx:id="mainTabPane">
+                    <!--					<Tab text="%import" closable="false">-->
+                    <!--						<fx:include source="eingabe/tab_import.fxml" />-->
+                    <!--					</Tab>-->
+                    <!--					<Tab text="%stunden" closable="false">-->
+                    <!--						<fx:include source="eingabe/tab_stunden.fxml" />-->
+                    <!--					</Tab>-->
+                    <Tab text="%faecher" closable="false">
+                        <fx:include source="eingabe/tab_faecher.fxml"/>
+                    </Tab>
+                    <!--					<Tab text="%lehrers" closable="false">-->
+                    <!--						<fx:include source="eingabe/tab_lehrer.fxml" />-->
+                    <!--					</Tab>-->
+                    <!--					<Tab text="%klassen" closable="false">-->
+                    <!--						<fx:include source="eingabe/tab_klassen.fxml" />-->
+                    <!--					</Tab>-->
+                    <!--					<Tab text="%profile" closable="false">-->
+                    <!--						<fx:include source="eingabe/tab_profile.fxml" />-->
+                    <!--					</Tab>-->
+                    <!--					<Tab text="%lehrerzuweisung" closable="false">-->
+                    <!--						<fx:include source="eingabe/tab_lehrerzuweisung.fxml" />-->
+                    <!--					</Tab>-->
+                    <!--					<Tab text="%kopplungen" closable="false">-->
+                    <!--						<fx:include source="eingabe/tab_kopplungen.fxml" />-->
+                    <!--					</Tab>-->
+                    <!--					<Tab text="%fixeStunden" closable="false">-->
+                    <!--						<fx:include source="eingabe/tab_fixeStunden.fxml" />-->
+                    <!--					</Tab>-->
+                    <!--					<Tab text="%berechnung" closable="false">-->
+                    <!--						<fx:include source="eingabe/tab_berechnungStarten.fxml" />-->
+                    <!--					</Tab>-->
+                </TabPane>
+            </center>
+
+            <bottom>
+                <GroupPane title="%validierungsmeldungen" minHeight="80" resizable="true" styleClass="all-space">
+                    <ListView fx:id="lstValidationMessages" prefHeight="150">
+                        <placeholder>
+                            <Label text="%empty_validation_messages" textFill="GRAY"/>
+                        </placeholder>
+                    </ListView>
+                </GroupPane>
+            </bottom>
+        </BorderPane>
+    </center>
+
+    <bottom>
+        <HBox styleClass="footer">
+            <Label fx:id="lblAutoSaveStatus"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
